@@ -10,6 +10,7 @@
   ],
   "description": "An exploration of the process it takes to turn a latex file (from EuroVis 2022) into an accessible HTML page.",
   "scripts": {
+    "build": "node scripts/build",
     "prettier-all-check": "prettier --config  ./.prettierrc --ignore ./.prettierignore --debug-check \"**/*.{js,jsx,ts,tsx,html,jsx,json,css,scss,md}\"",
     "prettier-all": "prettier --config  ./.prettierrc --ignore ./.prettierignore --write \"**/*.{js,jsx,ts,tsx,html,jsx,json,css,scss,md}\""
   },

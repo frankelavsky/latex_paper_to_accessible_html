@@ -1,4 +1,5 @@
-# Documenting my process, so far:
+# Latex paper to accessible HTML, an exploration
+An exploration of the process it takes to turn a latex file (from EuroVis 2022) into an accessible HTML page.
 
 1. [Install Quarto](https://quarto.org/docs/get-started/)
 2. [Install for VS Code](https://marketplace.visualstudio.com/items?itemName=quarto.quarto)
@@ -21,3 +22,5 @@
 16. Pandoc it is... :_)
 17. Put paper.tex and chartability_bibliography.bib in the same folder, from terminal run `pandoc paper.tex -f latex -t html -s -o test.html --bibliography chartability_bibliography.bib`
 18. Post-proccess! We need all the links to work, CSS, and most importantly: alt added to our figures
+19. Run `yarn add prettier` to include it in the repo and add `prettier-all` and `prettier-all-check` to the scripts in the package json
+20. Add build.js file to a scripts folder, add it to package json
