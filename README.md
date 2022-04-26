@@ -25,3 +25,5 @@ An exploration of the process it takes to turn a latex file (from EuroVis 2022) 
 18. Post-proccess! We need all the links to work, CSS, and most importantly: alt added to our figures
 19. Run `yarn add prettier` to include it in the repo and add `prettier-all` and `prettier-all-check` to the scripts in the package json
 20. Add build.js file to a scripts folder, add it to package json
+21. Run `yarn add jsdom` so we can do some dom-like post-processing in our build file
+22. Add a csl file for formatting our citations, [the IEEE TVCG csl file downloaded from Zotero](https://www.zotero.org/styles?q=id%3Aieee-transactions-on-visualization-and-computer-graphics)
