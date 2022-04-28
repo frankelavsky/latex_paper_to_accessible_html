@@ -27,3 +27,7 @@ An exploration of the process it takes to turn a latex file (from EuroVis 2022) 
 20. Add build.js file to a scripts folder, add it to package json
 21. Run `yarn add jsdom` so we can do some dom-like post-processing in our build file
 22. Add a csl file for formatting our citations, [the IEEE TVCG csl file downloaded from Zotero](https://www.zotero.org/styles?q=id%3Aieee-transactions-on-visualization-and-computer-graphics)
+23. JavaScript (via JSDOM): Find which citations are used, link to them
+24. JavaScript (via JSDOM): Add a link to the citations parent for each citation
+25. JavaScript (via JSDOM): Combine bibliography with paper
+26. JavaScript (via JSDOM): Add links BACK to locations they are linked to from bib
