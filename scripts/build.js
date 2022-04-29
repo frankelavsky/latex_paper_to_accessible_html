@@ -42,13 +42,16 @@ exec(`pandoc input/${bibliographyName}.bib --citeproc --csl input/${citationStyl
                 let citations = {}
                 /* 
                     To do: 
-                    - remove citations that are unused
+                    - remove ugly metadata header
+                    - remove weird paragraph breaks
                     - alt text??? (make a data file?)
                     - links to/from table/section
                     - add main section
                     - add nav bar
                     - add skip link
                     - add link styling
+                    - make table semantic
+                    - order citations in ascending order (eg. [3,12,2] > [2,3,12])
                 */
                 document.querySelectorAll('*[data-cites]').forEach(e =>{
                     const onlyDigits = /\d+/;
