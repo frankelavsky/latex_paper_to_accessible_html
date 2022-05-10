@@ -32,3 +32,4 @@ An exploration of the process it takes to turn a latex file (from EuroVis 2022) 
 25. JavaScript (via JSDOM): Combine bibliography with paper
 26. JavaScript (via JSDOM): Add links BACK to locations they are linked to from bib
 26. Remove unused references from bib file
+27. Break from bib stuff: Add data file for alt text

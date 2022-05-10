@@ -1,0 +1,42 @@
+[
+    {
+        "fileName": "figure 2.png",
+        "figureName": "Figure 1",
+        "altText": "Testing the contrast of a chart and fixing it."
+    },
+    {
+        "fileName": "figure 3.png",
+        "figureName": "Figure 2",
+        "altText": "The navigation order is shown on a stacked bar chart, zig-zaging forward. It is then fixed to show multiple possible paths, left/right or up/down."
+    },
+    {
+        "fileName": "figure 4.png",
+        "figureName": "Figure 3",
+        "altText": "Showing a mouse interacting with a stacked bar chart and updating a table."
+    },
+    {
+        "fileName": "figure 5.png",
+        "figureName": "Figure 4",
+        "altText": "A chart with almost no text compared to a chart with a robust explanation."
+    },
+    {
+        "fileName": "figure 6.png",
+        "figureName": "Figure 5",
+        "altText": "This section is about a screen reader (that's what you're using, I reckon, Hello!). The chart on the left is interactive but the screen reader semantics are uninformative. On the right, it states the role (toggle button) as well as gives feedback (selected)."
+    },
+    {
+        "fileName": "figure 7.png",
+        "figureName": "Figure 6",
+        "altText": "A chart that shows a trend next to a table that shows the month-by-month data for that trend listed out."
+    },
+    {
+        "fileName": "figure 8.png",
+        "figureName": "Figure 7",
+        "altText": "A dense scatterplot being accessed one element at a time compared by a screen reader to a dense scatterplot where the main outlier cluster (the important part) is being accessed instead."
+    },
+    {
+        "fileName": "figure 9.png",
+        "figureName": "Figure 8",
+        "altText": "A bar chart that has patterned textures combined with color changing into black and white (but still with textures)."
+    }
+]
