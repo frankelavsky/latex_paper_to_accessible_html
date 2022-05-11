@@ -428,8 +428,9 @@
         color: var(--brand-color);
       }
 
-      nav {
+      header {
         font-size: 0.85em;
+        text-align: left;
       }
 
       nav h1 {
@@ -456,6 +457,11 @@
         transition: background-size 0.15s ease-in-out, background-image 0.15s ease-in-out;
       }
 
+      .title,
+      .author {
+        text-align: center;
+      }
+
       @media screen and (min-width: 48em) {
         * {
           -webkit-box-sizing: border-box;
@@ -463,9 +469,9 @@
           box-sizing: border-box;
         }
         header {
+          margin-top: 1.4em;
           float: left;
           max-width: 25%;
-          text-align: left;
         }
         main {
           float: left;
@@ -495,7 +501,7 @@
           <li>8. <a href="#discussion">Discussion</a></li>
           <li>9. <a href="#conclusion">Conclusion</a></li>
           <li><a href="#acknowledgements">Acknowledgements</a></li>
-          <li><a href="#">References</a></li>
+          <li><a href="#references">References</a></li>
         </ol>
       </nav>
     </header>
@@ -2411,7 +2417,7 @@
       </section>
     </main>
     <footer>
-      <h1>References</h1>
+      <h1 id="references">References</h1>
       <div id="refs" class="references csl-bib-body" role="doc-bibliography">
         <div id="ref-Aldrich2008Talk" class="csl-entry" role="doc-biblioentry">
           <div class="csl-left-margin">[1]</div>

@@ -287,7 +287,7 @@ exec(
 
             // combine our references and main document
             const refs = document.createElement('footer');
-            refs.innerHTML = '<h1>References</h1>' + bibliography.getElementById('refs').outerHTML;
+            refs.innerHTML = '<h1 id="references">References</h1>' + bibliography.getElementById('refs').outerHTML;
             document.body.appendChild(refs);
 
             let listingNumbers = false;
