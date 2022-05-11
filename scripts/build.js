@@ -7,9 +7,118 @@ const options = {
   runScripts: 'dangerously'
 };
 const paperName = process.argv[2] || 'paper';
-const bibliographyName = process.argv[3] || 'bib_sorted';
+const bibliographyName = process.argv[3] || 'bibliography';
 const citationStyle = process.argv[4] || 'citation';
 // const outputName = process.argv[4]
+
+// this hash was generated during the conversion process
+const idHash = {
+  9023497: 'Lee2020Reaching',
+  aldrich_talk_2008: 'Aldrich2008Talk',
+  noauthor_naked_nodate: 'AmakaNaked',
+  noauthor_guidelines_nodate: 'BANA2010Guidelines',
+  baker_2016: 'Baker2016Tactile',
+  'balaji_chart-text_2018': 'Balaji2018Chart',
+  bennett_interdependence_2018: 'Bennett2018Interdependence',
+  bigham_vizwiz_2010: 'Bigham2010VizWiz',
+  bornschein_collaborative_2015: 'Bornschein2015Collaborative',
+  noauthor_unlocking_2018: 'Boudreau2018Unlocking',
+  brangier_beyond_2018: 'Brangier2018Beyond',
+  braun_clarke_thematic_2006: 'Braun2006Using',
+  brewster_visualization_2002: 'Brewster2002Visualization',
+  brown_viztouch_2012: 'Brown2012VizTouch',
+  butler_technology_2021: 'Butler2021Technology',
+  noauthor_revealing_nodate: 'CanelonRevealing',
+  chaparro_applications_2017: 'Chaparro2017Applications',
+  chen_neural_2019: 'Chen2019Neural',
+  chen_figure_2020: 'Chen2020Figure',
+  choi_visualizing_2019: 'Choi2019Visualizing',
+  chuan_usability_2015: 'Chuan2015Usability',
+  chundury_towards_2022: 'Chundury2022Towards',
+  noauthor_making_2018: 'Community2018Making',
+  craft_beyond_2005: 'Craft2005Beyond',
+  'cullen_co-designing_2019': 'Cullen2019Co',
+  noauthor_we_nodate: 'DeMartiniCoin',
+  'demartini_tableau_nodate-1': 'DeMartiniTableau',
+  'noauthor_axe-core_2021': 'Deque2021Axe',
+  noauthor_study_2021: 'Deque2021Automated',
+  noauthor_chartability_nodate: 'ElavskyChartability',
+  'flowers_cross-modal_1997': 'Flowers1997Cross',
+  forsell_heuristic_2010: 'Forsell2010heuristic',
+  noauthor_are_2018: 'Forum2018Are',
+  noauthor_solved_2019: 'Forum2019Datatables',
+  gallace_what_2011: 'Gallace2011To',
+  geldard_tactual_1983: 'Geldard1983Tactual',
+  miesenberger_accessible_2018: 'Godfrey2018Accessible',
+  gray_reprioritizing_2014: 'Gray2014Reprioritizing',
+  noauthor_extensive_2016: 'HaleExtensive',
+  noauthor_fixed_nodate: 'HighsoftFixed',
+  noauthor_accessibility_nodate: 'HighsoftHighcharts',
+  hoang_tableaumagic_2018: 'Hoang2018TableauMagic',
+  hurst_making_2013: 'Hurst2013Making',
+  initiative_wai_web_2021: 'Initiative2021Web',
+  noauthor_web_nodate: 'InitiativeWeb',
+  irani_turkopticon_13: 'Irani2013Turkopticon',
+  jansen_opportunities_2015: 'Jansen2015Opportunities',
+  jayant_automated_2007: 'Jayant2007Automated',
+  joyce_mobile_2016: 'Joyce2016Mobile',
+  jung_communicating_2022: 'Jung2022Communicating',
+  kim_accessible_2021: 'Kim2021Accessible',
+  noauthor_power_nodate: 'KleinPower',
+  ladner_design_2015: 'Ladner2015Design',
+  lai_automatic_2020: 'Lai2020Automatic',
+  lederman_perception_1986: 'Lederman1986Perception',
+  lundgard_sociotechnical_2019: 'Lundgard2019Sociotechnical',
+  lundgard_accessible_22: 'Lundgard2022Accessible',
+  mack_what_2021: 'Mack2021What',
+  mankoff_disability_2010: 'Mankoff2010Disability',
+  mansur_sound_1985: 'Mansur1985Sound',
+  'noauthor_mapbox-gl_nodate': 'MapboxMapbox',
+  'noauthor_mapboxmapbox-gl-accessibility_2021': 'Mapbox2021Mapbox',
+  marriott_inclusive_2021: 'Marriott2021Inclusive',
+  martinez_methodology_2021: 'Martinez2021Methodology',
+  noauthor_semiotic_nodate: 'MazanecSemiotic',
+  mcgookin_soundbar_2006: 'McGookin2006SoundBar',
+  moraes_evaluating_2014: 'Moraes2014Evaluating',
+  experience_10_nodate: 'Nielsen10',
+  nielsen_heuristic_1994: 'Nielsen1994Heuristic',
+  nunez_optimizing_2018: 'Nunez2018Optimizing',
+  'obeid_chart--text_2020': 'Obeid2020Chart',
+  cdc_disability_2018: 'Okoro2018Prevalence',
+  oliveira_towards_2013: 'Oliveira2013Towards',
+  oliveira_adapting_2022: 'Oliveira2017Adapting',
+  noauthor_world_nodate: 'OrganizationWorld',
+  otey_methodology_2017: 'Otey2017methodology',
+  power_2012: 'Power2012Guidelines',
+  qian_generating_2021: 'Qian2021Generating',
+  noauthor_sas_nodate: 'SASSAS',
+  'noauthor_covid-19_nodate': 'SanCOVID',
+  santos_heuristic_2018: 'Santos2018Heuristic',
+  schaadhardt_understanding_2021: 'Schaadhardt2021Understanding',
+  noauthor_why_nodate: 'SchepersWhy',
+  schneider_constructing_nodate: 'SchneiderConstructing',
+  scholtz_developing_2011: 'Scholtz2011Developing',
+  sharif_understanding_2021: 'Sharif2021Understanding',
+  sharif_evographs_2018: 'Sharif2018evoGraphs',
+  shi_tickers_2016: 'Shi2016Tickers',
+  slavkovic_novice_1999: 'Slavkovic1999Novice',
+  sorge_polyfilling_2016: 'Sorge2016Polyfilling',
+  south_detecting_2021: 'South2021Detecting',
+  south_generating_2020: 'South2020Generating',
+  noauthor_inclusive_nodate: 'SwanInclusive',
+  szpiro_2016: 'Szpiro2016How',
+  noauthor_data_nodate: 'USData',
+  noauthor_improving_nodate: 'USImproving',
+  vcc: 'VisaVisa',
+  initiative_wai_accessibility_nodate: 'WAI2019Accessibility',
+  noauthor_w3c_nodate: 'WAI2021W3C',
+  noauthor_webaim_nodate: 'WebAIMWebAIM',
+  simon_making_2020: 'Wheatcroft2020Making',
+  'wobbrock_ability-based_2011': 'Wobbrock2011Ability',
+  wu_understanding_2021: 'Wu2021Understanding',
+  xiong_curse_2020: 'Xiong2020Curse',
+  zhao_data_2008: 'Zhao2008Data'
+};
 
 // we create our bibliography
 exec(
@@ -79,7 +188,7 @@ exec(
               e.appendChild(document.createTextNode('['));
               const citationKeys = e.getAttribute('data-cites').split(' ');
               citationKeys.forEach(key => {
-                const bibTarget = bibliography.getElementById(`ref-${key}`);
+                const bibTarget = bibliography.getElementById(`ref-${idHash[key]}`);
                 if (!citations[key]) {
                   const index = bibTarget.children[0].innerHTML;
                   citations[key] = {
@@ -90,7 +199,7 @@ exec(
                 }
                 // add <a> elements into data-cites
                 const newChild = document.createElement('a');
-                newChild.setAttribute('href', `#ref-${key}`);
+                newChild.setAttribute('href', `#ref-${idHash[key]}`);
                 newChild.id = key + citations[key].count.length + 1;
                 newChild.innerHTML = `${citations[key].index}`;
                 // make sure that the links are descriptive!

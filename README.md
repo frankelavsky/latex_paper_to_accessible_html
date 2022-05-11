@@ -31,5 +31,10 @@ An exploration of the process it takes to turn a latex file (from EuroVis 2022) 
 24. JavaScript (via JSDOM): Add a link to the citations parent for each citation
 25. JavaScript (via JSDOM): Combine bibliography with paper
 26. JavaScript (via JSDOM): Add links BACK to locations they are linked to from bib
-26. Remove unused references from bib file
-27. Break from bib stuff: Add data file for alt text
+27. Remove unused references from bib file
+28. Break from bib stuff: Add data file for alt text
+29. Convert bib to json via terminal `pandoc bibliography.bib -t csljson -o bibliography.json`
+30. Sorted bib in the browser console (code in `scripts/utils`) and downloaded the new json as `bib_sorted.json`
+31. FAILED to convert back via pandoc `pandoc bibliography.json -f csljson -t biblatex -o bibliography.bib`, I am getting `pandoc JSON parse error: Error in $: mempty`
+32. I went to `https://citation.js.org/demo/` and pasted my sorted json in, found a strange bug where ids that are strings of numerics were throwing an error, then fixed it and converted back to bib format (code in `scripts/utils`), downloading the new file as `bib_sorted.bib`
+33. Annoyingly, I had to clean up 3 instances in my sorted bib where `:amp;` was being prepended instead of the intended ful unicode, such as `&#x201c;`

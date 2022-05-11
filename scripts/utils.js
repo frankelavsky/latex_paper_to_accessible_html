@@ -33,23 +33,26 @@ const sortBibJSON = bib => {
 // this function uses citation.js, I ran it in the browser console over at
 // https://citation.js.org/demo/ to access their environment easily (I am lazy)
 const streamBibJSONToBibTex = bib => {
-  let bibTexString = '';
+  let output = { file: '', idHash: {} };
   // bib is our bibliography in json format (bib_sorted.json)
   // we stream this, rather than all at once, just for easier testing
   bib.forEach(item => {
+    const originalId = item.id + '';
+    const copy = [{ ...item }];
+
     // I encountered a bug where ids that were strings of numerics, ie
     // "0986743" would throw an error related to missing '.replace()' as a
     // method, so we prepend a string to keep it a string
-    item.id = 'PizzaHighEntropyPizza' + item.id;
-    var bibString = JSON.stringify([item]);
+    copy[0].id = 'PizzaHighEntropyPizza' + originalId;
+    var bibString = JSON.stringify(copy);
 
     // the cite internal methods are where the string error happens this
     // function will convert our JSON string back into bibtex
-    var converted = cite.set(bibString).get(opt);
+    var converted = cite.set(bibString).get(opt).replace('PizzaHighEntropyPizza', '');
+    output.file += converted;
 
-    // now we remove the high entropy string we prepended. Using a high
-    // entropy string reduces the chance of this string occurring to near 0
-    bibTexString += converted.replace('PizzaHighEntropyPizza', '');
+    // now we save the original id mapping to the new id
+    output.idHash[originalId] = converted.substring(converted.indexOf('{') + 1, converted.indexOf(','));
   });
-  return bibTexString;
+  return output;
 };
