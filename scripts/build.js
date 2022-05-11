@@ -155,8 +155,6 @@ exec(
             let citations = {};
             /* 
                     To do: 
-                    - add links to link text in citations
-                    - remove ugly metadata header
                     - remove weird paragraph breaks
                     - alt text??? (make a data file?)
                     - links to/from table/section
@@ -167,6 +165,7 @@ exec(
                     - make table semantic
                     - order citations in ascending order (eg. [3,12,2] > [2,3,12])
                 */
+            document.querySelector('.CCSXML').remove();
             document.querySelectorAll('*[data-cites]').forEach(e => {
               const onlyDigits = /\d+/;
               const writeAriaLabel = bibTarget => {
