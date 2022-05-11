@@ -44,3 +44,4 @@ An exploration of the process it takes to turn a latex file (from EuroVis 2022) 
 37. add alt text, fix caption a11y, fix fig links
 38. fix table caption and links
 39. add document language
+40. add basic table of contents
