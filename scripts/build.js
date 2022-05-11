@@ -155,7 +155,6 @@ exec(
             let citations = {};
             /* 
                     To do: 
-                    - remove weird paragraph breaks
                     - alt text??? (make a data file?)
                     - links to/from table/section
                     - add main section
@@ -166,6 +165,9 @@ exec(
                     - order citations in ascending order (eg. [3,12,2] > [2,3,12])
                 */
             document.querySelector('.CCSXML').remove();
+            document.querySelector('.author').innerHTML = document
+              .querySelector('.author')
+              .innerHTML.replaceAll('¶', '');
             document.querySelectorAll('*[data-cites]').forEach(e => {
               const onlyDigits = /\d+/;
               const writeAriaLabel = bibTarget => {

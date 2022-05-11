@@ -40,3 +40,4 @@ An exploration of the process it takes to turn a latex file (from EuroVis 2022) 
 33. Annoyingly, I had to clean up 3 instances in my sorted bib where `:amp;` was being prepended instead of the intended ful unicode, such as `&#x201c;`
 34. add links to link text in citations
 35. remove ugly metadata header
+36. remove weird paragraph breaks
