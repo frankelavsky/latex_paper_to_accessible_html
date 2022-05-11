@@ -41,3 +41,4 @@ An exploration of the process it takes to turn a latex file (from EuroVis 2022) 
 34. add links to link text in citations
 35. remove ugly metadata header
 36. remove weird paragraph breaks
+37. add alt text, fix caption a11y, fix fig links

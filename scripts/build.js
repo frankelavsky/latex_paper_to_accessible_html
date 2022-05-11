@@ -6,10 +6,13 @@ const options = {
   resources: 'usable',
   runScripts: 'dangerously'
 };
+// this is loaded with a static filename to force people to add the files!
+let rawAlt = fs.readFileSync('input/alt-text.json');
+let altText = JSON.parse(rawAlt);
+
 const paperName = process.argv[2] || 'paper';
 const bibliographyName = process.argv[3] || 'bibliography';
 const citationStyle = process.argv[4] || 'citation';
-// const outputName = process.argv[4]
 
 // this hash was generated during the conversion process
 const idHash = {
@@ -155,7 +158,6 @@ exec(
             let citations = {};
             /* 
                     To do: 
-                    - alt text??? (make a data file?)
                     - links to/from table/section
                     - add main section
                     - add nav bar
@@ -252,6 +254,18 @@ exec(
             const style = document.createElement('style');
             style.innerHTML = bibliography.getElementsByTagName('style')[0].innerHTML;
             document.head.appendChild(style);
+
+            document.querySelectorAll('figure').forEach(figure => {
+              const alt = altText.find(obj => obj.id === figure.querySelector('img').id);
+              figure.querySelector('img').setAttribute('alt', alt.altText);
+              figure.querySelector('figcaption').removeAttribute('aria-hidden');
+              figure.querySelector('figcaption').textContent =
+                alt.figureName + ': ' + figure.querySelector('figcaption').textContent;
+              document.querySelectorAll(`*[href="#${alt.id}"]`).forEach(aTag => {
+                aTag.textContent = alt.figureName;
+              });
+            });
+
             fs.writeFile('index.html', document.documentElement.outerHTML, function (error) {
               if (error) throw error;
               exec(`rm post.html pre.html`);

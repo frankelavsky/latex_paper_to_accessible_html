@@ -1530,15 +1530,11 @@
     </p>
     <h2 id="visual-testing-perceivable">Visual Testing (Perceivable)</h2>
     <figure>
-      <img
-        src="figures/figure 2.png"
-        id="fig:2"
-        alt="A low contrast chart (left) compared to a higher contrast version (right). A dropper tool is extracting the fill color of the bar and then a contrast ratio has been calculated. Note that the fill color is the same on both bars, but darker borders have been added to ensure the visualization passes contrast tests."
-      />
-      <figcaption aria-hidden="true">
-        A low contrast chart (left) compared to a higher contrast version (right). A dropper tool is extracting the fill
-        color of the bar and then a contrast ratio has been calculated. Note that the fill color is the same on both
-        bars, but darker borders have been added to ensure the visualization passes contrast tests.
+      <img src="figures/figure 2.png" id="fig:2" alt="Testing the contrast of a chart and fixing it." />
+      <figcaption>
+        Figure 1: A low contrast chart (left) compared to a higher contrast version (right). A dropper tool is
+        extracting the fill color of the bar and then a contrast ratio has been calculated. Note that the fill color is
+        the same on both bars, but darker borders have been added to ensure the visualization passes contrast tests.
       </figcaption>
     </figure>
     <p>
@@ -1554,7 +1550,7 @@
         href="#fig:2"
         data-reference-type="autoref"
         data-reference="fig:2"
-        >[fig:2]</a
+        >Figure 1</a
       >). Most auditors find this to be one of the easiest tasks to perform and accomplishes 3 different heuristics in
       Chartability: ensuring text/geometries have contrast, interactive states for elements have enough contrast change,
       and the keyboard focus indicator is easy to distinguish.
@@ -1562,19 +1558,19 @@
     <p>
       Perceivable heuristics also include tests and tools for color vision deficiency and ensuring that color alone
       isn’t used to communicate meaning (like the redundantly encoded textures in
-      <a href="#fig:9" data-reference-type="autoref" data-reference="fig:9">[fig:9]</a>). And another common, critical
+      <a href="#fig:9" data-reference-type="autoref" data-reference="fig:9">Figure 8</a>). And another common, critical
       failure from Perceivable is text size. No text should be smaller than 12px/9pt in size.
     </p>
     <figure>
       <img
         src="figures/figure 3.png"
         id="fig:3"
-        alt="Keyboard navigation paths on a stacked bar chart. The left shows a serial navigation example, typically just a default of rendering order. The right shows both groups (the stack of bars) and categories (the color/texture shared among bars across stacks) as dimensions to explore laterally or vertically."
+        alt="The navigation order is shown on a stacked bar chart, zig-zaging forward. It is then fixed to show multiple possible paths, left/right or up/down."
       />
-      <figcaption aria-hidden="true">
-        Keyboard navigation paths on a stacked bar chart. The left shows a serial navigation example, typically just a
-        default of rendering order. The right shows both groups (the stack of bars) and categories (the color/texture
-        shared among bars across stacks) as dimensions to explore laterally or vertically.
+      <figcaption>
+        Figure 2: Keyboard navigation paths on a stacked bar chart. The left shows a serial navigation example,
+        typically just a default of rendering order. The right shows both groups (the stack of bars) and categories (the
+        color/texture shared among bars across stacks) as dimensions to explore laterally or vertically.
       </figcaption>
     </figure>
     <h2 id="keyboard-probing-operable-assistive">Keyboard Probing (Operable, Assistive)</h2>
@@ -1586,14 +1582,14 @@
         href="#fig:3"
         data-reference-type="autoref"
         data-reference="fig:3"
-        >[fig:3]</a
-      >, <a href="#fig:4" data-reference-type="autoref" data-reference="fig:4">[fig:4]</a>), those elements (or their
+        >Figure 2</a
+      >, <a href="#fig:4" data-reference-type="autoref" data-reference="fig:4">Figure 3</a>), those elements (or their
       functionality) must be able to be reached and controlled using a keyboard alone. Auditors should be critical of
       how much work is involved in keyboard navigation, especially (<a
         href="#fig:8"
         data-reference-type="autoref"
         data-reference="fig:8"
-        >[fig:8]</a
+        >Figure 7</a
       >). All that is required to start is the auditor begins pressing the tab key to see if anything interactive comes
       into focus. Arrow keys, spacebar, enter, and escape may be used in some contexts. Generally, instructions or cues
       should always be provided.
@@ -1602,12 +1598,13 @@
       <img
         src="figures/figure 4.png"
         id="fig:4"
-        alt="A mouse cursor is selecting a bar (left, shown with a thick indication border) in a stacked bar chart to filter a dataset (on the right). A system alert (red box) notifies the user of their interaction result. This selection capability must also be provided for the keyboard interface and the alert must be announced to screen readers."
+        alt="Showing a mouse interacting with a stacked bar chart and updating a table."
       />
-      <figcaption aria-hidden="true">
-        A mouse cursor is selecting a bar (left, shown with a thick indication border) in a stacked bar chart to filter
-        a dataset (on the right). A system alert (red box) notifies the user of their interaction result. This selection
-        capability must also be provided for the keyboard interface and the alert must be announced to screen readers.
+      <figcaption>
+        Figure 3: A mouse cursor is selecting a bar (left, shown with a thick indication border) in a stacked bar chart
+        to filter a dataset (on the right). A system alert (red box) notifies the user of their interaction result. This
+        selection capability must also be provided for the keyboard interface and the alert must be announced to screen
+        readers.
       </figcaption>
     </figure>
     <p>
@@ -1615,17 +1612,17 @@
         href="#fig:4"
         data-reference-type="autoref"
         data-reference="fig:4"
-        >[fig:4]</a
+        >Figure 3</a
       >), whether the data structure that is rendered is navigable according to its structure (<a
         href="#fig:3"
         data-reference-type="autoref"
         data-reference="fig:3"
-        >[fig:3]</a
+        >Figure 2</a
       >), and whether keyboard navigability across all elements in a data interface is even necessary (<a
         href="#fig:8"
         data-reference-type="autoref"
         data-reference="fig:8"
-        >[fig:8]</a
+        >Figure 7</a
       >).
     </p>
     <h2 id="screen-reader-inspecting-perceivable-operable-robust-assistive">
@@ -1639,61 +1636,61 @@
       <img
         src="figures/figure 5.png"
         id="fig:5"
-        alt="Charts must have a visually available textual explanation provided that summarizes the outcome. “Client Registration Chart” for “Product X” (left) is inaccessible while “New Product Launch a Success” (right) gives a clear takeaway."
+        alt="A chart with almost no text compared to a chart with a robust explanation."
       />
-      <figcaption aria-hidden="true">
-        Charts must have a visually available textual explanation provided that summarizes the outcome. “Client
-        Registration Chart” for “Product X” (left) is inaccessible while “New Product Launch a Success” (right) gives a
-        clear takeaway.
+      <figcaption>
+        Figure 4: Charts must have a visually available textual explanation provided that summarizes the outcome.
+        “Client Registration Chart” for “Product X” (left) is inaccessible while “New Product Launch a Success” (right)
+        gives a clear takeaway.
       </figcaption>
     </figure>
     <p>
       Screen readers, unlike more basic keyboard input devices, read out content that is textual (including non-visual
       textual information like <em>alternative text</em>). Using a screen reader to audit is generally the hardest skill
       to learn. Keeping this in mind, testing whether the meaningful text provided in a visual (such as in
-      <a href="#fig:5" data-reference-type="autoref" data-reference="fig:5">[fig:5]</a>) is accessible with a screen
+      <a href="#fig:5" data-reference-type="autoref" data-reference="fig:5">Figure 4</a>) is accessible with a screen
       reader is the easiest and most basic test that auditors should first perform.
     </p>
     <figure>
       <img
         src="figures/figure 6.png"
         id="fig:6"
-        alt="An interactive chart displaying only “Image” as semantic information with no feedback provided on selection. The robust semantics given to a screen reader, “toggle button” (middle) as well instant feedback, “selected” (right) are considered proper semantics for an interactive experience."
+        alt="This section is about a screen reader (that's what you're using, I reckon, Hello!). The chart on the left is interactive but the screen reader semantics are uninformative. On the right, it states the role (toggle button) as well as gives feedback (selected)."
       />
-      <figcaption aria-hidden="true">
-        An interactive chart displaying only “Image” as semantic information with no feedback provided on selection. The
-        robust semantics given to a screen reader, “toggle button” (middle) as well instant feedback, “selected” (right)
-        are considered proper semantics for an interactive experience.
+      <figcaption>
+        Figure 5: An interactive chart displaying only “Image” as semantic information with no feedback provided on
+        selection. The robust semantics given to a screen reader, “toggle button” (middle) as well instant feedback,
+        “selected” (right) are considered proper semantics for an interactive experience.
       </figcaption>
     </figure>
     <p>
       Next, all valuable information and functionality in a data experience should be tested whether it is available to
       a screen reader. This includes the individual variables about a mark as well as whether that mark is interactive
-      (<a href="#fig:6" data-reference-type="autoref" data-reference="fig:6">[fig:6]</a>), whether status updates that
+      (<a href="#fig:6" data-reference-type="autoref" data-reference="fig:6">Figure 5</a>), whether status updates that
       reflect context change provide alerts (<a href="#fig:4" data-reference-type="autoref" data-reference="fig:4"
-        >[fig:4]</a
+        >Figure 3</a
       >), and whether summary textual information is provided about the whole chart (<a
         href="#fig:5"
         data-reference-type="autoref"
         data-reference="fig:5"
-        >[fig:5]</a
+        >Figure 4</a
       >) as well as statistically and visually important areas of that chart (<a
         href="#fig:8"
         data-reference-type="autoref"
         data-reference="fig:8"
-        >[fig:8]</a
+        >Figure 7</a
       >).
     </p>
     <figure>
       <img
         src="figures/figure 7.png"
         id="fig:7"
-        alt="A line chart (left) with a single line and an accompanying data table (right). This line chart would not provide enough low-level information about each datapoint without the table provided. A table alone however would also be inaccessible. Providing both can satisfy conflicting accessibility needs for different audiences."
+        alt="A chart that shows a trend next to a table that shows the month-by-month data for that trend listed out."
       />
-      <figcaption aria-hidden="true">
-        A line chart (left) with a single line and an accompanying data table (right). This line chart would not provide
-        enough low-level information about each datapoint without the table provided. A table alone however would also
-        be inaccessible. Providing both can satisfy conflicting accessibility needs for different audiences.
+      <figcaption>
+        Figure 6: A line chart (left) with a single line and an accompanying data table (right). This line chart would
+        not provide enough low-level information about each datapoint without the table provided. A table alone however
+        would also be inaccessible. Providing both can satisfy conflicting accessibility needs for different audiences.
       </figcaption>
     </figure>
     <h2 id="checking-cognitive-barriers-understandable-compromising">
@@ -1706,26 +1703,26 @@
         href="#fig:5"
         data-reference-type="autoref"
         data-reference="fig:5"
-        >[fig:5]</a
+        >Figure 4</a
       >). This alone is one of the most important things to check for. In complex cases where a chart has a visual
       feature with an assumedly obvious takeaway, checking for annotations or textual callouts is important to help
       avoid interpretive issues&nbsp;<span class="citation" data-cites="xiong_curse_2020"
         >[<a href="#ref-Xiong2020Curse" id="xiong_curse_202001" aria-label="104, C. Xiong" title="104, C. Xiong">104</a
         >]</span
       >
-      (<a href="#fig:8" data-reference-type="autoref" data-reference="fig:8">[fig:8]</a>).
+      (<a href="#fig:8" data-reference-type="autoref" data-reference="fig:8">Figure 7</a>).
     </p>
     <figure>
       <img
         src="figures/figure 8.png"
         id="fig:8"
-        alt="A scatterplot with many points, where a single point within the chart can be accessed by a screen reader (left). Navigating this data piece by piece is unnecessarily tedious, so an annotation callout is provided to help the reader focus on an outlier cluster (right). The callout is being accessed by a screen reader, which is displaying the annotation’s summary as well."
+        alt="A dense scatterplot being accessed one element at a time compared by a screen reader to a dense scatterplot where the main outlier cluster (the important part) is being accessed instead."
       />
-      <figcaption aria-hidden="true">
-        A scatterplot with many points, where a single point within the chart can be accessed by a screen reader (left).
-        Navigating this data piece by piece is unnecessarily tedious, so an annotation callout is provided to help the
-        reader focus on an outlier cluster (right). The callout is being accessed by a screen reader, which is
-        displaying the annotation’s summary as well.
+      <figcaption>
+        Figure 7: A scatterplot with many points, where a single point within the chart can be accessed by a screen
+        reader (left). Navigating this data piece by piece is unnecessarily tedious, so an annotation callout is
+        provided to help the reader focus on an outlier cluster (right). The callout is being accessed by a screen
+        reader, which is displaying the annotation’s summary as well.
       </figcaption>
     </figure>
     <h2 id="evaluating-context-robust-assistive-flexible">Evaluating Context (Robust, Assistive, Flexible)</h2>
@@ -1736,43 +1733,44 @@
     <p>
       Auditors should first try to change system settings (such as toggling high contrast modes) to see whether a data
       experience respects these settings (<a href="#fig:9" data-reference-type="autoref" data-reference="fig:9"
-        >[fig:9]</a
+        >Figure 8</a
       >), run automatic semantic evaluations as well as manually check for appropriate meaning (<a
         href="#fig:6"
         data-reference-type="autoref"
         data-reference="fig:6"
-        >[fig:6]</a
+        >Figure 5</a
       >), and check if dense or highly complex visuals have sonified, tactile, or textual summaries available (<a
         href="#fig:8"
         data-reference-type="autoref"
         data-reference="fig:8"
-        >[fig:8]</a
+        >Figure 7</a
       >). Auditors should also check whether system updates provide clear feedback textually (<a
         href="#fig:4"
         data-reference-type="autoref"
         data-reference="fig:4"
-        >[fig:4]</a
+        >Figure 3</a
       >) as well as checking if there are both high and low level representations of information available (<a
         href="#fig:7"
         data-reference-type="autoref"
         data-reference="fig:7"
-        >[fig:7]</a
+        >Figure 6</a
       >).
     </p>
     <figure>
       <img
         src="figures/figure 9.png"
         id="fig:9"
-        alt="A bar chart with categories (left) shown not conforming to Windows High Contrast White Mode. High contrast mode on Windows requires limiting color palettes, using only black or white for most elements (shown on the right)."
+        alt="A bar chart that has patterned textures combined with color changing into black and white (but still with textures)."
       />
-      <figcaption aria-hidden="true">
-        A bar chart with categories (left) shown not conforming to Windows High Contrast White Mode. High contrast mode
-        on Windows requires limiting color palettes, using only black or white for most elements (shown on the right).
+      <figcaption>
+        Figure 8: A bar chart with categories (left) shown not conforming to Windows High Contrast White Mode. High
+        contrast mode on Windows requires limiting color palettes, using only black or white for most elements (shown on
+        the right).
       </figcaption>
     </figure>
     <p>
       Auditors should be especially critical of static designs, such as those that either use textures by default or not
-      (<a href="#fig:9" data-reference-type="autoref" data-reference="fig:9">[fig:9]</a>), which are a high risk of
+      (<a href="#fig:9" data-reference-type="autoref" data-reference="fig:9">Figure 8</a>), which are a high risk of
       compromising and assistive failure.
     </p>
     <h1 id="validating-chartability">Validating Chartability</h1>
