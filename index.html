@@ -401,6 +401,47 @@
       div.csl-indent {
         margin-left: 2em;
       }
+
+      :root {
+        --text-color: #333;
+        --brand-color: #1e3369;
+        --link-color: #175446;
+        --link-underline: #aadbcf;
+      }
+
+      body {
+        max-width: 40em;
+      }
+
+      body,
+      p,
+      caption,
+      figcaption,
+      span,
+      div {
+        color: var(--text-color);
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: var(--brand-color);
+      }
+
+      a {
+        color: var(--link-color);
+        text-decoration: none;
+        background-image: linear-gradient(transparent 88%, var(--link-underline) 12%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: top center;
+      }
+
+      a:hover,
+      a:focus {
+        background-image: linear-gradient(transparent 93%, var(--link-color) 7%);
+        transition: background-size 0.15s ease-in-out, background-image 0.15s ease-in-out;
+      }
     </style>
   </head>
   <body>

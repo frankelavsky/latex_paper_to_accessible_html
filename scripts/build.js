@@ -6,6 +6,7 @@ const options = {
   resources: 'usable',
   runScripts: 'dangerously'
 };
+let rawCSS = fs.readFileSync('input/custom.css');
 // this is loaded with a static filename to force people to add the files!
 let rawAlt = fs.readFileSync('input/alt-text.json');
 let altText = JSON.parse(rawAlt);
@@ -280,7 +281,7 @@ exec(
             document.body.appendChild(refs);
 
             const style = document.createElement('style');
-            style.innerHTML = bibliography.getElementsByTagName('style')[0].innerHTML;
+            style.innerHTML = bibliography.getElementsByTagName('style')[0].innerHTML + '\n' + rawCSS;
             document.head.appendChild(style);
 
             document.documentElement.setAttribute('lang', 'en-US');
