@@ -155,6 +155,7 @@ exec(
             let citations = {};
             /* 
                     To do: 
+                    - add links to link text in citations
                     - remove ugly metadata header
                     - remove weird paragraph breaks
                     - alt text??? (make a data file?)
@@ -211,6 +212,19 @@ exec(
                 }
                 i++;
                 e.appendChild(newChild);
+                // process all bibTarget URLs into <a> elements
+                bibTarget.children[1].childNodes.forEach(childNode => {
+                  if (!childNode.tagName && childNode.textContent) {
+                    const urlRegex = /(\b(https?):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
+                    const url = childNode.textContent.match(urlRegex);
+                    if (url) {
+                      bibTarget.children[1].innerHTML = bibTarget.children[1].innerHTML.replace(
+                        url[0],
+                        `<a href="${url[0]}">${url[0]}</a>`
+                      );
+                    }
+                  }
+                });
                 // add link back up to new <a> from bib entry
                 const reverseCitation = document.createElement('a');
                 reverseCitation.setAttribute('href', `#${newChild.id}`);
