@@ -159,7 +159,6 @@ exec(
             /* 
                     To do: 
                     - add main section
-                    - add language
                     - add nav bar
                     - add skip link
                     - add link styling
@@ -283,6 +282,8 @@ exec(
             const style = document.createElement('style');
             style.innerHTML = bibliography.getElementsByTagName('style')[0].innerHTML;
             document.head.appendChild(style);
+
+            document.documentElement.setAttribute('lang', 'en-US');
 
             fs.writeFile('index.html', document.documentElement.outerHTML, function (error) {
               if (error) throw error;
