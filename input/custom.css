@@ -24,8 +24,9 @@ h3 {
   color: var(--brand-color);
 }
 
-nav {
+header {
   font-size: 0.85em;
+  text-align: left;
 }
 
 nav h1 {
@@ -52,6 +53,11 @@ a:focus {
   transition: background-size 0.15s ease-in-out, background-image 0.15s ease-in-out;
 }
 
+.title,
+.author {
+  text-align: center;
+}
+
 @media screen and (min-width: 48em) {
   * {
     -webkit-box-sizing: border-box;
@@ -59,9 +65,9 @@ a:focus {
     box-sizing: border-box;
   }
   header {
+    margin-top: 1.4em;
     float: left;
     max-width: 25%;
-    text-align: left;
   }
   main {
     float: left;
