@@ -158,18 +158,46 @@ exec(
             let citations = {};
             /* 
                     To do: 
-                    - links to/from table/section
                     - add main section
+                    - add language
                     - add nav bar
                     - add skip link
                     - add link styling
                     - make table semantic
                     - order citations in ascending order (eg. [3,12,2] > [2,3,12])
                 */
+
+            // remove xml metadata section
             document.querySelector('.CCSXML').remove();
+
+            // hide strange paragraph break characters
             document.querySelector('.author').innerHTML = document
               .querySelector('.author')
               .innerHTML.replaceAll('¶', '');
+
+            // clean up figures
+            document.querySelectorAll('figure').forEach(figure => {
+              const alt = altText.find(obj => obj.id === figure.querySelector('img').id);
+              figure.querySelector('img').setAttribute('alt', alt.altText);
+              figure.querySelector('figcaption').removeAttribute('aria-hidden');
+              figure.querySelector('figcaption').textContent =
+                alt.figureName + ': ' + figure.querySelector('figcaption').textContent;
+              document.querySelectorAll(`*[href="#${alt.id}"]`).forEach(aTag => {
+                aTag.textContent = alt.figureName;
+              });
+            });
+
+            // clean up table and table references
+            const replacement = 'Previewing Chartability’s 10 Critical Heuristics';
+            const tableCaption = document.getElementById('tab:table').querySelector('caption');
+            tableCaption.innerHTML = tableCaption.innerHTML
+              .replace(replacement, `<h2 id='previewing-chartability'>${replacement}</h2>`)
+              .replaceAll('<br>', '');
+            document.querySelectorAll('*[href="#tab:table"]').forEach(link => {
+              link.textContent = 'Table 1';
+            });
+
+            // fix citations
             document.querySelectorAll('*[data-cites]').forEach(e => {
               const onlyDigits = /\d+/;
               const writeAriaLabel = bibTarget => {
@@ -246,6 +274,7 @@ exec(
               });
               e.appendChild(document.createTextNode(']'));
             });
+
             // combine our references and main document
             const refs = document.createElement('div');
             refs.innerHTML = bibliography.getElementById('refs').outerHTML;
@@ -254,17 +283,6 @@ exec(
             const style = document.createElement('style');
             style.innerHTML = bibliography.getElementsByTagName('style')[0].innerHTML;
             document.head.appendChild(style);
-
-            document.querySelectorAll('figure').forEach(figure => {
-              const alt = altText.find(obj => obj.id === figure.querySelector('img').id);
-              figure.querySelector('img').setAttribute('alt', alt.altText);
-              figure.querySelector('figcaption').removeAttribute('aria-hidden');
-              figure.querySelector('figcaption').textContent =
-                alt.figureName + ': ' + figure.querySelector('figcaption').textContent;
-              document.querySelectorAll(`*[href="#${alt.id}"]`).forEach(aTag => {
-                aTag.textContent = alt.figureName;
-              });
-            });
 
             fs.writeFile('index.html', document.documentElement.outerHTML, function (error) {
               if (error) throw error;
