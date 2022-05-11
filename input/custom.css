@@ -6,7 +6,7 @@
 }
 
 body {
-  max-width: 40em;
+  max-width: 60em;
 }
 
 body,
@@ -22,6 +22,19 @@ h1,
 h2,
 h3 {
   color: var(--brand-color);
+}
+
+nav {
+  font-size: 0.85em;
+}
+
+nav h1 {
+  font-size: 1.2em;
+}
+
+ol {
+  list-style-type: none;
+  padding-inline-start: 1em;
 }
 
 a {
@@ -45,10 +58,13 @@ a:focus {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
-  nav {
-    width: 25%;
+  header {
+    float: left;
+    max-width: 25%;
+    text-align: left;
   }
   main {
-    width: 75%;
+    float: left;
+    max-width: 75%;
   }
 }

@@ -275,16 +275,65 @@ exec(
               e.appendChild(document.createTextNode(']'));
             });
 
-            // combine our references and main document
-            const refs = document.createElement('div');
-            refs.innerHTML = bibliography.getElementById('refs').outerHTML;
-            document.body.appendChild(refs);
-
             const style = document.createElement('style');
             style.innerHTML = bibliography.getElementsByTagName('style')[0].innerHTML + '\n' + rawCSS;
             document.head.appendChild(style);
 
             document.documentElement.setAttribute('lang', 'en-US');
+
+            var hOuter = document.querySelector('header').outerHTML;
+            var hInner = document.querySelector('header').innerHTML;
+            document.body.innerHTML = `<main>${document.body.innerHTML.replace(hOuter, hInner)}</main>`;
+
+            // combine our references and main document
+            const refs = document.createElement('footer');
+            refs.innerHTML = '<h1>References</h1>' + bibliography.getElementById('refs').outerHTML;
+            document.body.appendChild(refs);
+
+            let listingNumbers = false;
+            let startListingAt = 'Introduction';
+            let endListingAt = 'Acknowledgements';
+            let h1Level = 0;
+            let h2Level = 0;
+            let nav = '<header><nav><h1>Table of Contents</h1><ol>';
+            let homeAdded = false;
+            document.querySelectorAll('h1').forEach(h1 => {
+              listingNumbers =
+                h1.textContent.indexOf(startListingAt) > -1
+                  ? true
+                  : h1.textContent.indexOf(endListingAt) > -1
+                  ? false
+                  : listingNumbers;
+              h1Level += listingNumbers ? 1 : 0;
+              h2Level = 0;
+              nav += `<li>${listingNumbers ? h1Level + '. ' : ''}<a href="#${h1.id}">${
+                !homeAdded ? 'Home' : h1.textContent
+              }</a></li>`;
+              homeAdded = true;
+              const childrenH2 = h1.querySelectorAll('h2');
+              if (childrenH2.length) {
+                nav += '<ol>';
+                childrenH2.forEach(h2 => {
+                  h2Level++;
+                  nav += `<li>${h1Level}.${h2Level}. <a href="#${h2.id}">${h2.textContent}</a></li>`;
+                  const figures = h2.querySelectorAll('figure');
+                  if (figures.length) {
+                    nav += '<ol>';
+                    figures.forEach(fig => {
+                      const figTitle = fig
+                        .querySelector('figcaption')
+                        .textContent.substring(0, fig.querySelector('figcaption').textContent.indexOf(':'));
+                      nav += `<li>&#128202; <a href="#${fig.querySelector('img').id}">${figTitle}</a></li>`;
+                    });
+                    nav += '</ol>';
+                  }
+                });
+                nav += '</ol>';
+              }
+            });
+            nav += '</ol></nav></header>';
+
+            document.body.innerHTML = nav + document.body.innerHTML;
 
             fs.writeFile('index.html', document.documentElement.outerHTML, function (error) {
               if (error) throw error;
