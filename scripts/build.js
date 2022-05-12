@@ -185,11 +185,43 @@ exec(
             });
 
             // clean up table and table references
+            const table = document.getElementById('tab:table');
+
+            // select first odd, first even: save their html and delete their nodes
+            let firstRow = table.querySelector('.odd').outerHTML;
+            table.querySelector('.odd').remove();
+            let secondRow = table.querySelector('.even').outerHTML;
+            table.querySelector('.even').remove();
+
+            // for odd: remove first three tds, add a single with colspan=3, change last to th, add scope=colgroup
+            firstRow = firstRow
+              .replaceAll('<td style="text-align: left;"></td>', '')
+              .replace(
+                '<td colspan="2" style="text-align: left;">Coding Categories</td>',
+                '<td colspan="3" style="text-align: left;"></td><th colspan="2" scope="colgroup" style="text-align: left;">Coding Categories</td>'
+              );
+
+            // for even: change all to th, add scope=col
+            secondRow = secondRow.replaceAll('<td', '<th scope="col"').replaceAll('</td', '</th');
+
+            // select all first-cell children, change to th and give scope=row
+            table.querySelectorAll('td:first-child').forEach(firstCell => {
+              firstCell.outerHTML = firstCell.outerHTML.replace('<td', '<th scope="row"').replace('</td', '</th');
+            });
+
+            // create a thead element, append children rows, insert before tbody
+            const thead = document.createElement('thead');
+            thead.innerHTML = firstRow + secondRow;
+            table.querySelector('table').insertBefore(thead, table.querySelector('tbody'));
+
+            // clean up table caption semantics
             const replacement = 'Previewing Chartability’s 10 Critical Heuristics';
-            const tableCaption = document.getElementById('tab:table').querySelector('caption');
+            const tableCaption = table.querySelector('caption');
             tableCaption.innerHTML = tableCaption.innerHTML
               .replace(replacement, `<h2 id='previewing-chartability'>${replacement}</h2>`)
               .replaceAll('<br>', '');
+
+            // clean up links to table
             document.querySelectorAll('*[href="#tab:table"]').forEach(link => {
               link.textContent = 'Table 1';
             });

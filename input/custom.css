@@ -72,6 +72,14 @@ nav a:visited {
   text-align: center;
 }
 
+th {
+  border-top: none;
+}
+
+tbody th {
+  font-weight: 400;
+}
+
 #fn1 {
   list-style-type: '†';
 }
