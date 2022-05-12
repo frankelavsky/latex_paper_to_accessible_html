@@ -150,11 +150,6 @@ exec(
             const document = dom.window.document;
             const bibliography = bib.window.document;
             let citations = {};
-            /* 
-                    To do:
-                    - make table semantic
-                    - order citations in ascending order (eg. [3,12,2] > [2,3,12])
-                */
 
             // remove xml metadata section
             document.querySelector('.CCSXML').remove();
