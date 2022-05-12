@@ -392,6 +392,11 @@ exec(
                 newBody = newBody.replace(replacement.old, replacement.new);
               }
             });
+
+            // clean up ugly artifacts eg {{}}
+            newBody = newBody.replaceAll('{{', '').replaceAll('}}', '');
+
+            // add all changes to new innerHTML
             document.body.innerHTML = nav + newBody;
 
             // add scrolling script
