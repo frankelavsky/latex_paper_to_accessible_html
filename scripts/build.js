@@ -134,10 +134,6 @@ exec(
       return;
     }
 
-    // the *entire* stdout and stderr (buffered)
-    // console.log(`stdout: ${stdout}`);
-    // console.log(`stderr: ${stderr}`);
-
     // we create our paper
     // pandoc input/paper.tex -f latex -t html -s -o pre.html --bibliography input/bibliography.bib
     exec(
@@ -148,10 +144,6 @@ exec(
           return;
         }
 
-        // the *entire* stdout and stderr (buffered)
-        // console.log(`stdout: ${stdout}`);
-        // console.log(`stderr: ${stderr}`);
-
         // then we can do our post-processing!
         JSDOM.fromFile('pre.html', options).then(dom => {
           JSDOM.fromFile('post.html', options).then(bib => {
@@ -159,11 +151,7 @@ exec(
             const bibliography = bib.window.document;
             let citations = {};
             /* 
-                    To do: 
-                    - add main section
-                    - add nav bar
-                    - add skip link
-                    - add link styling
+                    To do:
                     - make table semantic
                     - order citations in ascending order (eg. [3,12,2] > [2,3,12])
                 */
@@ -175,6 +163,12 @@ exec(
             document.querySelector('.author').innerHTML = document
               .querySelector('.author')
               .innerHTML.replaceAll('¶', '');
+
+            // fix endnote
+            const endnote = document.getElementById('fnref1');
+            endnote.children[0].textContent = '†';
+            endnote.setAttribute('aria-label', 'Read endnote');
+            document.querySelector(endnote.getAttribute('href')).setAttribute('aria-label', 'Return to paper contents');
 
             // clean up figures
             document.querySelectorAll('figure').forEach(figure => {
@@ -237,15 +231,18 @@ exec(
                 newChild.setAttribute('href', `#ref-${idHash[key]}`);
                 newChild.id = key + citations[key].count.length + 1;
                 newChild.innerHTML = `${citations[key].index}`;
-                // make sure that the links are descriptive!
+
+                // make sure that the links are descriptive and semantic!
                 newChild.setAttribute('aria-label', writeAriaLabel(bibTarget));
                 newChild.setAttribute('title', writeAriaLabel(bibTarget));
+                newChild.setAttribute('role', 'doc-noteref');
                 citations[key].count.push(newChild.id);
                 if (i) {
                   e.appendChild(document.createTextNode(', '));
                 }
                 i++;
                 e.appendChild(newChild);
+
                 // process all bibTarget URLs into <a> elements
                 bibTarget.children[1].childNodes.forEach(childNode => {
                   if (!childNode.tagName && childNode.textContent) {
@@ -262,9 +259,12 @@ exec(
                 // add link back up to new <a> from bib entry
                 const reverseCitation = document.createElement('a');
                 reverseCitation.setAttribute('href', `#${newChild.id}`);
+
+                // make sure we make it descriptive and semantic as well! :)
                 reverseCitation.setAttribute('aria-label', lastSentence());
                 reverseCitation.setAttribute('title', lastSentence());
-                reverseCitation.innerHTML = citations[key].count.length;
+                reverseCitation.setAttribute('role', 'doc-backlink');
+                reverseCitation.innerHTML = citations[key].count.length + '  ↩︎';
                 if (!bibTarget.children[1].querySelector('.reverse-citation')) {
                   const reverseCitations = document.createElement('span');
                   reverseCitations.classList.add('reverse-citation');

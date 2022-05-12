@@ -72,6 +72,10 @@ nav a:visited {
   text-align: center;
 }
 
+#fn1 {
+  list-style-type: '†';
+}
+
 @media screen and (min-width: 48em) {
   * {
     -webkit-box-sizing: border-box;
