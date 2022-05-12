@@ -7,6 +7,7 @@ const options = {
   runScripts: 'dangerously'
 };
 let rawCSS = fs.readFileSync('input/custom.css');
+let rawJS = fs.readFileSync('input/scrollNav.js');
 // this is loaded with a static filename to force people to add the files!
 let rawAlt = fs.readFileSync('input/alt-text.json');
 let altText = JSON.parse(rawAlt);
@@ -183,8 +184,9 @@ exec(
               figure.querySelector('figcaption').removeAttribute('aria-hidden');
               figure.querySelector('figcaption').textContent =
                 alt.figureName + ': ' + figure.querySelector('figcaption').textContent;
-              document.querySelectorAll(`*[href="#${alt.figureName.replace(' ', '')}"]`).forEach(aTag => {
+              document.querySelectorAll(`*[href="#${alt.id}"]`).forEach(aTag => {
                 aTag.textContent = alt.figureName;
+                aTag.setAttribute('href', `#${alt.figureName.replace(' ', '')}`);
               });
             });
 
@@ -276,22 +278,28 @@ exec(
               e.appendChild(document.createTextNode(']'));
             });
 
+            // add bib's styles in
             const style = document.createElement('style');
             style.innerHTML = bibliography.getElementsByTagName('style')[0].innerHTML + '\n' + rawCSS;
             document.head.appendChild(style);
 
+            // set doc language
             document.documentElement.setAttribute('lang', 'en-US');
 
+            // wrap the contents in <main> (for accessibility/validation)
             var hOuter = document.querySelector('header').outerHTML;
             var hInner = document.querySelector('header').innerHTML;
-            document.body.innerHTML = `<div class="main-wrapper"><main>${document.body.innerHTML.replace(hOuter, hInner)}</main></div>`;
+            document.body.innerHTML = `<div class="main-wrapper"><main>${document.body.innerHTML.replace(
+              hOuter,
+              hInner
+            )}</main></div>`;
 
-            // combine our references and main document
+            // combine our references and primary document
             const refs = document.createElement('footer');
             refs.innerHTML = '<h1 id="references">References</h1>' + bibliography.getElementById('refs').outerHTML;
-            document.body.querySelector(".main-wrapper").appendChild(refs);
+            document.body.querySelector('.main-wrapper').appendChild(refs);
 
-            // add table of contents
+            // add table of contents and paper sections
             let listingNumbers = false;
             let startListingAt = 'Introduction';
             let endListingAt = 'Acknowledgements';
@@ -300,7 +308,10 @@ exec(
             let figuresCount = 0;
             let nav = '<header><nav><h1>Table of Contents</h1><ol>';
             let homeAdded = false;
+            let replacements = [];
             document.querySelectorAll('h1, h2, figure').forEach(element => {
+              let section = '';
+              let id = element.id + '';
               listingNumbers =
                 element.textContent.indexOf(startListingAt) > -1
                   ? true
@@ -311,15 +322,21 @@ exec(
                 if (figuresCount) {
                   nav += '</ol>';
                   figuresCount = 0;
+                  section += '</div>';
                 }
                 if (h2Level) {
                   nav += '</details></ol>';
                   h2Level = 0;
+                  section += '</div>';
                 }
                 h1Level += listingNumbers ? 1 : 0;
-                nav += `<li>${listingNumbers ? h1Level + '. ' : ''}<a href="#${element.id}">${
-                  !homeAdded ? 'Home' : element.textContent
+                nav += `<li>${listingNumbers ? h1Level + '. ' : ''}<a href="#${id}">${
+                  !homeAdded ? 'Chartability' : element.textContent
                 }</a></li>`;
+
+                // we moved the ID to a div class="section" instead, so it isn't needed on the element
+                section += `${homeAdded ? '</div>' : ''}<div class="section" id="${id}">`;
+                element.removeAttribute('id');
                 homeAdded = true;
               } else if (element.tagName === 'H2') {
                 if (!h2Level) {
@@ -328,24 +345,61 @@ exec(
                 if (figuresCount) {
                   nav += '</ol>';
                   figuresCount = 0;
+                  section += '</div>';
                 }
+                // we moved the ID to a div class="section" instead, so it isn't needed on the element
+                section += `${h2Level ? '</div>' : ''}<div class="section" id="${id}">`;
+                element.removeAttribute('id');
+
                 h2Level++;
-                nav += `<li>${h1Level}.${h2Level}. <a href="#${element.id}">${element.textContent}</a></li>`;
+                nav += `<li>${h1Level}.${h2Level}. <a href="#${id}">${element.textContent}</a></li>`;
               } else {
                 if (!figuresCount) {
                   nav += '<ol>';
                 }
+
+                // we moved the ID to a div class="section" instead, so it isn't needed on the element
+                section += `${figuresCount ? '</div>' : ''}<div class="section" id="${
+                  element.querySelector('img').id
+                }">`;
+
                 figuresCount++;
                 const figTitle = element
                   .querySelector('figcaption')
                   .textContent.substring(0, element.querySelector('figcaption').textContent.indexOf(':'));
                 nav += `<li>&#128202; <a href="#${element.querySelector('img').id}">${figTitle}</a></li>`;
+                element.querySelector('img').removeAttribute('id');
               }
+              section += element.outerHTML;
+              const newReplacement = {
+                old: element.outerHTML,
+                new: section
+              };
+              replacements.push(newReplacement);
             });
             nav += '</ol></nav></header>';
+            let newBody = document.body.innerHTML;
+            replacements.forEach(replacement => {
+              if (replacement.old.indexOf('10 Critical') > -1) {
+                const old = document.getElementById('tab:table').outerHTML;
+                newBody = newBody.replace(old, '<div class="section" id="previewing-chartability">' + old);
+              } else if (replacement.old.indexOf('References') > -1) {
+                const old = document.querySelector('footer').outerHTML;
+                newBody = newBody.replace(old, '<div class="section" id="references">' + old + '</div>');
+              } else if (replacement.old.indexOf('Acknowledgements') > -1) {
+                newBody = newBody.replace(replacement.old, replacement.new + '</div>');
+              } else {
+                newBody = newBody.replace(replacement.old, replacement.new);
+              }
+            });
+            document.body.innerHTML = nav + newBody;
 
-            document.body.innerHTML = nav + document.body.innerHTML;
+            // add scrolling script
+            const script = document.createElement('script');
+            script.innerHTML = rawJS;
+            document.body.append(script);
 
+            // output document and remove pre/post used for processing
             fs.writeFile('index.html', document.documentElement.outerHTML, function (error) {
               if (error) throw error;
               exec(`rm post.html pre.html`);

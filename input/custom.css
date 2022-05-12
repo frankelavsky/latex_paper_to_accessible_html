@@ -33,7 +33,7 @@ nav h1 {
   font-size: 1.25em;
 }
 
-ol {
+header ol {
   list-style-type: none;
   padding-inline-start: 1em;
   margin-top: 0;
@@ -46,6 +46,10 @@ a {
 a:hover,
 a:focus {
   text-decoration: underline;
+}
+
+nav a:visited {
+  color: inherit;
 }
 
 main a {
@@ -74,13 +78,50 @@ main a:focus {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
-  header {
-    margin-top: 1.4em;
-    float: left;
-    max-width: 25%;
-  }
   .main-wrapper {
     float: left;
     max-width: 75%;
+  }
+  main,
+  footer {
+    margin: 0em 0em 0em 2em;
+  }
+  div.abstract {
+    margin: 1em;
+  }
+  header {
+    top: 1.4em;
+    float: left;
+    max-width: 25%;
+    border-right: 1px solid #949494;
+    position: sticky;
+    align-self: start;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  header ol,
+  header a,
+  header details,
+  header summary {
+    color: #767676;
+    transition: all 50ms ease-in-out; /* 💡 This small transition makes setting of the active state smooth */
+  }
+  header a:hover,
+  header a:focus {
+    color: #454545;
+  }
+  header li.active {
+    border-right: 0.3em solid var(--link-underline);
+  }
+  header li.active > a {
+    color: #333;
+    font-weight: 600;
+  }
+  body:after {
+    content: '.';
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
   }
 }

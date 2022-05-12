@@ -46,3 +46,4 @@ An exploration of the process it takes to turn a latex file (from EuroVis 2022) 
 39. add document language
 40. add basic table of contents
 41. add nesting and disclosure to table of contents
+42. add styling to table of contents while scrolling, fix various issues
