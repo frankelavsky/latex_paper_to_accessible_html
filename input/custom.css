@@ -52,7 +52,7 @@ nav a:visited {
   color: inherit;
 }
 
-main a {
+.main-wrapper a {
   color: var(--link-color);
   background-image: linear-gradient(transparent 88%, var(--link-underline) 12%);
   background-size: 100% 100%;
@@ -60,8 +60,8 @@ main a {
   background-position: top center;
 }
 
-main a:hover,
-main a:focus {
+.main-wrapper a:hover,
+.main-wrapper a:focus {
   text-decoration: none;
   background-image: linear-gradient(transparent 93%, var(--link-color) 7%);
   transition: background-size 0.15s ease-in-out, background-image 0.15s ease-in-out;
