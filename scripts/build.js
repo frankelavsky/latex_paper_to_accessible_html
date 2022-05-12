@@ -284,12 +284,12 @@ exec(
 
             var hOuter = document.querySelector('header').outerHTML;
             var hInner = document.querySelector('header').innerHTML;
-            document.body.innerHTML = `<main>${document.body.innerHTML.replace(hOuter, hInner)}</main>`;
+            document.body.innerHTML = `<div class="main-wrapper"><main>${document.body.innerHTML.replace(hOuter, hInner)}</main></div>`;
 
             // combine our references and main document
             const refs = document.createElement('footer');
             refs.innerHTML = '<h1 id="references">References</h1>' + bibliography.getElementById('refs').outerHTML;
-            document.body.appendChild(refs);
+            document.body.querySelector(".main-wrapper").appendChild(refs);
 
             // add table of contents
             let listingNumbers = false;

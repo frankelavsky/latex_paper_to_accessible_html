@@ -79,7 +79,7 @@ main a:focus {
     float: left;
     max-width: 25%;
   }
-  main {
+  .main-wrapper {
     float: left;
     max-width: 75%;
   }
