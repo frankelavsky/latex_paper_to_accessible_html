@@ -2,6 +2,57 @@
 
 An exploration of the process it takes to turn a latex file (from EuroVis 2022) into an accessible HTML page.
 
+## Overview of what it takes to make an accessible HTML paper from a LaTeX workflow
+
+### Basic input files
+
+- A latex paper (`input/paper.tex`)
+- Figures (`figures/`)
+- bib file (`input/bibliography.bib`)
+- csl file (`input/citation.csl`)
+
+### Additional input files
+
+For accessibility and various features:
+- Alt text data (`input/alt-text.json`)
+- Opinionated styling (`input/custom.css`)
+- Special table of contents javascript (`input/scrollNav.js`)
+
+### Output files
+
+- A single HTML document, complete with styling and JS
+- Note: HTML file requires local `figures/` folder
+
+### Environment set up
+
+I am using Node and a JS file (build.js). In my `package.json`, I'm using `prettier` (to keep things clean) and `jsdom` to do all my processing via Node.
+
+I do all my processing work in a `build.js` file, which I run via a script in my `package.json` with `yarn build`.
+
+Not listed in my `package.json` is `pandoc`, which does a lot of heavy lifting for us, preparing the files.
+
+### Rough method I use here:
+
+Note that major overhaul items are **bolded**:
+1. Loaded in css, js, and alt text json files
+2. **Bibliography**: Pre-processed bibliography file and sorted it. First I converted it to json via pandoc, then sorted it in javascript, and then finished processing using `citation.js`'s online demo app. Citation.js was nice but required me to set up an `idHash` const (since it changed my IDs from my original file). (Note this whole step isn't necessary if your bibliography is already sorted.)
+3. Created bibliography HTML via pandoc with `pandoc input/${bibliographyName}.bib --citeproc --csl input/${citationStyle}.csl -s -o post.html` and saved the file as a temporary `post.html`
+4. Create main paper HTML via pandoc with `pandoc input/${paperName}.tex -f latex -t html -s -o pre.html --bibliography input/${bibliographyName}.bib` and saved the file as a temporary `pre.html`
+5. Opened both files via jsdom
+6. Cleaned up weird artifacts from LaTeX (xml section, paragraph marks, double curly brackets from bibliography)
+7. **Cleaned up figures**: add alt text from our data, make sure `figcaption` isn't hidden via `aria-hidden`, and rename the links to the figures.
+8. **Cleaned up the table**: added proper semantics and structure to header (adding scoping to row, column, and colgroup head cells), add a heading (h2) to caption title, clean up link names to the table.
+9. **Cleaned up citations**: I had to create citations in the paper (the data was there in an HTML attribute, but no content or link). First I linked down to bibliography and added nice aria (eg "1, Mack et al") as well as semantics (`role="doc-noteref"`) to every link. Then I added links back up to the document from the references section with nice aria (eg 'Return to: 26% of people in the United States self-report living with at least one disability') as well as semantics (`role="doc-backlink"`).
+10. Converted all text of urls in the References into real, working urls (DOIs, etc).
+11. Fixed endnote (semantics and aria).
+12. Combined bib's post.html style tag with main document.
+13. Validation stuff: added document language, wrapped primary contents in `<main>`, `<header>`, and `<footer>` structure.
+14. Combined the rest of bib document's body with main document.
+15. **Table of contents**: Added a spicy, super sleek table of contents (sticky on the left in desktop view, builds automatically from contents in doc, has collapsing/nesting, and highlights as you scroll the doc).
+16. Lastly, added some styling touches via css (for accessibility and otherwise).
+
+## Documentation of every step I took (for the most part)
+
 1. [Install Quarto](https://quarto.org/docs/get-started/)
 2. [Install for VS Code](https://marketplace.visualstudio.com/items?itemName=quarto.quarto)
 3. [Clone quarto-tvcg](https://github.com/cscheid/quarto-tvcg/)
