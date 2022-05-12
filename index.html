@@ -429,30 +429,40 @@
       }
 
       header {
-        font-size: 0.85em;
+        font-size: 0.8em;
         text-align: left;
       }
 
       nav h1 {
-        font-size: 1.2em;
+        font-size: 1.25em;
       }
 
       ol {
         list-style-type: none;
         padding-inline-start: 1em;
+        margin-top: 0;
       }
 
       a {
-        color: var(--link-color);
         text-decoration: none;
+      }
+
+      a:hover,
+      a:focus {
+        text-decoration: underline;
+      }
+
+      main a {
+        color: var(--link-color);
         background-image: linear-gradient(transparent 88%, var(--link-underline) 12%);
         background-size: 100% 100%;
         background-repeat: no-repeat;
         background-position: top center;
       }
 
-      a:hover,
-      a:focus {
+      main a:hover,
+      main a:focus {
+        text-decoration: none;
         background-image: linear-gradient(transparent 93%, var(--link-color) 7%);
         transition: background-size 0.15s ease-in-out, background-image 0.15s ease-in-out;
       }
@@ -493,10 +503,134 @@
               >Existing Work in Data Visualization and Accessibility</a
             >
           </li>
+          <ol>
+            <details>
+              <summary>(details)</summary>
+              <li>
+                2.1.
+                <a href="#research-advancements-in-data-visualization-and-accessibility"
+                  >Research Advancements in Data Visualization and Accessibility</a
+                >
+              </li>
+              <li>
+                2.2.
+                <a href="#accessibility-practices-in-data-visualization-tools-and-libraries"
+                  >Accessibility Practices in Data Visualization Tools and Libraries</a
+                >
+              </li>
+              <li>2.3. <a href="#accessibility-in-practice-broadly">Accessibility in Practice, Broadly</a></li>
+              <li>
+                2.4.
+                <a href="#using-heuristics-to-break-into-under-addressed-areas"
+                  >Using Heuristics to Break Into Under-addressed Areas</a
+                >
+              </li>
+            </details>
+          </ol>
           <li>3. <a href="#making-chartability">Making Chartability</a></li>
+          <ol>
+            <details>
+              <summary>(details)</summary>
+              <li>3.1. <a href="#previewing-chartability">Previewing Chartability’s 10 Critical Heuristics</a></li>
+              <li>3.2. <a href="#compromising">Compromising</a></li>
+              <li>3.3. <a href="#assistive">Assistive</a></li>
+              <li>3.4. <a href="#flexible">Flexible</a></li>
+            </details>
+          </ol>
           <li>4. <a href="#using-chartability">Using Chartability</a></li>
+          <ol>
+            <details>
+              <summary>(details)</summary>
+              <li>4.1. <a href="#visual-testing-perceivable">Visual Testing (Perceivable)</a></li>
+              <ol>
+                <li>📊 <a href="#Figure1">Figure 1</a></li>
+                <li>📊 <a href="#Figure2">Figure 2</a></li>
+              </ol>
+              <li>4.2. <a href="#keyboard-probing-operable-assistive">Keyboard Probing (Operable, Assistive)</a></li>
+              <ol>
+                <li>📊 <a href="#Figure3">Figure 3</a></li>
+              </ol>
+              <li>
+                4.3.
+                <a href="#screen-reader-inspecting-perceivable-operable-robust-assistive"
+                  >Screen Reader Inspecting (Perceivable, Operable, Robust, Assistive)
+                </a>
+              </li>
+              <ol>
+                <li>📊 <a href="#Figure4">Figure 4</a></li>
+                <li>📊 <a href="#Figure5">Figure 5</a></li>
+                <li>📊 <a href="#Figure6">Figure 6</a></li>
+              </ol>
+              <li>
+                4.4.
+                <a href="#checking-cognitive-barriers-understandable-compromising"
+                  >Checking Cognitive Barriers (Understandable, Compromising)</a
+                >
+              </li>
+              <ol>
+                <li>📊 <a href="#Figure7">Figure 7</a></li>
+              </ol>
+              <li>
+                4.5.
+                <a href="#evaluating-context-robust-assistive-flexible"
+                  >Evaluating Context (Robust, Assistive, Flexible)
+                </a>
+              </li>
+              <ol>
+                <li>📊 <a href="#Figure8">Figure 8</a></li>
+              </ol>
+            </details>
+          </ol>
           <li>5. <a href="#validating-chartability">Validating Chartability</a></li>
+          <ol>
+            <details>
+              <summary>(details)</summary>
+              <li>
+                5.1.
+                <a href="#pre-validations-and-flipped-roles-participants-question-me"
+                  >Pre-Validations and Flipped Roles: Participants Question Me</a
+                >
+              </li>
+              <li>5.2. <a href="#sec:critical heuristics">Discovering “Critical” Heuristics</a></li>
+              <li>5.3. <a href="#selecting-participants-and-projects">Selecting Participants and Projects</a></li>
+            </details>
+          </ol>
           <li>6. <a href="#study-results">Study Results</a></li>
+          <ol>
+            <details>
+              <summary>(details)</summary>
+              <li>
+                6.1.
+                <a href="#real-access-has-more-considerations-than-colorblindness"
+                  >Real Access has more Considerations than Colorblindness</a
+                >
+              </li>
+              <li>6.2. <a href="#audits-are-slow-but-help-me-focus">Audits are Slow, but Help me Focus</a></li>
+              <li>
+                6.3.
+                <a href="#chartability-helps-me-remember-and-stay-consistent"
+                  >Chartability Helps me Remember and Stay Consistent</a
+                >
+              </li>
+              <li>
+                6.4.
+                <a href="#access-is-an-experience-not-just-compliance">Access is an Experience, not just Compliance</a>
+              </li>
+              <li>
+                6.5.
+                <a href="#everyone-wants-more-evaluation-resources-and-tools"
+                  >Everyone wants More Evaluation Resources and Tools</a
+                >
+              </li>
+              <li>
+                6.6.
+                <a href="#experts-novices-will-struggle.-novices-this-was-so-helpful"
+                  >Experts: “Novices will Struggle.” Novices: “This was so helpful”</a
+                >
+              </li>
+              <li>6.7. <a href="#what-about-auditors-with-disabilities">What about Auditors with Disabilities?</a></li>
+            </details>
+          </ol>
           <li>7. <a href="#extended-results">Extended Results</a></li>
           <li>8. <a href="#discussion">Discussion</a></li>
           <li>9. <a href="#conclusion">Conclusion</a></li>
@@ -1660,7 +1794,7 @@
       </p>
       <h2 id="visual-testing-perceivable">Visual Testing (Perceivable)</h2>
       <figure>
-        <img src="figures/figure 2.png" id="fig:2" alt="Testing the contrast of a chart and fixing it." />
+        <img src="figures/figure 2.png" id="Figure1" alt="Testing the contrast of a chart and fixing it." />
         <figcaption>
           Figure 1: A low contrast chart (left) compared to a higher contrast version (right). A dropper tool is
           extracting the fill color of the bar and then a contrast ratio has been calculated. Note that the fill color
@@ -1682,7 +1816,7 @@
           href="#fig:2"
           data-reference-type="autoref"
           data-reference="fig:2"
-          >Figure 1</a
+          >[fig:2]</a
         >). Most auditors find this to be one of the easiest tasks to perform and accomplishes 3 different heuristics in
         Chartability: ensuring text/geometries have contrast, interactive states for elements have enough contrast
         change, and the keyboard focus indicator is easy to distinguish.
@@ -1690,13 +1824,13 @@
       <p>
         Perceivable heuristics also include tests and tools for color vision deficiency and ensuring that color alone
         isn’t used to communicate meaning (like the redundantly encoded textures in
-        <a href="#fig:9" data-reference-type="autoref" data-reference="fig:9">Figure 8</a>). And another common,
-        critical failure from Perceivable is text size. No text should be smaller than 12px/9pt in size.
+        <a href="#fig:9" data-reference-type="autoref" data-reference="fig:9">[fig:9]</a>). And another common, critical
+        failure from Perceivable is text size. No text should be smaller than 12px/9pt in size.
       </p>
       <figure>
         <img
           src="figures/figure 3.png"
-          id="fig:3"
+          id="Figure2"
           alt="The navigation order is shown on a stacked bar chart, zig-zaging forward. It is then fixed to show multiple possible paths, left/right or up/down."
         />
         <figcaption>
@@ -1714,14 +1848,14 @@
           href="#fig:3"
           data-reference-type="autoref"
           data-reference="fig:3"
-          >Figure 2</a
-        >, <a href="#fig:4" data-reference-type="autoref" data-reference="fig:4">Figure 3</a>), those elements (or their
+          >[fig:3]</a
+        >, <a href="#fig:4" data-reference-type="autoref" data-reference="fig:4">[fig:4]</a>), those elements (or their
         functionality) must be able to be reached and controlled using a keyboard alone. Auditors should be critical of
         how much work is involved in keyboard navigation, especially (<a
           href="#fig:8"
           data-reference-type="autoref"
           data-reference="fig:8"
-          >Figure 7</a
+          >[fig:8]</a
         >). All that is required to start is the auditor begins pressing the tab key to see if anything interactive
         comes into focus. Arrow keys, spacebar, enter, and escape may be used in some contexts. Generally, instructions
         or cues should always be provided.
@@ -1729,7 +1863,7 @@
       <figure>
         <img
           src="figures/figure 4.png"
-          id="fig:4"
+          id="Figure3"
           alt="Showing a mouse interacting with a stacked bar chart and updating a table."
         />
         <figcaption>
@@ -1744,17 +1878,17 @@
           href="#fig:4"
           data-reference-type="autoref"
           data-reference="fig:4"
-          >Figure 3</a
+          >[fig:4]</a
         >), whether the data structure that is rendered is navigable according to its structure (<a
           href="#fig:3"
           data-reference-type="autoref"
           data-reference="fig:3"
-          >Figure 2</a
+          >[fig:3]</a
         >), and whether keyboard navigability across all elements in a data interface is even necessary (<a
           href="#fig:8"
           data-reference-type="autoref"
           data-reference="fig:8"
-          >Figure 7</a
+          >[fig:8]</a
         >).
       </p>
       <h2 id="screen-reader-inspecting-perceivable-operable-robust-assistive">
@@ -1767,7 +1901,7 @@
       <figure>
         <img
           src="figures/figure 5.png"
-          id="fig:5"
+          id="Figure4"
           alt="A chart with almost no text compared to a chart with a robust explanation."
         />
         <figcaption>
@@ -1780,13 +1914,13 @@
         Screen readers, unlike more basic keyboard input devices, read out content that is textual (including non-visual
         textual information like <em>alternative text</em>). Using a screen reader to audit is generally the hardest
         skill to learn. Keeping this in mind, testing whether the meaningful text provided in a visual (such as in
-        <a href="#fig:5" data-reference-type="autoref" data-reference="fig:5">Figure 4</a>) is accessible with a screen
+        <a href="#fig:5" data-reference-type="autoref" data-reference="fig:5">[fig:5]</a>) is accessible with a screen
         reader is the easiest and most basic test that auditors should first perform.
       </p>
       <figure>
         <img
           src="figures/figure 6.png"
-          id="fig:6"
+          id="Figure5"
           alt="This section is about a screen reader (that's what you're using, I reckon, Hello!). The chart on the left is interactive but the screen reader semantics are uninformative. On the right, it states the role (toggle button) as well as gives feedback (selected)."
         />
         <figcaption>
@@ -1798,28 +1932,28 @@
       <p>
         Next, all valuable information and functionality in a data experience should be tested whether it is available
         to a screen reader. This includes the individual variables about a mark as well as whether that mark is
-        interactive (<a href="#fig:6" data-reference-type="autoref" data-reference="fig:6">Figure 5</a>), whether status
+        interactive (<a href="#fig:6" data-reference-type="autoref" data-reference="fig:6">[fig:6]</a>), whether status
         updates that reflect context change provide alerts (<a
           href="#fig:4"
           data-reference-type="autoref"
           data-reference="fig:4"
-          >Figure 3</a
+          >[fig:4]</a
         >), and whether summary textual information is provided about the whole chart (<a
           href="#fig:5"
           data-reference-type="autoref"
           data-reference="fig:5"
-          >Figure 4</a
+          >[fig:5]</a
         >) as well as statistically and visually important areas of that chart (<a
           href="#fig:8"
           data-reference-type="autoref"
           data-reference="fig:8"
-          >Figure 7</a
+          >[fig:8]</a
         >).
       </p>
       <figure>
         <img
           src="figures/figure 7.png"
-          id="fig:7"
+          id="Figure6"
           alt="A chart that shows a trend next to a table that shows the month-by-month data for that trend listed out."
         />
         <figcaption>
@@ -1839,7 +1973,7 @@
           href="#fig:5"
           data-reference-type="autoref"
           data-reference="fig:5"
-          >Figure 4</a
+          >[fig:5]</a
         >). This alone is one of the most important things to check for. In complex cases where a chart has a visual
         feature with an assumedly obvious takeaway, checking for annotations or textual callouts is important to help
         avoid interpretive issues&nbsp;<span class="citation" data-cites="xiong_curse_2020"
@@ -1847,12 +1981,12 @@
             >104</a
           >]</span
         >
-        (<a href="#fig:8" data-reference-type="autoref" data-reference="fig:8">Figure 7</a>).
+        (<a href="#fig:8" data-reference-type="autoref" data-reference="fig:8">[fig:8]</a>).
       </p>
       <figure>
         <img
           src="figures/figure 8.png"
-          id="fig:8"
+          id="Figure7"
           alt="A dense scatterplot being accessed one element at a time compared by a screen reader to a dense scatterplot where the main outlier cluster (the important part) is being accessed instead."
         />
         <figcaption>
@@ -1870,33 +2004,33 @@
       <p>
         Auditors should first try to change system settings (such as toggling high contrast modes) to see whether a data
         experience respects these settings (<a href="#fig:9" data-reference-type="autoref" data-reference="fig:9"
-          >Figure 8</a
+          >[fig:9]</a
         >), run automatic semantic evaluations as well as manually check for appropriate meaning (<a
           href="#fig:6"
           data-reference-type="autoref"
           data-reference="fig:6"
-          >Figure 5</a
+          >[fig:6]</a
         >), and check if dense or highly complex visuals have sonified, tactile, or textual summaries available (<a
           href="#fig:8"
           data-reference-type="autoref"
           data-reference="fig:8"
-          >Figure 7</a
+          >[fig:8]</a
         >). Auditors should also check whether system updates provide clear feedback textually (<a
           href="#fig:4"
           data-reference-type="autoref"
           data-reference="fig:4"
-          >Figure 3</a
+          >[fig:4]</a
         >) as well as checking if there are both high and low level representations of information available (<a
           href="#fig:7"
           data-reference-type="autoref"
           data-reference="fig:7"
-          >Figure 6</a
+          >[fig:7]</a
         >).
       </p>
       <figure>
         <img
           src="figures/figure 9.png"
-          id="fig:9"
+          id="Figure8"
           alt="A bar chart that has patterned textures combined with color changing into black and white (but still with textures)."
         />
         <figcaption>
@@ -1907,7 +2041,7 @@
       </figure>
       <p>
         Auditors should be especially critical of static designs, such as those that either use textures by default or
-        not (<a href="#fig:9" data-reference-type="autoref" data-reference="fig:9">Figure 8</a>), which are a high risk
+        not (<a href="#fig:9" data-reference-type="autoref" data-reference="fig:9">[fig:9]</a>), which are a high risk
         of compromising and assistive failure.
       </p>
       <h1 id="validating-chartability">Validating Chartability</h1>

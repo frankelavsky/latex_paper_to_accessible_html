@@ -178,11 +178,12 @@ exec(
             // clean up figures
             document.querySelectorAll('figure').forEach(figure => {
               const alt = altText.find(obj => obj.id === figure.querySelector('img').id);
+              figure.querySelector('img').id = alt.figureName.replace(' ', '');
               figure.querySelector('img').setAttribute('alt', alt.altText);
               figure.querySelector('figcaption').removeAttribute('aria-hidden');
               figure.querySelector('figcaption').textContent =
                 alt.figureName + ': ' + figure.querySelector('figcaption').textContent;
-              document.querySelectorAll(`*[href="#${alt.id}"]`).forEach(aTag => {
+              document.querySelectorAll(`*[href="#${alt.figureName.replace(' ', '')}"]`).forEach(aTag => {
                 aTag.textContent = alt.figureName;
               });
             });
@@ -290,45 +291,55 @@ exec(
             refs.innerHTML = '<h1 id="references">References</h1>' + bibliography.getElementById('refs').outerHTML;
             document.body.appendChild(refs);
 
+            // add table of contents
             let listingNumbers = false;
             let startListingAt = 'Introduction';
             let endListingAt = 'Acknowledgements';
             let h1Level = 0;
             let h2Level = 0;
+            let figuresCount = 0;
             let nav = '<header><nav><h1>Table of Contents</h1><ol>';
             let homeAdded = false;
-            document.querySelectorAll('h1').forEach(h1 => {
+            document.querySelectorAll('h1, h2, figure').forEach(element => {
               listingNumbers =
-                h1.textContent.indexOf(startListingAt) > -1
+                element.textContent.indexOf(startListingAt) > -1
                   ? true
-                  : h1.textContent.indexOf(endListingAt) > -1
+                  : element.textContent.indexOf(endListingAt) > -1
                   ? false
                   : listingNumbers;
-              h1Level += listingNumbers ? 1 : 0;
-              h2Level = 0;
-              nav += `<li>${listingNumbers ? h1Level + '. ' : ''}<a href="#${h1.id}">${
-                !homeAdded ? 'Home' : h1.textContent
-              }</a></li>`;
-              homeAdded = true;
-              const childrenH2 = h1.querySelectorAll('h2');
-              if (childrenH2.length) {
-                nav += '<ol>';
-                childrenH2.forEach(h2 => {
-                  h2Level++;
-                  nav += `<li>${h1Level}.${h2Level}. <a href="#${h2.id}">${h2.textContent}</a></li>`;
-                  const figures = h2.querySelectorAll('figure');
-                  if (figures.length) {
-                    nav += '<ol>';
-                    figures.forEach(fig => {
-                      const figTitle = fig
-                        .querySelector('figcaption')
-                        .textContent.substring(0, fig.querySelector('figcaption').textContent.indexOf(':'));
-                      nav += `<li>&#128202; <a href="#${fig.querySelector('img').id}">${figTitle}</a></li>`;
-                    });
-                    nav += '</ol>';
-                  }
-                });
-                nav += '</ol>';
+              if (element.tagName === 'H1') {
+                if (figuresCount) {
+                  nav += '</ol>';
+                  figuresCount = 0;
+                }
+                if (h2Level) {
+                  nav += '</details></ol>';
+                  h2Level = 0;
+                }
+                h1Level += listingNumbers ? 1 : 0;
+                nav += `<li>${listingNumbers ? h1Level + '. ' : ''}<a href="#${element.id}">${
+                  !homeAdded ? 'Home' : element.textContent
+                }</a></li>`;
+                homeAdded = true;
+              } else if (element.tagName === 'H2') {
+                if (!h2Level) {
+                  nav += '<ol><details><summary>(details)</summary>';
+                }
+                if (figuresCount) {
+                  nav += '</ol>';
+                  figuresCount = 0;
+                }
+                h2Level++;
+                nav += `<li>${h1Level}.${h2Level}. <a href="#${element.id}">${element.textContent}</a></li>`;
+              } else {
+                if (!figuresCount) {
+                  nav += '<ol>';
+                }
+                figuresCount++;
+                const figTitle = element
+                  .querySelector('figcaption')
+                  .textContent.substring(0, element.querySelector('figcaption').textContent.indexOf(':'));
+                nav += `<li>&#128202; <a href="#${element.querySelector('img').id}">${figTitle}</a></li>`;
               }
             });
             nav += '</ol></nav></header>';
