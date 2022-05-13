@@ -404,7 +404,10 @@
 
       :root {
         --text-color: #333;
+        --med-text-color: #454545;
+        --light-text-color: #767676;
         --brand-color: #1e3369;
+        --brand-light: #6780c0;
         --link-hover: #008463;
         --link-color: #174b3f;
       }
@@ -491,8 +494,40 @@
 
       summary {
         cursor: pointer;
+        list-style: none;
+        display: flex;
       }
-
+      summary::-webkit-details-marker {
+        display: none;
+      }
+      summary:after {
+        background: white;
+        border-radius: 50%;
+        content: '+';
+        outline: var(--text-color) solid 1px;
+        outline-offset: -0.1em;
+        color: var(--text-color);
+        vertical-align: middle;
+        padding: 0;
+        text-align: center;
+        width: 1.5em;
+        margin: auto 0.1em 0px auto;
+        flex-shrink: 0;
+      }
+      summary a {
+        padding-right: 0.3em;
+      }
+      details[open] summary:after {
+        content: '-';
+        font-weight: 600;
+      }
+      .nav-level-1 {
+        line-height: 1.5em;
+      }
+      summary:hover::after,
+      summary:focus::after {
+        outline: var(--text-color) solid 2px;
+      }
       #fn1 {
         list-style-type: '†';
       }
@@ -527,22 +562,31 @@
         header ol,
         header a,
         header details,
-        header summary,
-        header details:not([open]) summary {
-          color: #767676;
+        header summary {
+          color: var(--light-text-color);
           transition: all 50ms ease-in-out; /* 💡 This small transition makes setting of the active state smooth */
         }
         header a:hover,
         header a:focus,
-        header details:not([open]) summary:hover,
-        header details:not([open]) summary:focus {
-          color: #454545;
+        summary:hover,
+        summary:focus,
+        details[open] summary {
+          color: var(--med-text-color);
         }
-        header li.active {
-          border-right: 0.3em solid var(--link-underline);
+        nav > ol > li,
+        nav summary {
+          border-right: 0.25em solid transparent;
+        }
+        header .active {
+          border-right: 0.25em solid var(--brand-light);
         }
         header .active > a {
-          color: #333;
+          color: var(--text-color);
+          font-weight: 600;
+        }
+        header .active summary:after {
+          color: var(--text-color);
+          outline: var(--text-color) solid 50px;
           font-weight: 600;
         }
         body:after {
@@ -552,6 +596,8 @@
           clear: both;
           visibility: hidden;
         }
+        /* url("data:image/svg+xml;base64,CiAgICA8c3ZnCiAgICAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgICAgd2lkdGg9IjEwMDIuNjY3IgogICAgICBoZWlnaHQ9IjEwMDIuNjY3IgogICAgICB2aWV3Qm94PSIwIDAgNzUyIDc1MiIKICAgID4KICAgICAgPHBhdGgKICAgICAgICBmaWxsPSIjMWUzMzY5IgogICAgICAgIGQ9Im01MDEuNSAzNzYtMzUuMzcxLTIwLjQyMi0xNzkuOTYtMTA0LjE5LTM1LjY2OC0yMC43MTl2MjkwLjY2bDM1LjY2OC0yMC43MTkgMTc5Ljk2LTEwNC4xOSAzNS4zNjctMjAuNDIyem0tOTQuNDIyIDAtMTA5LjIyIDYzLjE5NXYtMTI2LjM5eiIKICAgICAgLz4KICAgIDwvc3ZnPg==") */
+        /* url("data:image/svg+xml;base64,PHN2ZwogICAgICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgICAgIHdpZHRoPSIxMDAyLjY2NyIKICAgICAgaGVpZ2h0PSIxMDAyLjY2NyIKICAgICAgdmlld0JveD0iMCAwIDc1MiA3NTIiCiAgICA+CiAgICAgIDxkZWZzPgogICAgICAgIDxjbGlwUGF0aCBpZD0iQSI+PHBhdGggZD0iTTE5NCAzMTJoMjkxdjI1M0gxOTR6IiAvPjwvY2xpcFBhdGg+CiAgICAgICAgPGNsaXBQYXRoIGlkPSJCIj48cGF0aCBkPSJtNDYyLjY3IDUyLjUzOSAyMzYuNzkgNDEwLjEzLTQxMC4xMyAyMzYuNzktMjM2Ljc5LTQxMC4xM3oiIC8+PC9jbGlwUGF0aD4KICAgICAgPC9kZWZzPgogICAgICA8ZyBjbGlwLXBhdGg9InVybCgjQSkiPgogICAgICAgIDxnIGNsaXAtcGF0aD0idXJsKCNCKSI+CiAgICAgICAgICA8cGF0aAogICAgICAgICAgICBmaWxsPSIjMWUzMzY5IgogICAgICAgICAgICBkPSJNNDg0LjY5IDMxMy4yNWgtNDAuODQ0bC0yMDcuOTUtLjI1LTQxLjI0Ni0uMTA5IDEyNC43NiAyMTYuMDkgMjAuNTcgMzUuNjI5IDIwLjUyNy0zNS43NzcgMTAzLjc2LTE4MC4yMSAyMC40MjItMzUuMzcxem0tODEuNzcgNDcuMjExbC02Mi45OTIgMTA5LjM0LTYzLjE5NS0xMDkuNDUgMTI2LjE4LjExM3oiCiAgICAgICAgICAvPgogICAgICAgIDwvZz4KICAgICAgPC9nPgogICAgPC9zdmc+") */
       }
     </style>
   </head>
@@ -560,14 +606,11 @@
       <nav>
         <h1>Table of Contents</h1>
         <ol>
-          <li><a href="#">Chartability</a></li>
-          <li>1. <a href="#introduction">Introduction</a></li>
-          <details>
+          <li class="nav-level-1"><a href="#">Chartability</a></li>
+          <li class="nav-level-1">1.&nbsp;<a href="#introduction">Introduction</a></li>
+          <details class="nav-level-1">
             <summary>
-              2.
-              <a href="#existing-work-in-data-visualization-and-accessibility"
-                >Existing Work in Data Visualization and Accessibility</a
-              >
+              2.&nbsp;<a href="#existing-work-in-data-visualization-and-accessibility">Existing Work</a>
             </summary>
             <ol>
               <li>
@@ -591,8 +634,8 @@
               </li>
             </ol>
           </details>
-          <details>
-            <summary>3. <a href="#making-chartability">Making Chartability</a></summary>
+          <details class="nav-level-1">
+            <summary>3.&nbsp;<a href="#making-chartability">Making Chartability</a></summary>
             <ol>
               <li>3.1. <a href="#previewing-chartability">Previewing Chartability’s 10 Critical Heuristics</a></li>
               <li>3.2. <a href="#compromising">Compromising</a></li>
@@ -600,8 +643,8 @@
               <li>3.4. <a href="#flexible">Flexible</a></li>
             </ol>
           </details>
-          <details>
-            <summary>4. <a href="#using-chartability">Using Chartability</a></summary>
+          <details class="nav-level-1">
+            <summary>4.&nbsp;<a href="#using-chartability">Using Chartability</a></summary>
             <ol>
               <li>4.1. <a href="#visual-testing-perceivable">Visual Testing (Perceivable)</a></li>
               <ol>
@@ -643,8 +686,8 @@
               </ol>
             </ol>
           </details>
-          <details>
-            <summary>5. <a href="#validating-chartability">Validating Chartability</a></summary>
+          <details class="nav-level-1">
+            <summary>5.&nbsp;<a href="#validating-chartability">Validating Chartability</a></summary>
             <ol>
               <li>
                 5.1.
@@ -656,8 +699,8 @@
               <li>5.3. <a href="#selecting-participants-and-projects">Selecting Participants and Projects</a></li>
             </ol>
           </details>
-          <details>
-            <summary>6. <a href="#study-results">Study Results</a></summary>
+          <details class="nav-level-1">
+            <summary>6.&nbsp;<a href="#study-results">Study Results</a></summary>
             <ol>
               <li>
                 6.1.
@@ -691,11 +734,11 @@
               <li>6.7. <a href="#what-about-auditors-with-disabilities">What about Auditors with Disabilities?</a></li>
             </ol>
           </details>
-          <li>7. <a href="#extended-results">Extended Results</a></li>
-          <li>8. <a href="#discussion">Discussion</a></li>
-          <li>9. <a href="#conclusion">Conclusion</a></li>
-          <li><a href="#acknowledgements">Acknowledgements</a></li>
-          <li><a href="#references">References</a></li>
+          <li class="nav-level-1">7.&nbsp;<a href="#extended-results">Extended Results</a></li>
+          <li class="nav-level-1">8.&nbsp;<a href="#discussion">Discussion</a></li>
+          <li class="nav-level-1">9.&nbsp;<a href="#conclusion">Conclusion</a></li>
+          <li class="nav-level-1"><a href="#acknowledgements">Acknowledgements</a></li>
+          <li class="nav-level-1"><a href="#references">References</a></li>
         </ol>
       </nav>
     </header>
@@ -5206,6 +5249,8 @@
                 ? li.parentElement
                 : li.parentElement.parentElement.tagName === 'DETAILS'
                 ? li.parentElement.parentElement
+                : li.parentElement.parentElement.parentElement.tagName === 'DETAILS'
+                ? li.parentElement.parentElement.parentElement
                 : null;
             const mod = entry.intersectionRatio > 0 ? 'add' : 'remove';
             li.classList[mod]('active');
