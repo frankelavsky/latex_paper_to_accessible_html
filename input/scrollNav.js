@@ -10,6 +10,8 @@ window.addEventListener('DOMContentLoaded', () => {
           ? li.parentElement
           : li.parentElement.parentElement.tagName === 'DETAILS'
           ? li.parentElement.parentElement
+          : li.parentElement.parentElement.parentElement.tagName === 'DETAILS'
+          ? li.parentElement.parentElement.parentElement
           : null;
       const mod = entry.intersectionRatio > 0 ? 'add' : 'remove';
       li.classList[mod]('active');
