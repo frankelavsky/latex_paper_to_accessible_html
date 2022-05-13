@@ -1,8 +1,8 @@
 :root {
   --text-color: #333;
   --brand-color: #1e3369;
-  --link-color: #175446;
-  --link-underline: #aadbcf;
+  --link-hover: #008463;
+  --link-color: #174b3f;
 }
 
 body {
@@ -40,31 +40,32 @@ header ol {
 }
 
 a {
+  text-decoration-skip-ink: auto;
+}
+
+nav a {
   text-decoration: none;
 }
 
-a:hover,
-a:focus {
+nav a:hover,
+nav a:focus {
   text-decoration: underline;
 }
 
-nav a:visited {
+a:visited {
   color: inherit;
 }
 
 .main-wrapper a {
   color: var(--link-color);
-  background-image: linear-gradient(transparent 88%, var(--link-underline) 12%);
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  background-position: top center;
+  text-decoration-color: var(--link-color);
 }
 
 .main-wrapper a:hover,
 .main-wrapper a:focus {
-  text-decoration: none;
-  background-image: linear-gradient(transparent 93%, var(--link-color) 7%);
-  transition: background-size 0.15s ease-in-out, background-image 0.15s ease-in-out;
+  color: var(--link-hover);
+  text-decoration-color: var(--link-hover);
+  transition: color 0.15s ease-in-out, text-decoration-color 0.15s ease-in-out;
 }
 
 .title,
@@ -78,6 +79,14 @@ th {
 
 tbody th {
   font-weight: 400;
+}
+
+.main-wrapper li p {
+  margin: 0;
+}
+
+summary {
+  cursor: pointer;
 }
 
 #fn1 {
@@ -114,12 +123,15 @@ tbody th {
   header ol,
   header a,
   header details,
-  header summary {
+  header summary,
+  header details:not([open]) summary {
     color: #767676;
     transition: all 50ms ease-in-out; /* 💡 This small transition makes setting of the active state smooth */
   }
   header a:hover,
-  header a:focus {
+  header a:focus,
+  header details:not([open]) summary:hover,
+  header details:not([open]) summary:focus {
     color: #454545;
   }
   header li.active {
@@ -128,6 +140,9 @@ tbody th {
   header li.active > a {
     color: #333;
     font-weight: 600;
+  }
+  details[open] summary {
+    color: #333;
   }
   body:after {
     content: '.';
