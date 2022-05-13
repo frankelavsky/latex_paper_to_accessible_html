@@ -117,7 +117,7 @@ summary {
     border-right: 1px solid #949494;
     position: sticky;
     align-self: start;
-    max-height: 80vh;
+    max-height: 85vh;
     overflow-y: auto;
   }
   header ol,
@@ -137,12 +137,9 @@ summary {
   header li.active {
     border-right: 0.3em solid var(--link-underline);
   }
-  header li.active > a {
+  header .active > a {
     color: #333;
     font-weight: 600;
-  }
-  details[open] summary {
-    color: #333;
   }
   body:after {
     content: '.';

@@ -104,3 +104,4 @@ Note that major overhaul items are **bolded**:
 44. make table accessible (add proper structure and semantics)
 45. made some styling changes based on feedback
 46. found that the references AX on voiceover won't announce their contents unless I put tabindex="-1" on them! This is probably because the id is on a div that has no immediate text nodes but two children divs with text nodes. Adding tabindex="-1" fixes this and likely has no AX downsides!
+47. improve structure of details in toc

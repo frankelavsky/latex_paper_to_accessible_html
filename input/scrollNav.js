@@ -3,7 +3,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       const id = entry.target.getAttribute('id');
-      const navLink = id ? `nav li a[href="#${id}"]` : `nav li a[href="#"]`;
+      const navLink = id ? `a[href="#${id}"]` : `nav li a[href="#"]`;
       const li = document.querySelector(navLink).parentElement;
       const detailsParent =
         li.parentElement.tagName === 'DETAILS'
@@ -16,7 +16,8 @@ window.addEventListener('DOMContentLoaded', () => {
       if (detailsParent) {
         detailsParent.open = detailsParent.querySelectorAll('.active').length > 0;
         if (entry.intersectionRatio > 0) {
-          detailsParent.parentNode.parentNode.parentNode.parentNode.scrollTop = detailsParent.offsetTop;
+          console.log(detailsParent);
+          detailsParent.parentNode.parentNode.parentNode.scrollTop = detailsParent.offsetTop;
         }
       }
     });

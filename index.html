@@ -521,7 +521,7 @@
           border-right: 1px solid #949494;
           position: sticky;
           align-self: start;
-          max-height: 80vh;
+          max-height: 85vh;
           overflow-y: auto;
         }
         header ol,
@@ -541,12 +541,9 @@
         header li.active {
           border-right: 0.3em solid var(--link-underline);
         }
-        header li.active > a {
+        header .active > a {
           color: #333;
           font-weight: 600;
-        }
-        details[open] summary {
-          color: #333;
         }
         body:after {
           content: '.';
@@ -565,15 +562,14 @@
         <ol>
           <li><a href="#">Chartability</a></li>
           <li>1. <a href="#introduction">Introduction</a></li>
-          <li>
-            2.
-            <a href="#existing-work-in-data-visualization-and-accessibility"
-              >Existing Work in Data Visualization and Accessibility</a
-            >
-          </li>
-          <ol>
-            <details>
-              <summary>(details)</summary>
+          <details>
+            <summary>
+              2.
+              <a href="#existing-work-in-data-visualization-and-accessibility"
+                >Existing Work in Data Visualization and Accessibility</a
+              >
+            </summary>
+            <ol>
               <li>
                 2.1.
                 <a href="#research-advancements-in-data-visualization-and-accessibility"
@@ -593,22 +589,20 @@
                   >Using Heuristics to Break Into Under-addressed Areas</a
                 >
               </li>
-            </details>
-          </ol>
-          <li>3. <a href="#making-chartability">Making Chartability</a></li>
-          <ol>
-            <details>
-              <summary>(details)</summary>
+            </ol>
+          </details>
+          <details>
+            <summary>3. <a href="#making-chartability">Making Chartability</a></summary>
+            <ol>
               <li>3.1. <a href="#previewing-chartability">Previewing Chartability’s 10 Critical Heuristics</a></li>
               <li>3.2. <a href="#compromising">Compromising</a></li>
               <li>3.3. <a href="#assistive">Assistive</a></li>
               <li>3.4. <a href="#flexible">Flexible</a></li>
-            </details>
-          </ol>
-          <li>4. <a href="#using-chartability">Using Chartability</a></li>
-          <ol>
-            <details>
-              <summary>(details)</summary>
+            </ol>
+          </details>
+          <details>
+            <summary>4. <a href="#using-chartability">Using Chartability</a></summary>
+            <ol>
               <li>4.1. <a href="#visual-testing-perceivable">Visual Testing (Perceivable)</a></li>
               <ol>
                 <li>📊 <a href="#Figure1">Figure 1</a></li>
@@ -647,12 +641,11 @@
               <ol>
                 <li>📊 <a href="#Figure8">Figure 8</a></li>
               </ol>
-            </details>
-          </ol>
-          <li>5. <a href="#validating-chartability">Validating Chartability</a></li>
-          <ol>
-            <details>
-              <summary>(details)</summary>
+            </ol>
+          </details>
+          <details>
+            <summary>5. <a href="#validating-chartability">Validating Chartability</a></summary>
+            <ol>
               <li>
                 5.1.
                 <a href="#pre-validations-and-flipped-roles-participants-question-me"
@@ -661,12 +654,11 @@
               </li>
               <li>5.2. <a href="#sec:critical heuristics">Discovering “Critical” Heuristics</a></li>
               <li>5.3. <a href="#selecting-participants-and-projects">Selecting Participants and Projects</a></li>
-            </details>
-          </ol>
-          <li>6. <a href="#study-results">Study Results</a></li>
-          <ol>
-            <details>
-              <summary>(details)</summary>
+            </ol>
+          </details>
+          <details>
+            <summary>6. <a href="#study-results">Study Results</a></summary>
+            <ol>
               <li>
                 6.1.
                 <a href="#real-access-has-more-considerations-than-colorblindness"
@@ -697,8 +689,8 @@
                 >
               </li>
               <li>6.7. <a href="#what-about-auditors-with-disabilities">What about Auditors with Disabilities?</a></li>
-            </details>
-          </ol>
+            </ol>
+          </details>
           <li>7. <a href="#extended-results">Extended Results</a></li>
           <li>8. <a href="#discussion">Discussion</a></li>
           <li>9. <a href="#conclusion">Conclusion</a></li>
@@ -5207,7 +5199,7 @@
         const observer = new IntersectionObserver(entries => {
           entries.forEach(entry => {
             const id = entry.target.getAttribute('id');
-            const navLink = id ? `nav li a[href="#${id}"]` : `nav li a[href="#"]`;
+            const navLink = id ? `a[href="#${id}"]` : `nav li a[href="#"]`;
             const li = document.querySelector(navLink).parentElement;
             const detailsParent =
               li.parentElement.tagName === 'DETAILS'
@@ -5220,7 +5212,8 @@
             if (detailsParent) {
               detailsParent.open = detailsParent.querySelectorAll('.active').length > 0;
               if (entry.intersectionRatio > 0) {
-                detailsParent.parentNode.parentNode.parentNode.parentNode.scrollTop = detailsParent.offsetTop;
+                console.log(detailsParent);
+                detailsParent.parentNode.parentNode.parentNode.scrollTop = detailsParent.offsetTop;
               }
             }
           });
