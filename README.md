@@ -14,6 +14,7 @@ An exploration of the process it takes to turn a latex file (from EuroVis 2022) 
 ### Additional input files
 
 For accessibility and various features:
+
 - Alt text data (`input/alt-text.json`)
 - Opinionated styling (`input/custom.css`)
 - Special table of contents javascript (`input/scrollNav.js`)
@@ -34,6 +35,7 @@ Not listed in my `package.json` is `pandoc`, which does a lot of heavy lifting f
 ### Rough method I use here:
 
 Note that major overhaul items are **bolded**:
+
 1. Loaded in css, js, and alt text json files
 2. **Bibliography**: Pre-processed bibliography file and sorted it. First I converted it to json via pandoc, then sorted it in javascript, and then finished processing using `citation.js`'s online demo app. Citation.js was nice but required me to set up an `idHash` const (since it changed my IDs from my original file). (Note this whole step isn't necessary if your bibliography is already sorted.)
 3. Created bibliography HTML via pandoc with `pandoc input/${bibliographyName}.bib --citeproc --csl input/${citationStyle}.csl -s -o post.html` and saved the file as a temporary `post.html`
@@ -100,3 +102,5 @@ Note that major overhaul items are **bolded**:
 42. add styling to table of contents while scrolling, fix various issues
 43. fix endnote, add semantics for all role=docnotes and backlinks
 44. make table accessible (add proper structure and semantics)
+45. made some styling changes based on feedback
+46. found that the references AX on voiceover won't announce their contents unless I put tabindex="-1" on them! This is probably because the id is on a div that has no immediate text nodes but two children divs with text nodes. Adding tabindex="-1" fixes this and likely has no AX downsides!

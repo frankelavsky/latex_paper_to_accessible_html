@@ -245,6 +245,7 @@ exec(
               const citationKeys = e.getAttribute('data-cites').split(' ');
               citationKeys.forEach(key => {
                 const bibTarget = bibliography.getElementById(`ref-${idHash[key]}`);
+                bibTarget.setAttribute('tabindex', '-1');
                 if (!citations[key]) {
                   const index = bibTarget.children[0].innerHTML;
                   citations[key] = {
