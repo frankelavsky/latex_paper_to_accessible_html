@@ -106,3 +106,5 @@ Note that major overhaul items are **bolded**:
 46. found that the references AX on voiceover won't announce their contents unless I put tabindex="-1" on them! This is probably because the id is on a div that has no immediate text nodes but two children divs with text nodes. Adding tabindex="-1" fixes this and likely has no AX downsides!
 47. improve structure of details in toc
 48. added easier-to-press details marker for mobile interaction
+49. fix some additional bugs/issues (of my own doing)
+50. add metadata info and links: skip-nav, pdf, website

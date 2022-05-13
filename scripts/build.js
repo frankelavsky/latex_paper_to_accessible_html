@@ -10,6 +10,7 @@ let rawCSS = fs.readFileSync('input/custom.css');
 let rawJS = fs.readFileSync('input/scrollNav.js');
 // this is loaded with a static filename to force people to add the files!
 let rawAlt = fs.readFileSync('input/alt-text.json');
+let head = fs.readFileSync('input/head.html');
 let altText = JSON.parse(rawAlt);
 
 const paperName = process.argv[2] || 'paper';
@@ -314,13 +315,38 @@ exec(
             // set doc language
             document.documentElement.setAttribute('lang', 'en-US');
 
+            // include head metadata
+            document.head.querySelector('title').remove();
+            document.head.innerHTML = document.head.innerHTML.replace(
+              document.head.querySelector('*[name="author"]').outerHTML,
+              head
+            );
+
             // wrap the contents in <main> (for accessibility/validation)
             var hOuter = document.querySelector('header').outerHTML;
             var hInner = document.querySelector('header').innerHTML;
-            document.body.innerHTML = `<div class="main-wrapper"><main>${document.body.innerHTML.replace(
+            document.body.innerHTML = `<div class="main-wrapper"><main id="main">${document.body.innerHTML.replace(
               hOuter,
               hInner
             )}</main></div>`;
+
+            // add skip link, pdf download, and link to my website at the top
+            const skip = document.createElement('a');
+            skip.textContent = 'Skip to main content';
+            skip.setAttribute('href', '#main');
+            skip.setAttribute('class', 'top-link');
+            const paper = document.createElement('a');
+            paper.textContent = 'Download the pdf';
+            paper.setAttribute('href', 'https://www.frank.computer/papers/2022-eurovis-chartability.pdf');
+            paper.setAttribute('class', 'top-link');
+            const website = document.createElement('a');
+            website.textContent = 'Go to frank.computer';
+            website.setAttribute('href', 'https://www.frank.computer');
+            website.setAttribute('class', 'top-link');
+            const navStart = document.createElement('div');
+            navStart.append(skip);
+            navStart.append(paper);
+            navStart.append(website);
 
             // combine our references and primary document
             const refs = document.createElement('footer');
@@ -334,7 +360,7 @@ exec(
             let h1Level = 0;
             let h2Level = 0;
             let figuresCount = 0;
-            let nav = '<header><nav><h1>Table of Contents</h1><ol>';
+            let nav = `<header>${navStart.innerHTML}<nav><h1>Table of Contents</h1><ol>`;
             let homeAdded = false;
             let replacements = [];
             const structureElements = document.querySelectorAll('h1, h2, figure');

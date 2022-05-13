@@ -141,6 +141,9 @@ summary:focus::after {
 header {
   max-width: 280px;
 }
+.top-link {
+  display: block;
+}
 
 @media screen and (min-width: 48em) {
   * {
