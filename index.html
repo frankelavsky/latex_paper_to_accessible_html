@@ -491,11 +491,22 @@
       .main-wrapper li p {
         margin: 0;
       }
-
+      nav > ol > li > a {
+        padding-right: 1.83em;
+      }
+      details {
+        position: relative;
+      }
+      details:not([open]) {
+        text-align: right;
+      }
       summary {
         cursor: pointer;
         list-style: none;
         display: flex;
+        position: absolute;
+        top: -1.5em;
+        right: 0em;
       }
       summary::-webkit-details-marker {
         display: none;
@@ -530,6 +541,9 @@
       }
       #fn1 {
         list-style-type: '†';
+      }
+      header {
+        max-width: 280px;
       }
 
       @media screen and (min-width: 48em) {
@@ -606,13 +620,12 @@
       <nav>
         <h1>Table of Contents</h1>
         <ol>
-          <li class="nav-level-1"><a href="#">Chartability</a></li>
-          <li class="nav-level-1">1.&nbsp;<a href="#introduction">Introduction</a></li>
-          <details class="nav-level-1">
-            <summary>
-              2.&nbsp;<a href="#existing-work-in-data-visualization-and-accessibility">Existing Work</a>
-            </summary>
-            <ol>
+          <li><a href="#">Chartability</a></li>
+          <li>1. <a href="#introduction">Introduction</a></li>
+          <li>2. <a href="#existing-work-in-data-visualization-and-accessibility">Existing Work</a></li>
+          <ol>
+            <details>
+              <summary aria-label="More sections"></summary>
               <li>
                 2.1.
                 <a href="#research-advancements-in-data-visualization-and-accessibility"
@@ -632,20 +645,22 @@
                   >Using Heuristics to Break Into Under-addressed Areas</a
                 >
               </li>
-            </ol>
-          </details>
-          <details class="nav-level-1">
-            <summary>3.&nbsp;<a href="#making-chartability">Making Chartability</a></summary>
-            <ol>
+            </details>
+          </ol>
+          <li>3. <a href="#making-chartability">Making Chartability</a></li>
+          <ol>
+            <details>
+              <summary aria-label="More sections"></summary>
               <li>3.1. <a href="#previewing-chartability">Previewing Chartability’s 10 Critical Heuristics</a></li>
               <li>3.2. <a href="#compromising">Compromising</a></li>
               <li>3.3. <a href="#assistive">Assistive</a></li>
               <li>3.4. <a href="#flexible">Flexible</a></li>
-            </ol>
-          </details>
-          <details class="nav-level-1">
-            <summary>4.&nbsp;<a href="#using-chartability">Using Chartability</a></summary>
-            <ol>
+            </details>
+          </ol>
+          <li>4. <a href="#using-chartability">Using Chartability</a></li>
+          <ol>
+            <details>
+              <summary aria-label="More sections"></summary>
               <li>4.1. <a href="#visual-testing-perceivable">Visual Testing (Perceivable)</a></li>
               <ol>
                 <li>📊 <a href="#Figure1">Figure 1</a></li>
@@ -684,11 +699,12 @@
               <ol>
                 <li>📊 <a href="#Figure8">Figure 8</a></li>
               </ol>
-            </ol>
-          </details>
-          <details class="nav-level-1">
-            <summary>5.&nbsp;<a href="#validating-chartability">Validating Chartability</a></summary>
-            <ol>
+            </details>
+          </ol>
+          <li>5. <a href="#validating-chartability">Validating Chartability</a></li>
+          <ol>
+            <details>
+              <summary aria-label="More sections"></summary>
               <li>
                 5.1.
                 <a href="#pre-validations-and-flipped-roles-participants-question-me"
@@ -697,11 +713,12 @@
               </li>
               <li>5.2. <a href="#sec:critical heuristics">Discovering “Critical” Heuristics</a></li>
               <li>5.3. <a href="#selecting-participants-and-projects">Selecting Participants and Projects</a></li>
-            </ol>
-          </details>
-          <details class="nav-level-1">
-            <summary>6.&nbsp;<a href="#study-results">Study Results</a></summary>
-            <ol>
+            </details>
+          </ol>
+          <li>6. <a href="#study-results">Study Results</a></li>
+          <ol>
+            <details>
+              <summary aria-label="More sections"></summary>
               <li>
                 6.1.
                 <a href="#real-access-has-more-considerations-than-colorblindness"
@@ -732,13 +749,13 @@
                 >
               </li>
               <li>6.7. <a href="#what-about-auditors-with-disabilities">What about Auditors with Disabilities?</a></li>
-            </ol>
-          </details>
-          <li class="nav-level-1">7.&nbsp;<a href="#extended-results">Extended Results</a></li>
-          <li class="nav-level-1">8.&nbsp;<a href="#discussion">Discussion</a></li>
-          <li class="nav-level-1">9.&nbsp;<a href="#conclusion">Conclusion</a></li>
-          <li class="nav-level-1"><a href="#acknowledgements">Acknowledgements</a></li>
-          <li class="nav-level-1"><a href="#references">References</a></li>
+            </details>
+          </ol>
+          <li>7. <a href="#extended-results">Extended Results</a></li>
+          <li>8. <a href="#discussion">Discussion</a></li>
+          <li>9. <a href="#conclusion">Conclusion</a></li>
+          <li><a href="#acknowledgements">Acknowledgements</a></li>
+          <li><a href="#references">References</a></li>
         </ol>
       </nav>
     </header>

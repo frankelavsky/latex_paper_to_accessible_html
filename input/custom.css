@@ -87,11 +87,22 @@ tbody th {
 .main-wrapper li p {
   margin: 0;
 }
-
+nav > ol > li > a {
+  padding-right: 1.83em;
+}
+details {
+  position: relative;
+}
+details:not([open]) {
+  text-align: right;
+}
 summary {
   cursor: pointer;
   list-style: none;
   display: flex;
+  position: absolute;
+  top: -1.5em;
+  right: 0em;
 }
 summary::-webkit-details-marker {
   display: none;
@@ -126,6 +137,9 @@ summary:focus::after {
 }
 #fn1 {
   list-style-type: '†';
+}
+header {
+  max-width: 280px;
 }
 
 @media screen and (min-width: 48em) {

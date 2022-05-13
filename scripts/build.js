@@ -337,7 +337,6 @@ exec(
             let nav = '<header><nav><h1>Table of Contents</h1><ol>';
             let homeAdded = false;
             let replacements = [];
-            let index = 0;
             const structureElements = document.querySelectorAll('h1, h2, figure');
             structureElements.forEach(element => {
               let section = '';
@@ -355,27 +354,18 @@ exec(
                   section += '</div>';
                 }
                 if (h2Level) {
-                  nav += '</ol></details>';
+                  nav += '</details></ol>';
                   h2Level = 0;
                   section += '</div>';
                 }
                 h1Level += listingNumbers ? 1 : 0;
-                console.log(element.textContent);
-                nav += `${
-                  structureElements[index + 1] && !(structureElements[index + 1].tagName === 'H1')
-                    ? '<details class="nav-level-1"><summary>'
-                    : '<li class="nav-level-1">'
-                }${listingNumbers ? h1Level + '.&nbsp;' : ''}<a href="#${id}">${
+                nav += `<li>${listingNumbers ? h1Level + '. ' : ''}<a href="#${id}">${
                   !homeAdded
                     ? 'Chartability'
                     : element.textContent.indexOf('Data Visualization and Accessibility') > -1
                     ? 'Existing Work'
                     : element.textContent
-                }</a>${
-                  structureElements[index + 1] && !(structureElements[index + 1].tagName === 'H1')
-                    ? '</summary>'
-                    : '</li>'
-                }`;
+                }</a></li>`;
 
                 // we moved the ID to a div class="section" instead, so it isn't needed on the element
                 section += `${homeAdded ? '</div>' : ''}<div class="section" id="${id}">`;
@@ -383,7 +373,7 @@ exec(
                 homeAdded = true;
               } else if (element.tagName === 'H2') {
                 if (!h2Level) {
-                  nav += '<ol>';
+                  nav += '<ol><details><summary aria-label="More sections"></summary>';
                 }
                 if (figuresCount) {
                   nav += '</ol>';
@@ -419,7 +409,6 @@ exec(
                 new: section
               };
               replacements.push(newReplacement);
-              index++;
             });
             nav += '</ol></nav></header>';
             let newBody = document.body.innerHTML;
