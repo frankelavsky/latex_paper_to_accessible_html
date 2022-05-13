@@ -18,7 +18,6 @@ window.addEventListener('DOMContentLoaded', () => {
       if (detailsParent) {
         detailsParent.open = detailsParent.querySelectorAll('.active').length > 0;
         if (entry.intersectionRatio > 0) {
-          console.log(detailsParent);
           detailsParent.parentNode.parentNode.parentNode.scrollTop = detailsParent.offsetTop;
         }
       }
