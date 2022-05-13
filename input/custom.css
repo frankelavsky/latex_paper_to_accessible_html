@@ -118,6 +118,7 @@ summary:after {
   padding: 0;
   text-align: center;
   width: 1.5em;
+  height: 1.5em;
   margin: auto 0.1em 0px auto;
   flex-shrink: 0;
 }
