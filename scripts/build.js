@@ -360,12 +360,17 @@ exec(
                   section += '</div>';
                 }
                 h1Level += listingNumbers ? 1 : 0;
+                console.log(element.textContent);
                 nav += `${
                   structureElements[index + 1] && !(structureElements[index + 1].tagName === 'H1')
-                    ? '<details><summary>'
-                    : '<li>'
-                }${listingNumbers ? h1Level + '. ' : ''}<a href="#${id}">${
-                  !homeAdded ? 'Chartability' : element.textContent
+                    ? '<details class="nav-level-1"><summary>'
+                    : '<li class="nav-level-1">'
+                }${listingNumbers ? h1Level + '.&nbsp;' : ''}<a href="#${id}">${
+                  !homeAdded
+                    ? 'Chartability'
+                    : element.textContent.indexOf('Data Visualization and Accessibility') > -1
+                    ? 'Existing Work'
+                    : element.textContent
                 }</a>${
                   structureElements[index + 1] && !(structureElements[index + 1].tagName === 'H1')
                     ? '</summary>'
