@@ -354,7 +354,7 @@ exec(
                   section += '</div>';
                 }
                 if (h2Level) {
-                  nav += '</details></ol>';
+                  nav += '</ol></details>';
                   h2Level = 0;
                   section += '</div>';
                 }
@@ -373,7 +373,7 @@ exec(
                 homeAdded = true;
               } else if (element.tagName === 'H2') {
                 if (!h2Level) {
-                  nav += '<ol><details><summary aria-label="More sections"></summary>';
+                  nav += '<details><summary aria-label="More sections"></summary><ol>';
                 }
                 if (figuresCount) {
                   nav += '</ol>';
