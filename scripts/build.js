@@ -208,10 +208,12 @@ exec(
               .replaceAll('</td', '</th');
 
             // select all first-cell children, change to th and give scope=row
+            let rowCount = 1;
             table.querySelectorAll('td:first-child').forEach(firstCell => {
               firstCell.outerHTML = firstCell.outerHTML
-                .replace('<td', '<th scope="row" headers="t-h1"')
+                .replace('<td', `<th scope="row" headers="t-h1" id="t-hr${rowCount}"`)
                 .replace('</td', '</th');
+              rowCount++;
             });
 
             // create a thead element, append children rows, insert before tbody
@@ -220,10 +222,16 @@ exec(
             table.querySelector('table').insertBefore(thead, table.querySelector('tbody'));
 
             hCount = 1;
+            rowCount = 1;
             table.querySelectorAll('tbody td').forEach(td => {
-              hCount = hCount === 5 ? 2 : hCount + 1;
+              if (hCount === 5) {
+                hCount = 2;
+                rowCount++;
+              } else {
+                hCount++;
+              }
               const addition = hCount < 4 ? '' : 'coding-categories ';
-              td.setAttribute('headers', `${addition}t-h${hCount}`);
+              td.setAttribute('headers', `${addition}t-h${hCount} t-hr${rowCount}`);
             });
 
             // clean up table caption semantics
