@@ -194,21 +194,37 @@ exec(
               .replaceAll('<td style="text-align: left;"></td>', '')
               .replace(
                 '<td colspan="2" style="text-align: left;">Coding Categories</td>',
-                '<td colspan="3" style="text-align: left;"></td><th colspan="2" scope="colgroup" style="text-align: left;">Coding Categories</td>'
+                '<td colspan="3" style="text-align: left;"></td><th colspan="2" scope="colgroup" style="text-align: left;" id="coding-categories">Coding Categories</td>'
               );
 
             // for even: change all to th, add scope=col
-            secondRow = secondRow.replaceAll('<td', '<th scope="col"').replaceAll('</td', '</th');
+            let hCount = 0;
+            secondRow = secondRow
+              .replaceAll('<td', s => {
+                hCount++;
+                const addition = hCount < 4 ? '' : 'headers="coding-categories" ';
+                return `<th scope="col" ${addition}id="t-h${hCount}"`;
+              })
+              .replaceAll('</td', '</th');
 
             // select all first-cell children, change to th and give scope=row
             table.querySelectorAll('td:first-child').forEach(firstCell => {
-              firstCell.outerHTML = firstCell.outerHTML.replace('<td', '<th scope="row"').replace('</td', '</th');
+              firstCell.outerHTML = firstCell.outerHTML
+                .replace('<td', '<th scope="row" headers="t-h1"')
+                .replace('</td', '</th');
             });
 
             // create a thead element, append children rows, insert before tbody
             const thead = document.createElement('thead');
             thead.innerHTML = firstRow + secondRow;
             table.querySelector('table').insertBefore(thead, table.querySelector('tbody'));
+
+            hCount = 1;
+            table.querySelectorAll('tbody td').forEach(td => {
+              hCount = hCount === 5 ? 2 : hCount + 1;
+              const addition = hCount < 4 ? '' : 'coding-categories ';
+              td.setAttribute('headers', `${addition}t-h${hCount}`);
+            });
 
             // clean up table caption semantics
             const replacement = 'Previewing Chartability’s 10 Critical Heuristics';
@@ -314,6 +330,7 @@ exec(
 
             // set doc language
             document.documentElement.setAttribute('lang', 'en-US');
+            document.documentElement.setAttribute('xml:lang', 'en-US');
 
             // include head metadata
             document.head.querySelector('title').remove();
