@@ -405,18 +405,18 @@ exec(
                   section += '</div>';
                 }
                 if (h2Level) {
-                  nav += '</ol></details>';
+                  nav += '</li></ol></details></li>';
                   h2Level = 0;
                   section += '</div>';
                 }
                 h1Level += listingNumbers ? 1 : 0;
-                nav += `<li>${listingNumbers ? h1Level + '. ' : ''}<a href="#${id}">${
+                nav += `${!homeAdded ? '' : `</li>`}<li>${listingNumbers ? h1Level + '. ' : ''}<a href="#${id}">${
                   !homeAdded
                     ? 'Chartability'
                     : element.textContent.indexOf('Data Visualization and Accessibility') > -1
                     ? 'Existing Work'
                     : element.textContent
-                }</a></li>`;
+                }</a>`;
 
                 // we moved the ID to a div class="section" instead, so it isn't needed on the element
                 section += `${homeAdded ? '</div>' : ''}<div class="section" id="${id}">`;
@@ -425,6 +425,8 @@ exec(
               } else if (element.tagName === 'H2') {
                 if (!h2Level) {
                   nav += '<details><summary aria-label="More sections"></summary><ol>';
+                } else {
+                  nav += '</li>';
                 }
                 if (figuresCount) {
                   nav += '</ol>';
@@ -436,7 +438,7 @@ exec(
                 element.removeAttribute('id');
 
                 h2Level++;
-                nav += `<li>${h1Level}.${h2Level}. <a href="#${id}">${element.textContent}</a></li>`;
+                nav += `<li>${h1Level}.${h2Level}. <a href="#${id}">${element.textContent}</a>`;
               } else {
                 if (!figuresCount) {
                   nav += '<ol>';
@@ -461,7 +463,7 @@ exec(
               };
               replacements.push(newReplacement);
             });
-            nav += '</ol></nav></header>';
+            nav += '</li></ol></nav></header>';
             let newBody = document.body.innerHTML;
             replacements.forEach(replacement => {
               if (replacement.old.indexOf('10 Critical') > -1) {

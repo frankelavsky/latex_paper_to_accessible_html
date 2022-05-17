@@ -6,12 +6,10 @@ window.addEventListener('DOMContentLoaded', () => {
       const navLink = id ? `a[href="#${id}"]` : `nav li a[href="#"]`;
       const li = document.querySelector(navLink).parentElement;
       const detailsParent =
-        li.parentElement.tagName === 'DETAILS'
-          ? li.parentElement
-          : li.parentElement.parentElement.tagName === 'DETAILS'
+        li.parentElement.parentElement.tagName === 'DETAILS'
           ? li.parentElement.parentElement
-          : li.parentElement.parentElement.parentElement.tagName === 'DETAILS'
-          ? li.parentElement.parentElement.parentElement
+          : li.parentElement.parentElement.parentElement.parentElement.tagName === 'DETAILS'
+          ? li.parentElement.parentElement.parentElement.parentElement
           : null;
       const mod = entry.intersectionRatio > 0 ? 'add' : 'remove';
       li.classList[mod]('active');

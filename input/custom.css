@@ -92,7 +92,7 @@ tbody th {
   margin: 0;
 }
 nav > ol > li > a {
-  padding-right: 1.83em;
+  padding-right: 2em;
 }
 details {
   position: relative;
@@ -191,12 +191,23 @@ header {
   details[open] summary {
     color: var(--med-text-color);
   }
-  nav > ol > li,
-  nav summary {
+  header li li:not(.active),
+  header li:not(.active) summary {
     border-right: 0.25em solid transparent;
   }
-  header .active {
+  header li li.active,
+  header li.active summary {
     border-right: 0.25em solid var(--brand-light);
+  }
+  header li li li:not(.active) {
+    border-right: 0.25em solid white;
+  }
+  li li ol {
+    position: relative;
+  }
+  li li li {
+    position: relative;
+    right: -0.25em;
   }
   header .active > a {
     color: var(--text-color);

@@ -519,7 +519,7 @@
         margin: 0;
       }
       nav > ol > li > a {
-        padding-right: 1.83em;
+        padding-right: 2em;
       }
       details {
         position: relative;
@@ -618,12 +618,23 @@
         details[open] summary {
           color: var(--med-text-color);
         }
-        nav > ol > li,
-        nav summary {
+        header li li:not(.active),
+        header li:not(.active) summary {
           border-right: 0.25em solid transparent;
         }
-        header .active {
+        header li li.active,
+        header li.active summary {
           border-right: 0.25em solid var(--brand-light);
+        }
+        header li li li:not(.active) {
+          border-right: 0.25em solid white;
+        }
+        li li ol {
+          position: relative;
+        }
+        li li li {
+          position: relative;
+          right: -0.25em;
         }
         header .active > a {
           color: var(--text-color);
@@ -651,135 +662,153 @@
         <ol>
           <li><a href="#">Chartability</a></li>
           <li>1. <a href="#introduction">Introduction</a></li>
-          <li>2. <a href="#existing-work-in-data-visualization-and-accessibility">Existing Work</a></li>
-          <details>
-            <summary aria-label="More sections"></summary>
-            <ol>
-              <li>
-                2.1.
-                <a href="#research-advancements-in-data-visualization-and-accessibility"
-                  >Research Advancements in Data Visualization and Accessibility</a
-                >
-              </li>
-              <li>
-                2.2.
-                <a href="#accessibility-practices-in-data-visualization-tools-and-libraries"
-                  >Accessibility Practices in Data Visualization Tools and Libraries</a
-                >
-              </li>
-              <li>2.3. <a href="#accessibility-in-practice-broadly">Accessibility in Practice, Broadly</a></li>
-              <li>
-                2.4.
-                <a href="#using-heuristics-to-break-into-under-addressed-areas"
-                  >Using Heuristics to Break Into Under-addressed Areas</a
-                >
-              </li>
-            </ol>
-          </details>
-          <li>3. <a href="#making-chartability">Making Chartability</a></li>
-          <details>
-            <summary aria-label="More sections"></summary>
-            <ol>
-              <li>3.1. <a href="#previewing-chartability">Previewing Chartability’s 10 Critical Heuristics</a></li>
-              <li>3.2. <a href="#compromising">Compromising</a></li>
-              <li>3.3. <a href="#assistive">Assistive</a></li>
-              <li>3.4. <a href="#flexible">Flexible</a></li>
-            </ol>
-          </details>
-          <li>4. <a href="#using-chartability">Using Chartability</a></li>
-          <details>
-            <summary aria-label="More sections"></summary>
-            <ol>
-              <li>4.1. <a href="#visual-testing-perceivable">Visual Testing (Perceivable)</a></li>
+          <li>
+            2. <a href="#existing-work-in-data-visualization-and-accessibility">Existing Work</a>
+            <details>
+              <summary aria-label="More sections"></summary>
               <ol>
-                <li>📊 <a href="#Figure1">Figure 1</a></li>
-                <li>📊 <a href="#Figure2">Figure 2</a></li>
+                <li>
+                  2.1.
+                  <a href="#research-advancements-in-data-visualization-and-accessibility"
+                    >Research Advancements in Data Visualization and Accessibility</a
+                  >
+                </li>
+                <li>
+                  2.2.
+                  <a href="#accessibility-practices-in-data-visualization-tools-and-libraries"
+                    >Accessibility Practices in Data Visualization Tools and Libraries</a
+                  >
+                </li>
+                <li>2.3. <a href="#accessibility-in-practice-broadly">Accessibility in Practice, Broadly</a></li>
+                <li>
+                  2.4.
+                  <a href="#using-heuristics-to-break-into-under-addressed-areas"
+                    >Using Heuristics to Break Into Under-addressed Areas</a
+                  >
+                </li>
               </ol>
-              <li>4.2. <a href="#keyboard-probing-operable-assistive">Keyboard Probing (Operable, Assistive)</a></li>
+            </details>
+          </li>
+          <li>
+            3. <a href="#making-chartability">Making Chartability</a>
+            <details>
+              <summary aria-label="More sections"></summary>
               <ol>
-                <li>📊 <a href="#Figure3">Figure 3</a></li>
+                <li>3.1. <a href="#previewing-chartability">Previewing Chartability’s 10 Critical Heuristics</a></li>
+                <li>3.2. <a href="#compromising">Compromising</a></li>
+                <li>3.3. <a href="#assistive">Assistive</a></li>
+                <li>3.4. <a href="#flexible">Flexible</a></li>
               </ol>
-              <li>
-                4.3.
-                <a href="#screen-reader-inspecting-perceivable-operable-robust-assistive"
-                  >Screen Reader Inspecting (Perceivable, Operable, Robust, Assistive)
-                </a>
-              </li>
+            </details>
+          </li>
+          <li>
+            4. <a href="#using-chartability">Using Chartability</a>
+            <details>
+              <summary aria-label="More sections"></summary>
               <ol>
-                <li>📊 <a href="#Figure4">Figure 4</a></li>
-                <li>📊 <a href="#Figure5">Figure 5</a></li>
-                <li>📊 <a href="#Figure6">Figure 6</a></li>
+                <li>
+                  4.1. <a href="#visual-testing-perceivable">Visual Testing (Perceivable)</a>
+                  <ol>
+                    <li>📊 <a href="#Figure1">Figure 1</a></li>
+                    <li>📊 <a href="#Figure2">Figure 2</a></li>
+                  </ol>
+                </li>
+                <li>
+                  4.2. <a href="#keyboard-probing-operable-assistive">Keyboard Probing (Operable, Assistive)</a>
+                  <ol>
+                    <li>📊 <a href="#Figure3">Figure 3</a></li>
+                  </ol>
+                </li>
+                <li>
+                  4.3.
+                  <a href="#screen-reader-inspecting-perceivable-operable-robust-assistive"
+                    >Screen Reader Inspecting (Perceivable, Operable, Robust, Assistive)
+                  </a>
+                  <ol>
+                    <li>📊 <a href="#Figure4">Figure 4</a></li>
+                    <li>📊 <a href="#Figure5">Figure 5</a></li>
+                    <li>📊 <a href="#Figure6">Figure 6</a></li>
+                  </ol>
+                </li>
+                <li>
+                  4.4.
+                  <a href="#checking-cognitive-barriers-understandable-compromising"
+                    >Checking Cognitive Barriers (Understandable, Compromising)</a
+                  >
+                  <ol>
+                    <li>📊 <a href="#Figure7">Figure 7</a></li>
+                  </ol>
+                </li>
+                <li>
+                  4.5.
+                  <a href="#evaluating-context-robust-assistive-flexible"
+                    >Evaluating Context (Robust, Assistive, Flexible)
+                  </a>
+                  <ol>
+                    <li>📊 <a href="#Figure8">Figure 8</a></li>
+                  </ol>
+                </li>
               </ol>
-              <li>
-                4.4.
-                <a href="#checking-cognitive-barriers-understandable-compromising"
-                  >Checking Cognitive Barriers (Understandable, Compromising)</a
-                >
-              </li>
+            </details>
+          </li>
+          <li>
+            5. <a href="#validating-chartability">Validating Chartability</a>
+            <details>
+              <summary aria-label="More sections"></summary>
               <ol>
-                <li>📊 <a href="#Figure7">Figure 7</a></li>
+                <li>
+                  5.1.
+                  <a href="#pre-validations-and-flipped-roles-participants-question-me"
+                    >Pre-Validations and Flipped Roles: Participants Question Me</a
+                  >
+                </li>
+                <li>5.2. <a href="#sec:critical heuristics">Discovering “Critical” Heuristics</a></li>
+                <li>5.3. <a href="#selecting-participants-and-projects">Selecting Participants and Projects</a></li>
               </ol>
-              <li>
-                4.5.
-                <a href="#evaluating-context-robust-assistive-flexible"
-                  >Evaluating Context (Robust, Assistive, Flexible)
-                </a>
-              </li>
+            </details>
+          </li>
+          <li>
+            6. <a href="#study-results">Study Results</a>
+            <details>
+              <summary aria-label="More sections"></summary>
               <ol>
-                <li>📊 <a href="#Figure8">Figure 8</a></li>
+                <li>
+                  6.1.
+                  <a href="#real-access-has-more-considerations-than-colorblindness"
+                    >Real Access has more Considerations than Colorblindness</a
+                  >
+                </li>
+                <li>6.2. <a href="#audits-are-slow-but-help-me-focus">Audits are Slow, but Help me Focus</a></li>
+                <li>
+                  6.3.
+                  <a href="#chartability-helps-me-remember-and-stay-consistent"
+                    >Chartability Helps me Remember and Stay Consistent</a
+                  >
+                </li>
+                <li>
+                  6.4.
+                  <a href="#access-is-an-experience-not-just-compliance"
+                    >Access is an Experience, not just Compliance</a
+                  >
+                </li>
+                <li>
+                  6.5.
+                  <a href="#everyone-wants-more-evaluation-resources-and-tools"
+                    >Everyone wants More Evaluation Resources and Tools</a
+                  >
+                </li>
+                <li>
+                  6.6.
+                  <a href="#experts-novices-will-struggle.-novices-this-was-so-helpful"
+                    >Experts: “Novices will Struggle.” Novices: “This was so helpful”</a
+                  >
+                </li>
+                <li>
+                  6.7. <a href="#what-about-auditors-with-disabilities">What about Auditors with Disabilities?</a>
+                </li>
               </ol>
-            </ol>
-          </details>
-          <li>5. <a href="#validating-chartability">Validating Chartability</a></li>
-          <details>
-            <summary aria-label="More sections"></summary>
-            <ol>
-              <li>
-                5.1.
-                <a href="#pre-validations-and-flipped-roles-participants-question-me"
-                  >Pre-Validations and Flipped Roles: Participants Question Me</a
-                >
-              </li>
-              <li>5.2. <a href="#sec:critical heuristics">Discovering “Critical” Heuristics</a></li>
-              <li>5.3. <a href="#selecting-participants-and-projects">Selecting Participants and Projects</a></li>
-            </ol>
-          </details>
-          <li>6. <a href="#study-results">Study Results</a></li>
-          <details>
-            <summary aria-label="More sections"></summary>
-            <ol>
-              <li>
-                6.1.
-                <a href="#real-access-has-more-considerations-than-colorblindness"
-                  >Real Access has more Considerations than Colorblindness</a
-                >
-              </li>
-              <li>6.2. <a href="#audits-are-slow-but-help-me-focus">Audits are Slow, but Help me Focus</a></li>
-              <li>
-                6.3.
-                <a href="#chartability-helps-me-remember-and-stay-consistent"
-                  >Chartability Helps me Remember and Stay Consistent</a
-                >
-              </li>
-              <li>
-                6.4.
-                <a href="#access-is-an-experience-not-just-compliance">Access is an Experience, not just Compliance</a>
-              </li>
-              <li>
-                6.5.
-                <a href="#everyone-wants-more-evaluation-resources-and-tools"
-                  >Everyone wants More Evaluation Resources and Tools</a
-                >
-              </li>
-              <li>
-                6.6.
-                <a href="#experts-novices-will-struggle.-novices-this-was-so-helpful"
-                  >Experts: “Novices will Struggle.” Novices: “This was so helpful”</a
-                >
-              </li>
-              <li>6.7. <a href="#what-about-auditors-with-disabilities">What about Auditors with Disabilities?</a></li>
-            </ol>
-          </details>
+            </details>
+          </li>
           <li>7. <a href="#extended-results">Extended Results</a></li>
           <li>8. <a href="#discussion">Discussion</a></li>
           <li>9. <a href="#conclusion">Conclusion</a></li>
@@ -5305,12 +5334,10 @@
             const navLink = id ? `a[href="#${id}"]` : `nav li a[href="#"]`;
             const li = document.querySelector(navLink).parentElement;
             const detailsParent =
-              li.parentElement.tagName === 'DETAILS'
-                ? li.parentElement
-                : li.parentElement.parentElement.tagName === 'DETAILS'
+              li.parentElement.parentElement.tagName === 'DETAILS'
                 ? li.parentElement.parentElement
-                : li.parentElement.parentElement.parentElement.tagName === 'DETAILS'
-                ? li.parentElement.parentElement.parentElement
+                : li.parentElement.parentElement.parentElement.parentElement.tagName === 'DETAILS'
+                ? li.parentElement.parentElement.parentElement.parentElement
                 : null;
             const mod = entry.intersectionRatio > 0 ? 'add' : 'remove';
             li.classList[mod]('active');
