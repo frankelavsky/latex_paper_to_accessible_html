@@ -8,6 +8,10 @@
   --link-color: #174b3f;
 }
 
+html {
+  background-color: white;
+}
+
 body {
   max-width: 60em;
 }
