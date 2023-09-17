@@ -165,7 +165,15 @@ header {
     margin: 0em 0em 0em 2em;
   }
   div.abstract {
-    margin: 1em;
+    margin: 2em 2em 2em 2em;
+    text-align: left;
+    font-size: 85%;
+  }
+  div.abstract-title {
+    font-weight: bold;
+    text-align: center;
+    padding: 0;
+    margin-bottom: 0.5em;
   }
   header {
     top: 1.4em;

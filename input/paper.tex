@@ -1,72 +1,64 @@
-% ---------------------------------------------------------------------------
-% Author guideline and sample document for EG publication using LaTeX2e input
-% D.Fellner, v1.15, Dec 14, 2018
+\documentclass[journal]{vgtc}                % final (journal style)
+% \documentclass[review,journal]{vgtc}         % review (journal style)
+%\documentclass[widereview]{vgtc}             % wide-spaced review
+%\documentclass[preprint,journal]{vgtc}       % preprint (journal style)
 
-\documentclass{egpubl}
-\usepackage{eurovis2022}
+%% Uncomment one of the lines above depending on where your paper is
+%% in the conference process. ``review'' and ``widereview'' are for review
+%% submission, ``preprint'' is for pre-publication, and the final version
+%% doesn't use a specific qualifier.
 
-% --- for  Annual CONFERENCE
-% \ConferenceSubmission   % uncomment for Conference submission
-% \ConferencePaper        % uncomment for (final) Conference Paper
-% \STAR                   % uncomment for STAR contribution
-% \Tutorial               % uncomment for Tutorial contribution
-% \ShortPresentation      % uncomment for (final) Short Conference Presentation
-% \Areas                  % uncomment for Areas contribution
-% \MedicalPrize           % uncomment for Medical Prize contribution
-% \Education              % uncomment for Education contribution
-% \Poster                 % uncomment for Poster contribution
-% \DC                     % uncomment for Doctoral Consortium
-%
-% --- for  CGF Journal
-% \JournalSubmission    % uncomment for submission to Computer Graphics Forum
-% \JournalPaper         % uncomment for final version of Journal Paper
-%
-% --- for  CGF Journal: special issue
-% \SpecialIssueSubmission    % uncomment for submission to , special issue
-\SpecialIssuePaper         % uncomment for final version of Computer Graphics Forum, special issue
-%                          % EuroVis, SGP, Rendering, PG
-% --- for  EG Workshop Proceedings
-% \WsSubmission      % uncomment for submission to EG Workshop
-% \WsPaper           % uncomment for final version of EG Workshop contribution
-% \WsSubmissionJoint % for joint events, for example ICAT-EGVE
-% \WsPaperJoint      % for joint events, for example ICAT-EGVE
-% \Expressive        % for SBIM, CAe, NPAR
-% \DigitalHeritagePaper
-% \PaperL2P          % for events EG only asks for License to Publish
+%% Please use one of the ``review'' options in combination with the
+%% assigned online id (see below) ONLY if your paper uses a double blind
+%% review process. Some conferences, like IEEE Vis and InfoVis, have NOT
+%% in the past.
 
-% --- for EuroVis 
-% for full papers use \SpecialIssuePaper
-% \STAREurovis   % for EuroVis additional material 
-% \EuroVisPoster % for EuroVis additional material 
-% \EuroVisShort  % for EuroVis additional material
+%% Please use the ``preprint''  option when producing a preprint version
+%% for sharing your article on an open access repository
 
-% !! *please* don't change anything above
-% !! unless you REALLY know what you are doing
-% ------------------------------------------------------------------------
-\usepackage[T1]{fontenc}
-\usepackage{dfadobe}  
+%% Please note that the use of figures other than the optional teaser is not permitted on the first page
+%% of the journal version.  Figures should begin on the second page and be
+%% in CMYK or Grey scale format, otherwise, colour shifting may occur
+%% during the printing process.  Papers submitted with figures other than the optional teaser on the
+%% first page will be refused. Also, the teaser figure should only have the
+%% width of the abstract as the template enforces it.
 
-\usepackage{cite}  % comment out for biblatex with backend=biber
-% \usepackage{tabu}
-% ---------------------------
-%\biberVersion
-\BibtexOrBiblatex
-%\usepackage[backend=biber,bibstyle=EG,citestyle=alphabetic,backref=true]{biblatex} 
-%\addbibresource{chartability.bib}
-% ---------------------------  
-\electronicVersion
-\PrintedOrElectronic
-% for including postscript figures
-% mind: package option 'draft' will replace PS figure by a filename within a frame
-\ifpdf \usepackage[pdftex]{graphicx} \pdfcompresslevel=9
-\else \usepackage[dvips]{graphicx} \fi
+%% These few lines make a distinction between latex and pdflatex calls and they
+%% bring in essential packages for graphics and font handling.
+%% Note that due to the \DeclareGraphicsExtensions{} call it is no longer necessary
+%% to provide the path and extension of a graphics file:
+%% \includegraphics{diamondrule} is completely sufficient.
+%%
+\ifpdf%                                % if we use pdflatex
+  \pdfoutput=1\relax                   % create PDFs from pdfLaTeX
+  \pdfcompresslevel=9                  % PDF Compression
+  \pdfoptionpdfminorversion=7          % create PDF 1.7
+  \ExecuteOptions{pdftex}
+  \usepackage{graphicx}                % allow us to embed graphics files
+  \DeclareGraphicsExtensions{.pdf,.png,.jpg,.jpeg} % for pdflatex we expect .pdf, .png, or .jpg files
+\else%                                 % else we use pure latex
+  \ExecuteOptions{dvips}
+  \usepackage{graphicx}                % allow us to embed graphics files
+  \DeclareGraphicsExtensions{.eps}     % for pure latex we expect eps files
+\fi%
 
-\usepackage{egweblnk}
-% \usepackage{url}
-\def\UrlBreaks{\do\/\do-}
-% \usepackage{breakurl}
-% \usepackage[breaklinks]{hyperref}
-\usepackage{booktabs}
+%% it is recomended to use ``\autoref{sec:bla}'' instead of ``Fig.~\ref{sec:bla}''
+\graphicspath{{figures/}{pictures/}{images/}{./}} % where to search for the images
+
+\usepackage{microtype}                 % use micro-typography (slightly more compact, better to read)
+\PassOptionsToPackage{warn}{textcomp}  % to address font issues with \textrightarrow
+\usepackage{textcomp}                  % use better special symbols
+\usepackage{mathptmx}                  % use matching math font
+\usepackage{times}                     % we use Times as the main font
+\renewcommand*\ttdefault{txtt}         % a nicer typewriter font
+\usepackage{cite}                      % needed to automatically sort the references
+\usepackage{tabu}                      % only used for the table example
+\usepackage{booktabs}                  % only used for the table example
+\usepackage{listings}
+\usepackage[skip=3pt]{caption}
+%% We encourage the use of mathptmx for consistent usage of times font
+%% throughout the proceedings. However, if you encounter conflicts
+%% with other math-related packages, you may want to disable it.
 
 \usepackage{xspace,xpunctuate}
 \newcommand{\ie}{{i.e.,}\xspace}
@@ -74,454 +66,632 @@
 \newcommand{\ea}{{et~al\xperiod}\xspace}
 \newcommand{\aka}{{a.k.a.}\xspace}
 \newcommand{\etc}{{etc\xperiod}\xspace}
-% \setlength\extrarowheight{0.16cm}
-% \renewcommand{\arraystretch}{15}
 
-% end of prologue
+%% In preprint mode you may define your own headline. If not, the default IEEE copyright message will appear in preprint mode.
+%\preprinttext{To appear in IEEE Transactions on Visualization and Computer Graphics.}
 
-% \input{EGauthorGuidelines-body.inc}
+%% In preprint mode, this adds a link to the version of the paper on IEEEXplore
+%% Uncomment this line when you produce a preprint version of the article 
+%% after the article receives a DOI for the paper from IEEE
+%\ieeedoi{xx.xxxx/TVCG.201x.xxxxxxx}
 
+%% If you are submitting a paper to a conference for review with a double
+%% blind reviewing process, please replace the value ``0'' below with your
+%% OnlineID. Otherwise, you may safely leave it at ``0''.
+\onlineid{1580}
 
-% ---------------------------------------------------------------------
-% EG author guidelines plus sample file for EG publication using LaTeX2e input
-% D.Fellner, v2.03, Dec 14, 2018
+%% declare the category of your paper, only shown in review mode
+\vgtccategory{Research}
+%% please declare the paper type of your paper to help reviewers, only shown in review mode
+%% choices:
+%% * algorithm/technique
+%% * application/design study
+%% * evaluation
+%% * system
+%% * theory/model
+\vgtcpapertype{Systems \& Rendering}
 
+%% Paper title.
+\title{Data Navigator: An Accessibility-Centered Data Navigation Toolkit}
 
-\title[Chartability]%
-      {How accessible is my visualization? Evaluating visualization accessibility with Chartability}
+%% This is how authors are specified in the journal style
 
-% for anonymous conference submission please enter your SUBMISSION ID
-% instead of the author's name (and leave the affiliation blank) !!
-% for final version: please provide your *own* ORCID in the brackets following \orcid; see https://orcid.org/ for more details.
-% \author[Submission 1160]{Submission ID 1160}
-
-\author[F. Elavsky, C. Bennett, \& D. Moritz]
-{\parbox{\textwidth}{\centering Frank Elavsky,$^{1}$\orcid{0000-0002-6849-5893}
-        Cynthia Bennett,$^{1}$
-        and Dominik Moritz$^{1}$\orcid{0000-0002-3110-1053}
-%        S. Spencer$^2$\thanks{Chairman Siggraph Publications Board}  
-        }
-        \\
-% For Computer Graphics Forum: Please use the abbreviation of your first name.
-{\parbox{\textwidth}{\centering $^1$Carnegie Mellon University, Human-Computer Interaction Institute\\
-%        $^2$ Another Department to illustrate the use in papers from authors
-%             with different affiliations
-       } 
+%% indicate IEEE Member or Student Member in form indicated below
+% \author{Anonymous}
+\author{Frank Elavsky, Lucas Nadolskis, Dominik Moritz}
+\authorfooter{
+%% insert punctuation at end of each item
+\item
+ All authors are with Carnegie Mellon University.
+ \item
+ Frank Elavsky: fje@cmu.edu.
+ \item
+ Lucas Nadolskis: nadolskis@cmu.edu.
+\item
+ Dominik Moritz: domoritz@cmu.edu.
 }
+
+%other entries to be set up for journal
+\shortauthortitle{Elavsky: Data Navigator}
+% \shortauthortitle{Elavsky \MakeLowercase{\textit{et al.}}: Data Navigator}
+%\shortauthortitle{Firstauthor \MakeLowercase{\textit{et al.}}: Paper Title}
+
+%% Abstract section.
+% The lack of accessible data visualizations for people with disabilities remains a significant challenge in current toolkit and practitioner efforts. Existing visualizations often lack underlying structure, fail to engage necessary input modalities, and rely heavily on visual rendering practices. This limitation stems from a scarcity of building materials, such as non-pointer data navigation structures and accessible rendering formats beyond scalable vector graphics (SVG).
+
+% To address this gap, we present Data Navigator, a toolkit based on a graph data structure that supports various data structures and input modalities. It provides an interface for screen reader, keyboard, touch gestures, motion gestures, voice, and custom input methods. By decoupling navigation and visual encodings, Data Navigator empowers visualization practitioners with expressive control over their designs. We offer a high-level system design and a web-based implementation using JavaScript, HTML, and CSS. Through case examples, we demonstrate the replication of best practices, integration with existing toolkits, and development of novel prototypes for accessible navigation.
+
+% Data Navigator represents a step towards making more accessible data experiences easier to design and implement, involving both toolkit makers and visualization practitioners.
+\abstract{Making data visualizations accessible for people with disabilities remains a significant challenge in current practitioner efforts. Existing visualizations often lack an underlying navigable structure, fail to engage necessary input modalities, and rely heavily on visual-only rendering practices. These limitations exclude people with disabilities, especially users of assistive technologies. To address these challenges, we present Data Navigator: a system built on a dynamic graph structure, enabling developers to construct navigable lists, trees, graphs, and flows as well as spatial, diagrammatic, and geographic relations. Data Navigator supports a wide range of input modalities: screen reader, keyboard, speech, gesture detection, and even fabricated assistive devices. We present 3 case examples with Data Navigator, demonstrating we can provide accessible navigation structures on top of raster images, integrate with existing toolkits at scale, and rapidly develop novel prototypes. Data Navigator is a step towards making accessible data visualizations easier to design and implement.%
+% There is a gap between techniques we know are effective for accessible data navigation and what tools are currently capable of. Although scalable vector graphics (SVG) and raster images are common formats for data visualizations, they fail to express relationships in a meaningful way. This has resulted in a reliance on tree or list structures inherent in many UI paradigms, which are not generic enough to express relational, spatial, diagrammatic, and geographic information common to visualization. To address these limitations, we propose Data Navigator, a toolkit built on a graph data structure.
+} % end of abstract 
+
+%% Keywords that describe your work. Will show as 'Index Terms' in journal
+%% please capitalize first letter and insert punctuation after last keyword
+\keywords{accessibility, visualization, tools, technical materials, platforms, data interaction}
+
+%% ACM Computing Classification System (CCS). 
+%% See <http://www.acm.org/class/1998/> for details.
+%% The ``\CCScat'' command takes four arguments.
+
+% \begin{CCSXML}
+% <ccs2012>
+%    <concept>
+%        <concept_id>10003120.10003145.10003151</concept_id>
+%        <concept_desc>Human-centered computing~Visualization systems and tools</concept_desc>
+%        <concept_significance>500</concept_significance>
+%        </concept>
+%    <concept>
+%        <concept_id>10003120.10011738.10011776</concept_id>
+%        <concept_desc>Human-centered computing~Accessibility systems and tools</concept_desc>
+%        <concept_significance>500</concept_significance>
+%        </concept>
+%    <concept>
+%        <concept_id>10003120.10003123.10011760</concept_id>
+%        <concept_desc>Human-centered computing~Systems and tools for interaction design</concept_desc>
+%        <concept_significance>300</concept_significance>
+%        </concept>
+%  </ccs2012>
+% \end{CCSXML}
+
+% \ccsdesc[500]{Human-centered computing~Visualization systems and tools}
+% \ccsdesc[500]{Human-centered computing~Accessibility systems and tools}
+% \ccsdesc[300]{Human-centered computing~Systems and tools for interaction design}
+
+%% A teaser figure can be included as follows
+
+\teaser{
+  \includegraphics[width=\textwidth]{data_navigator.png}
+  \caption{Data Navigator provides data visualization libraries and toolkits with accessible data navigation structures, robust input handling, and flexible semantic rendering capabilities.}
+  \label{fig:teaser}
 }
-% ------------------------------------------------------------------------
 
-% if the Editors-in-Chief have given you the data, you may uncomment
-% the following five lines and insert it here
-%
-% \volume{36}   % the volume in which the issue will be published;
-% \issue{1}     % the issue number of the publication
-% \pStartPage{1}      % set starting page
+%% Uncomment below to disable the manuscript note
+%\renewcommand{\manuscriptnotetxt}{}
 
+%% Copyright space is enabled by default as required by guidelines.
+%% It is disabled by the 'review' option or via the following command:
+% \nocopyrightspace
 
-%-------------------------------------------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% START OF THE PAPER %%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{document}
 
-\def\arraystretch{1.3}
+%% The ``\maketitle'' command must be the first command after the
 
-% \teaser{
-%  \includegraphics[width=\linewidth]{eg_new}
-%  \centering
-%   \caption{New EG Logo}
-% \label{fig:teaser}
-% }
+%% ``\begin{document}'' command. It prepares and prints the title block.
+
+%% the only exception to this rule is the \firstsection command
+
+\firstsection{Introduction}
 
 \maketitle
-%-------------------------------------------------------------------------
-\begin{abstract}
-Novices and experts have struggled to evaluate the accessibility of data visualizations because there are no common shared guidelines across environments, platforms, and contexts in which data visualizations are authored. Between non-specific standards bodies like WCAG, emerging research, and guidelines from specific communities of practice, it is hard to organize knowledge on how to evaluate accessible data visualizations. We present Chartability, a set of heuristics synthesized from these various sources which enables designers, developers, researchers, and auditors to evaluate data-driven visualizations and interfaces for visual, motor, vestibular, neurological, and cognitive accessibility. In this paper, we outline our process of making a set of heuristics and accessibility principles for Chartability and highlight key features in the auditing process. Working with participants on real projects, we found that data practitioners with a novice level of accessibility skills were more confident and found auditing to be easier after using Chartability. Expert accessibility practitioners were eager to integrate Chartability into their own work. Reflecting on Chartability’s development and the preliminary user evaluation, we discuss tradeoffs of open projects, working with high-risk evaluations like auditing projects in the wild, and challenge future research projects at the intersection of visualization and accessibility to consider the broad intersections of disabilities.
 
-%-------------------------------------------------------------------------
-%  ACM CCS 1998
-%  (see https://www.acm.org/publications/computing-classification-system/1998)
-% \begin{classification} % according to https://www.acm.org/publications/computing-classification-system/1998
-% \CCScat{Computer Graphics}{I.3.3}{Picture/Image Generation}{Line and curve generation}
-% \end{classification}
-%-------------------------------------------------------------------------
-%  ACM CCS 2012
-%   (see https://www.acm.org/publications/class-2012)
-%The tool at \url{http://dl.acm.org/ccs.cfm} can be used to generate
-% CCS codes.
-%Example:
-\begin{CCSXML}
-<ccs2012>
-<concept>
-<concept_id>10003120.10003145.10011770</concept_id>
-<concept_desc>Human-centered computing~Visualization design and evaluation methods</concept_desc>
-<concept_significance>500</concept_significance>
-</concept>
-<concept>
-<concept_id>10003120.10011738.10011774</concept_id>
-<concept_desc>Human-centered computing~Accessibility design and evaluation methods</concept_desc>
-<concept_significance>500</concept_significance>
-</concept>
-<concept>
-<concept_id>10003120.10003121.10003122.10010855</concept_id>
-<concept_desc>Human-centered computing~Heuristic evaluations</concept_desc>
-<concept_significance>500</concept_significance>
-</concept>
-</ccs2012>
-\end{CCSXML}
+While there is a growing interest in making data visualizations more accessible for people with disabilities, current toolkit and practitioner efforts have not risen to the challenge at scale. Major data visualization tools and ecosystems predominantly produce inaccessible artifacts for many users with disabilities. We believe this is largely a gap caused by a lack of underlying structure in most visualizations, failure to engage the input modalities used by people with disabilities, and over-reliance on visual-only rendering practices.
 
-\ccsdesc[500]{Human-centered computing~Visualization design and evaluation methods}
-\ccsdesc[500]{Human-centered computing~Accessibility design and evaluation methods}
-\ccsdesc[500]{Human-centered computing~Heuristic evaluations}
+Users who are blind or low vision commonly use screen readers and users with motor and dexterity disabilities often do not use "pointer" (precise mouse and touch) based input technology when interacting with digital interfaces. Many users with motor and dexterity disabilities use discrete navigation controls, either sequentially using keyboard-like input, or directly using voice or text commands.
 
+Most interactive visualizations simply focus on pointer-based input: they can be clicked or tapped, hovered, and selected in order to perform analytical tasks. This excludes non-pointer input technologies. These devices require consideration for the navigation structure and underlying semantics of a visual interface.
 
-\printccsdesc   
-\end{abstract}
-%-------------------------------------------------------------------------
-\section{Introduction}
+However, building navigable spatial and relational interfaces is a difficult task with current resources.
 
-26\% of people in the United States self-report living with at least one disability~\cite{cdc_disability_2018}. Of those, 13.7\% live with a mobility disability and 10.8\% with a cognitive disability. Globally, the World Health Organization reports that 29\% of the world lives with uncorrected or uncorrectable blindness, low vision, or moderate to severe visual impairment~\cite{noauthor_world_nodate}. Access is a significant inclusion effort that has broad international impact, especially for data visualization. 
+Raster images, arguably the most common format for creating and disseminating data visualizations, currently cannot be made into navigable structures. These are only described using alt text, which limits their usefulness to screen reader users.
 
-Accessibility is the practice of making information, content, and functionality fully available to and usable by people with disabilities. As part of this process, practitioners need to be able to identify accessibility barriers. While general accessibility standards help, evaluating the inaccessibility of complex data systems can be a daunting and often expensive task. State-of-the art automated compliance checkers only find 57\% of accessibility errors~\cite{noauthor_study_2021}, meaning accessible experiences must still be manually designed and checked for quality. And following standards may only account for up to half of the needs of people with disabilities \cite{power_2012} anyway. Additionally, the intended wide applicability of these general standards means they fall short for information-rich systems, such as data visualizations (which use size, color, angles, shapes, and other dimensions to encode information). These specific contexts, communities, and libraries that deal with data visualizations and information-rich interfaces often have their own tools and guidelines for use, but they seldom include accessibility. Finally, research at the intersection of data visualization and accessibility has yet to meaningfully permeate data visualization tools and communities and primarily focuses on blindness and low vision, neglecting diverse accessibility needs of people with other disabilities.  
+Unfortunately, more accessible rendering formats like SVG with ARIA (accessible rich internet applications) properties are more resource intensive than raster approaches, like WebGL-powered HTML canvas or pre-rendered PNG files. SVG puts a burden on low-bandwidth users and a ceiling on how many data points can be rendered in memory.
 
-Synthesizing evolving accessibility standards, research findings, and artifacts from communities of practice into usable knowledge for a specific, evolving domain is a wicked problem. To address this, we present Chartability. Chartability is an accessibility evaluation system specific to data visualizations and interfaces which aims to help practitioners answer the question, ``how accessible is my data visualization?'' Chartability organizes knowledge from disparate bodies of work into testable heuristics based on the functional accessibility principles POUR (Perceivable, Operable, Understandable, and Robust)~\cite{initiative_wai_accessibility_nodate} and 3 novel principles CAF (Compromising, Assistive, and Flexible), which we added to attend to the unique qualities and demands of data visualizations. We refer to these 7 heuristic principles as POUR+CAF. Chartability is a community-contributed project that leverages the governance strategies of open source projects as a way to address the complex dual-evolution of both accessibility and data interaction practices. 
+In addition, ARIA itself has 2 major limitations. First, when added to interface elements, ARIA only provides \textit{screen reader} access, which means that developers must build a solution from scratch for other navigation input modalities. Second, ARIA's linear navigation structure can be time-consuming for screen reader users if a visualization has many elements. This may impede how essential insights and relationships are understood~\cite{Sorge2016Polyfilling,Godfrey2018Accessible,Zong2022Rich,Thompson2023Chart,Jung2022Communicating,Sharif2021Understanding}.
 
-We additionally present an initial, light evaluation of Chartability from the experience of practitioners using it. We set out to see if using Chartability reduces the barrier of entry into this work for accessibility novices and if accessibility experts had any feedback to share about its use. We gave practitioners introductory material for Chartability and instructed them to use it according to their needs. We found that before using Chartability only accessibility experts believed auditing data visualizations to be somewhat easy or easy, while the other group believed auditing data visualizations to be somewhat hard or hard. All novice accessibility practitioners became more confident after using Chartability and believed auditing data visualizations for accessibility to be less difficult. Conversely while the expert accessibility practitioners were already confident in their ability to evaluate accessibility (and all unanimously had no change in their before and after evaluations), they were excited to adopt Chartability into their set of auditing resources. 
+Some emerging approaches have sought to address this serial limitation of data navigation and provide richer experiences for screen reader users~\cite{Sorge2016Polyfilling,Godfrey2018Accessible,Zong2022Rich,Thompson2023Chart}. However, these approaches rely on a tree-based navigation structure which is often not an appropriate choice for visualizations of relational, spatial, diagrammatic, or geographic data. Many visualization structures are currently unaddressed.
 
-Our work sets out to acknowledge that data practitioners face significant barriers when first making data visualizations, systems, and experiences accessible. While Chartability contributes to filling gaps and organizing knowledge, it also challenges visualization and data interaction researchers to explore new horizons of possibilities in this space. As such, we conclude with recommendations for future research at the crossroads of data visualization and accessibility. 
+Zong \ea stress that in order to realize richer, more accessible data visualizations, the responsibility must be shared by ``toolkit makers,'' the practitioners who design, build, and maintain visualization authoring technologies~\cite{Zong2022Rich}. Our contribution is towards that aim, to make more accessible data experiences easier to design and implement within existing visualization work.
 
-\section{Existing Work in Data Visualization and Accessibility}
+We present Data Navigator. Data Navigator is a toolkit built on a graph data structure, within which a broad array of common data structures can be expressed (including list, tree, graph, relational, spatial, diagrammatic, and geographic structures). Data Navigator also exposes an interface that supports interactions via screen reader, keyboard, gesture-based touch, motion gesture, voice, as well as fabricated and DIY input modalities. Data Navigator provides expressive structure and semantic rendering capabilities as well as the ability for developers to use their own, preferred method of rendering.
 
-While recent works at the intersection of data visualization and accessibility are promising, they do not provide a consistent and unified methodology for designers to evaluate the accessibility of their work across the broad spectrum of disability considerations.
+Data Navigator builds upon human-studies motivated work on accessible navigation~\cite{Zong2022Rich,Thompson2023Chart} towards a more generalizable resource for visualization practitioners. We contribute a high-level system design for our node-edge graph-based solution as well as an implementation of this system on the web, using JavaScript, HTML, and CSS. Through our case examples we also demonstrate that our generalized approach is suitable for replication of existing best practices from other systems, integration into existing visualization toolkit ecosystems, and development of novel prototypes for accessible navigation. We illustrate how Data Navigator's use of generic edges, dynamic navigation rules, and loose coupling between navigation and visual encodings provides practitioners robust, expressive, control over their system designs.
 
-\subsection{Research Advancements in Data Visualization and Accessibility}
-In parallel to Mack \ea's ``What do we mean by Accessibility Research?''~\cite{mack_what_2021} when we asked ``What do we mean by data visualization accessibility research?'' we found that nearly all topics of study were vision-related. Largely, access issues other than vision that affect data visualization (such as cognitive/neurological, vestibular, and motor concerns) are almost entirely unserved in this research space. Kim \ea found that 56 papers have been published between 1999 and 2020 that focus on vision-related accessibility (not including color vision deficiency), with only 3 being published at a visualization venue (and only recently since 2018)~\cite{kim_accessible_2021}. Marriott \ea found that there is no research at all that engages motor accessibility~\cite{marriott_inclusive_2021}. We have found 2 papers that engage cognitive/neurological disability in visualization and 1 student poster from IEEE Vis, which are all recent (specifically intellectual developmental disabilities~\cite{wu_understanding_2021} and seizure risk~\cite{south_generating_2020,south_detecting_2021}). We found no papers that engage vestibular accessibility, such as motion and animation-related accessibility. We also found that there is no research specific to low vision disabilities (not blindness or color vision deficiency) unless conflated with screen reader usage in data visualization. Blind and low vision people are often researched together, but in practice may use different assistive technologies (such as magnifiers and contrast enhancers) and have different interaction practices (such as a combination of sight, magnification, and screen reader use)~\cite{szpiro_2016}. 
+\section{Related Work}
+Our contribution is an attempt to bridge the gap between research and practice more effectively across broad ecosystems in order to enable deeper and more expressive accessible data navigation interfaces. Below we outline the prior research and standards that inform our project, a breakdown of existing visualization toolkit approaches to data navigation, and then accessible input device considerations.
 
-Since the 1990s, the most prominent and active accessibility topic in visualization has been color vision deficiency~\cite{chaparro_applications_2017,nunez_optimizing_2018,oliveira_towards_2013,9023497,martinez_methodology_2021}. Research projects that explore tactile sensory substitutions have been a topic in computational sciences dating back to the 1983~\cite{geldard_tactual_1983}, with tactile sensory substitutions being used for maps and charts as far back as the 1830s~\cite{noauthor_extensive_2016}. Sonification used both in comparison to and alongside visualization and tactile methods for accessibility dates as far back as 1985~\cite{mansur_sound_1985,flowers_cross-modal_1997,brewster_visualization_2002,mcgookin_soundbar_2006,zhao_data_2008,cullen_co-designing_2019}. Some more recent work has explored robust screen reader data interaction techniques~\cite{miesenberger_accessible_2018,sorge_polyfilling_2016}, screen reader user experiences with digital, 2-D spatial representations, including data visualizations~\cite{schaadhardt_understanding_2021,sharif_understanding_2021}, dug deeper into the semantic layers of effective chart descriptions~\cite{lundgard_accessible_22}, and investigated how to better understand the role of sensory substitution~\cite{chundury_towards_2022}. Jung \ea offer guidance that expands beyond commonly cited literature that chart descriptions are preferably between 2 and 8 sentences long, written in plain language, and with consideration for the order of information and navigation~\cite{jung_communicating_2022}. We find all of this emerging work promising and foundational.
+\subsection{Accessibility research and standards in visualization}
+Research and standards are both somewhat limited by a strong bias towards visual disabilities. In \textit{Chartability}, 36 of the 50 criteria related to accessible visualization considerations involve visual disabilities~\cite{Elavsky2022Chartability, Fan2023Accessibility}. Marriott \ea also found that visual disability considerations are the primary focus of data visualization literature~\cite{Marriott2021Inclusive}, leaving the barriers that many other demographics face unstudied.
 
-Despite this promising work emerging, we also want to acknowledge a spectrum of other work that exists at the intersection of accessibility and data visualization that does not serve the goals of our project. There is significant research that explores automatic or extracted textual descriptions~\cite{choi_visualizing_2019,balaji_chart-text_2018,chen_neural_2019,chen_figure_2020,lai_automatic_2020,obeid_chart--text_2020,qian_generating_2021,sharif_evographs_2018} and haptic graphs and tactile interfaces~\cite{aldrich_talk_2008,bornschein_collaborative_2015, brown_viztouch_2012,butler_technology_2021,gallace_what_2011,geldard_tactual_1983,jansen_opportunities_2015,jayant_automated_2007,lederman_perception_1986,schneider_constructing_nodate,shi_tickers_2016,baker_2016}. These research projects produce artifacts that are high-cost for individual use, some are not robust enough to interpret complex visualizations effectively, and several have not included people with disabilities. Since our goal is to synthesize knowledge for practitioner accessibility work, we also acknowledge that some of these projects did not follow standards during their research project and in their output, such as using Web Content Accessibility Guidelines~\cite{noauthor_web_nodate} or The American Printing House for the Blind and Braille Authority of North America~\cite{noauthor_guidelines_nodate}. All of these challenges are factors that limit the generalizability of these artifacts and knowledge for practitioner use~\cite{lundgard_sociotechnical_2019,moraes_evaluating_2014,sharif_understanding_2021}. We encourage work to continue at the intersection of accessibility and visualization, but stress the importance of practical, disability-led research that either builds on or explicitly challenges standards.
+However, despite the heavy focus on visual disabilities, the work that does exist in the visualization community is deeply valuable and serves as an important starting point for our technical contribution.
 
-\subsection{Accessibility Practices in Data Visualization Tools and Libraries}
-Our research goals are to find what is already being done in data visualization and accessibility and to see if we can enhance that activity. To this aim, our background investigation includes a broad and comprehensive exploration of the field of practitioner and non-academic artifacts.
+\subsubsection{Accessible navigation design considerations}
 
-Some open source and industry contributions have pushed data visualization and related accessibility efforts. Libraries like Highcharts~\cite{noauthor_accessibility_nodate} or Visa Chart Components (VCC)~\cite{vcc} and tools like the Graphics Accelerator in SAS~\cite{noauthor_sas_nodate} have broad accessibility functionality built in, but their documentation is technically specific to their implementation. While these relatively accessible libraries and tools can be helpful for inspiration, their specific techniques and guidance materials are not easily transferrable to other environments or applications where data visualizations are created. Practitioners must reverse engineer and deconstruct many of the methods employed by these libraries, and with the exception of VCC (which is open source), this task requires significant effort, given their primarily closed-box nature. 
+Zong \ea's research, which was conducted as in-depth co-design work and validated in usability studies involving blind participants, presented a design space for accessible, rich screen reader navigation of data visualizations. They organized their design space into \textit{structure, navigation,} and \textit{description} considerations and demonstrated example \textit{structural}, \textit{spatial}, and \textit{direct} tree-based approaches~\cite{Zong2022Rich}.
 
-In common charting tools and libraries (apart from those already mentioned) accessibility engineering is often not present, limited in scope, or has only recently become an effort. More established visualization libraries like matplotlib, ggplot2, d3js, R-Shiny, and Plotly have left most accessibility efforts to developers, with varying levels of documentation and difficulty involved~\cite{noauthor_are_2018, noauthor_making_2018, noauthor_revealing_nodate, noauthor_solved_2019, simon_making_2020}. None of these major tools have a broad spectrum of accessibility options built in and documented.
+\textit{Chart Reader} also engaged these design space considerations in their co-design work on accessible data navigation structures~\cite{Thompson2023Chart}. We consider these design dimensions as the best starting point for our work, bridging the gap between research and toolkits.
 
-Community contributors often must fight to make their tools and environments accessible (sometimes even against the design of the tools themselves) with little to no compensation for their contributions. For example, Tableau’s first accessible data table was built by a volunteer community member Toan Hong as an extension~\cite{hoang_tableaumagic_2018}. Tableau users more broadly must resort to voting systems to gather attention to accessibility issues~\cite{demartini_tableau_nodate-1}. Semiotic’s accessibility features were added by community member Melanie Mazanec~\cite{noauthor_semiotic_nodate}. For Microsoft’s PowerBI, students have organized resources for how to make visualizations built with it more accessible~\cite{noauthor_power_nodate} while non-profits like the City of San Francisco’s data team have had to build features like keyboard instructions from scratch~\cite{noauthor_covid-19_nodate}. Mapbox GL JS is an example of a popular mapping library (over 400,000 weekly downloads)~\cite{noauthor_mapbox-gl_nodate} that has no built-in accessibility support by default. The accessibility module for Mapbox GL on GitHub was created and maintained by volunteers but has had less than 10 weeks of work with any activity invested since its first activity in late 2017~\cite{noauthor_mapboxmapbox-gl-accessibility_2021}. 
+There are additional research projects that have focused on accessible data navigation and interaction ~\cite{Sharif2022VoxLens,Sorge2016Polyfilling,Godfrey2018Accessible,Sharif2018evoGraphs}. These contributions explore a range of different interaction structures, including lists, trees, and tables of information as well as direct access methods such as voice interface commands and simple, pre-determined questions.
 
-Many community-driven efforts are under-utilized, must be discovered outside of the primary environment’s ecosystem, have poor or no core, internal support, and are inconsistently and partially implemented. Accessibility is still an afterthought in data visualization and ad-hoc, specific solutions proposed have not led to widespread improvements.
+\subsubsection{Accessible visualization: understanding users}
 
-\subsection{Accessibility in Practice, Broadly}
-Accessibility in practice is largely motivated by standards work or assistive technology. We want to acknowledge that tactile and braille standards are robust~\cite{noauthor_guidelines_nodate}, but have limited transferability to digital contexts currently. For example, whereas tactile graphics guidelines lend insight into information prioritization, layout, and fidelity, the assumption is they will be embossed onto paper or similar physical mediums~\cite{bigham_vizwiz_2010,lundgard_sociotechnical_2019,sharif_understanding_2021}.
+A wide array of emerging research projects investigate screen reader users needs, barriers, and preferences, and offer guidelines, models, and considerations for creating accessible data visualizations~\cite{Sharif2021Understanding,Lundgard2022Accessible,Chundury2022Towards,Fan2023Accessibility}. Jung \ea offer guidance to consider the order of information in textual descriptions and during navigation~\cite{Jung2022Communicating}. Kim \ea collected screen reader users' questions when interacting with data visualizations, which could open the door for more natural language data interaction~\cite{Kim2023Exploring}.
 
-In digital contexts, the most influential body for accessibility is the World Wide Web Consortium’s (W3C) Web Accessibility Initiative (WAI). WAI’s Web Content Accessibility Guidelines (WCAG)~\cite{noauthor_web_nodate} influence accessible technology policy and law for more than 55\% of the world’s population~\cite{initiative_wai_web_2021}. WAI and WCAG outline 4 types of functional accessibility principles: Perceivable, Operable, Understandable, and Robust, abbreviated as POUR~\cite{initiative_wai_accessibility_nodate}. POUR is the foundation that organizes all 78 accessibility testing criteria in WCAG.
+\subsubsection{Accessibility standards and guidelines}
+In the space of research, there has been a growing interest in developing guidelines for practitioners~\cite{Elavsky2022Chartability, Durant2022Ten} and even applying guidelines as a method of validation alongside human studies evaluations and co-design~\cite{Lundgard2019Sociotechnical,Zong2022Rich,Lundgard2022Accessible,Fan2023Accessibility}. Unfortunately, most accessibility standards and guidelines do not explicitly engage how to structure data navigation. 
 
-\subsection{Using Heuristics to Break Into Under-addressed Areas}
-To summarize the complex problem space to which this paper contributes: Research in data visualization primarily focuses on visual accessibility, accessibility standards focus on a broad range of disabilities but lack deep contextualization for data visualization, and practitioners seem to build a wide array of solutions to fill these gaps, most of which are poorly maintained or adopted. Any time a practitioner wants to embark on a journey learning how to evaluate the accessibility of a data visualization, they must collect and synthesize this complex space of knowledge themselves. We have included (with permission) an exemplary field artifact as an example of this type of labor in our supplemental materials, which contributed to the United States Government's project, ``Improving Accessibility in Data Visualizations''~\cite{noauthor_improving_nodate,noauthor_data_nodate}.
+Despite this, existing accessibility standards bodies like the Web Content Accessibility Guidelines do stress the importance of accurate, functional semantics in order for screen reader users to know how to interact with elements~\cite{WAI2021Semantics}. For interactive visualizations this means that button-like or link-like behavior should expressly be made using elements that are semantically buttons and links. Our system should be capable of expressing meaningful semantics to users of assistive technologies.
 
-After gathering information with this breadth and complexity, a heuristic evaluation model was chosen as a way to deliver useful but flexible knowledge. Heuristic evaluation models have a long history in HCI and are cheap to use and require little expertise. They have been shown to be effective methods for practitioners compared to user testing, focus groups, or other evaluative methods that require existing expert knowledge or recruitment, moderation, and compensation of participants~\cite{martinez_methodology_2021,chuan_usability_2015,brangier_beyond_2018,experience_10_nodate,joyce_mobile_2016,nielsen_heuristic_1994,otey_methodology_2017,santos_heuristic_2018,slavkovic_novice_1999,noauthor_unlocking_2018}. Heuristics are also not new in visualization~\cite{forsell_heuristic_2010,craft_beyond_2005,oliveira_adapting_2022, scholtz_developing_2011} even among topics related to accessibility (color vision deficiency, specifically)~\cite{santos_heuristic_2018, oliveira_towards_2013}.
+\subsection{Visualization toolkits and technical work}
+Unfortunately while many data visualization toolkits offer some degree of accessible navigation and interaction capabilities to developers, very few toolkits currently out there offer control over the important aspects of accessible data navigation design. Replicating existing research and strategies, remediating toolkit ecosystems, and building novel prototypes are all difficult or impossible to do due to the current lack of toolkit capabilities.
 
-\section{Making Chartability}
-We next present Elavsky’s work to develop Chartability as a real-world design process contribution to the larger research community. Our making process does not neatly fit into most design models that divide researchers from practitioners. In Gray's different models of practitioner-researcher relations, our work is some variation of bubble-up, practitioner-led research~\cite{gray_reprioritizing_2014}. This project was initiated by Elavsky while they were an industry practitioner, deeply situated in this work already.
-
-Thus, the following description of Chartability’s 10-month creation is written from Elavsky’s perspective. The supplemental materials include the data from this stage of the process, a preview of which is available in \autoref{tab:table}: 
+Existing data visualization toolkits have 3 major limitations that we wanted to address in the design of Data Navigator:
 \begin{enumerate}
-    \item \textbf{Situate, Survey, and Select Problem Space}: I was situated within the context of accessibility evaluations of data visualizations. From personal experience, I recognized the prohibitively significant labor involved in ensuring I was effectively following accessibility standards while also attending to the complex design considerations of data visualizations. To improve this work both for myself and others in the future, I surveyed existing problems and challenges others faced and selected a solution that I felt equipped to address.
-    \item \textbf{Collect Existing Resources}: I set out to answer, ``If evaluating the accessibility of data experiences is hard, what do existing standards miss?'' I evaluated my seed knowledge (WCAG criteria) for shortcomings and gaps and collected other data relevant to my goal (academic and industry research, open-source libraries, tools, applications, data products, government guidelines, design guidelines, software documentation, university coursework, and practitioner articles).  
-    \item \textbf{Code Resources}: After collating these resources (including relevant WCAG criteria), I loosely borrowed from thematic analysis~\cite{braun_clarke_thematic_2006} and qualitatively coded this data. I developed a set of 29 codes starting with WCAG's POUR principles and expanded the codes to account for other concerns that came up in the resources, including what type of accessibility was being addressed (e.g., cognitive, visual), whether a solution was technology-specific or agnostic, and other categories (like ``time-consuming'' or ``user-controlled''). I then divided the resources into codable segments with relatively distinct pieces of information and applied the 29 codes to the information segments. I grouped information with codes in common, resulting in a representative 45 groups of related information segments. 
-    \item \textbf{Synthesize Heuristics}: Since auditing depends on measurable heuristics, I adjusted each of the 45 groupings that resulted from the qualitative analysis into phrasing that could be verified by an evaluation. I then augmented each heuristic with known testing procedures, resources, and tools necessary for applying them in practice. 10 critical heuristics (these were determined top priorities through user feedback) are previewed in \autoref{tab:table}, with the full version of this table (and more) provided in our supplemental materials.
-    \item \textbf{Group Heuristics into Higher-level Principles}: I linked each heuristic with relevant web accessibility standards and POUR principles to draw a familiar connection for users who might already be accessibility practitioners. 26 heuristics fit neatly back into Perceivable, Operable, Understandable, or Robust.
-    \item \textbf{Develop Remaining Themes into New Principles}: 19 remaining heuristics with complex codes and overlapping groups demanded new theorizing, as they either did not fit into POUR at all or could arguably belong to multiple principles at once. I analyzed these remaining complex heuristics and for similarities and organized them under 3 new themes, which we are contributing as new accessibility principles, Compromising, Assistive, and Flexible, defined below.
+  \itemsep-0.4em
+  \item \textbf{Built on visual materials}: toolkits produce either raster or SVG-based visualizations, neither of which are focused towards designing navigable, semantic structures. As a consequence, many visualizations are simply entirely inaccessible.
+  \item \textbf{Lacking relational expressiveness}: When data navigation \textit{is} provided, the navigation is based on either a tree or list structure (see~\autoref{existing}). The consequence of this limitation is that many other non-list and non-tree data relationships become difficult or impossible to represent without overly tedious navigation or inefficient architecture.
+  \item \textbf{Designed only for screen reader interaction}: When \textit{accessible} data navigation is provided, it is generally only made possible through SVG with ARIA (Accessible Rich Internet Application) attributes. ARIA is primarily only leveraged by screen readers~\cite{WAI2017ARIA}. If a data element can be clicked and performs some form of function, only direct pointer (mouse and touch) and screen reader users are included. The consequence of this is that a wide array of other input devices, many used as assistive technologies by people with motor and dexterity disabilities, are excluded.
 \end{enumerate}
 
-\begin{table}[tb]
-  \caption{Previewing Chartability's 10 Critical Heuristics\\\hspace{\textwidth}\\\hspace{\textwidth}(Coding Categories are broken into two sections: first which POUR principles contributed to the heuristic while ``Other'' refers to how many additional coding categories were assigned.)}
-  \label{tab:table}
-  \scriptsize
-\begin{tabular}{lll|ll}
-                &             &          & \multicolumn{2}{l}{Coding Categories} \\
-  Heuristic Title & Principle   & Origin   & POUR              & Other           \\
-  \midrule
-  Low contrast                             & Perceivable & Standard & P & 2 \\
-  Small text                               & Perceivable & Research & P & 2 \\
-  Content is only visual                   & Perceivable & Standard & P, R & 3 \\
-  Interaction has only one input           & Operable & Standard & O, R & 3 \\
-  No interaction cues/instructions         & Operable & Standard & O, U & 2 \\
-  No explanation for how to read           & Understandable & Research & U & 1 \\
-  No title, summary, or caption            & Understandable & Research & U & 1 \\
-  No table                                 & Compromising & Research & O, U, R & 3 \\
-  Data density inappropriate               & Assistive & Research & P, U & 4 \\
-  User style change not respected          & Flexible & Standard & P, O, R & 6 \\
-  ... +35 non-Critical heuristics          &  &  &  &  \\
-\end{tabular}
-\end{table}
-
-\subsection{Compromising}
-Compromising is a principle that focuses on Understandable, yet Robust heuristics. These heuristics are based on providing alternative, transparent, tolerant, information flows with consideration for different ways that users of assistive technologies and users with disabilities need to consume information. 
-
-Compromising challenges designs that only allow access to information through limited or few interfaces or processes. These heuristics focus on providing information at a low and high level (such as tables and summaries), transparency about the state of complex interactions, error tolerance, and that data structures can be navigated according to their presentation. Compromising designs have both information and system redundancies in place. 
-
-\subsection{Assistive}
-Assistive is a principle that primarily builds off the intersection of Understandable and Perceivable principles but focuses on the labor involved in access. These heuristics include categories that encourage data interfaces to be intelligent and multi-sensory in a way that reduces the cognitive and functional labor required of the user as much as possible. 
-
-The Assistive principle focuses on what Swan \ea refer to as ``adding value''~\cite{noauthor_inclusive_nodate} and what Doug Schepers meant by ``data visualization is an assistive technology''~\cite{noauthor_why_nodate}. We visualize because it is faster and more efficient than munging cell at a time through data. Assistive heuristics ensure that both visual and non-visual data representations add value for people with disabilities. 
-
-\subsection{Flexible}
-Contrasted with Compromising (which focuses on robust understanding), flexible heuristics focus on robust user agency and the ability to adjust the Perceivable and Operable traits of a data experience. Flexible heuristics all have a tight coupling between a data experience and the larger technological context the user inhabits. The preferences that a user sets in lower-level systems must be respected in higher level environments. 
-
-Self-advocacy and interdependent agency are important sociotechnical considerations that engage the conflicting access needs that different users might have in complex technological interactions like data experiences~\cite{bennett_interdependence_2018, mankoff_disability_2010}. Some users might want specific controls or presentation, while others might want something else entirely. Designs must not be rigid in their opinions and ability assumptions and should be designed to be moldable by and adaptive to user needs~\cite{wobbrock_ability-based_2011, ladner_design_2015}. 
-
-\section{Using Chartability}
-
-All of Chartability's tests are performed using Chartability's workbook~\cite{noauthor_chartability_nodate} alongside various tools and software (linked in the workbook). For the scope of this paper, we are not including an explanation for how to perform all of these. Both the workbook and supplementary materials with this paper give more details. 
-
-While a highly trained auditor may be able to casually evaluate an artifact in as little as 30 minutes or even hold heuristics in mind as they are doing their own creative work, those new to auditing may take anywhere between 2 and 8 hours to complete a full pass of Chartability. Professional audits, which can take weeks or months, often include multiple auditors and provide rigorous documentation and detailed recommendations for remediation, typically in the form of a report. Chartability is meant to serve both quick pass and deep dive styles of audits, so users are expected to leverage it as they see fit. 
-
-Below we give an example of what might be a quick pass audit, using Chartability. Which principles are applied in each of these stages are listed in parentheses in each heading. 
-
-\subsection{Visual Testing (Perceivable)}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{figures/figure 2.png}
-    \caption{A low contrast chart (left) compared to a higher contrast version (right). A dropper tool is extracting the fill color of the bar and then a contrast ratio has been calculated. Note that the fill color is the same on both bars, but darker borders have been added to ensure the visualization passes contrast tests.}
-    \label{fig:2}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{figures/state-of-the-art.png}
+  \caption{Existing accessibility trees and lists, shown using node-edge graph conventions. (*) Denotes only \textit{screen reader} access. (**) Denotes \textit{screen reader}, \textit{keyboard-only}, and \textit{pointer} access as well.}
+  % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
+  \label{existing}
 \end{figure}
 
-Checking for contrast is the most common critical failure; 87.5\% of tests (7 out of 8) from our user study involving this heuristic failed, which supports the WebAim Million Report’s findings (83.9\% of the top 1 million websites also fail contrast testing, more than any other WCAG criteria)~\cite{noauthor_webaim_nodate}. In order to evaluate contrast, often a combination of automatic (code-driven) and manual tooling is performed. When manually auditing, practitioners typically use a dropper and a contrast calculator (\autoref{fig:2}). Most auditors find this to be one of the easiest tasks to perform and accomplishes 3 different heuristics in Chartability: ensuring text/geometries have contrast, interactive states for elements have enough contrast change, and the keyboard focus indicator is easy to distinguish. 
+\subsubsection{Rich, tree-based approaches}
+De-coupling rendered, visual structures from meaningful and effective navigation experiences can provide richer experiences for screen reader users~\cite{Zong2022Rich}. Prior research and industry work, with the exception of the \textit{Visa Chart Components} library~\cite{VisaVisa}, has relied heavily on a 1 to 1 relationship between structure (the encoded marks) and navigation. This emerging work is significant, because it paves the way for considering the design dimensions of accessible data interaction and navigation without dependence on a visually encoded space.
 
-Perceivable heuristics also include tests and tools for color vision deficiency and ensuring that color alone isn't used to communicate meaning (like the redundantly encoded textures in \autoref{fig:9}). And another common, critical failure from Perceivable is text size. No text should be smaller than 12px/9pt in size.
+\textit{Olli's} approach has been to build ready-to-go adaptors that automatically build multiple tree structures for a few ecosystems (\textit{Vega}, \textit{Vega-Lite}, and \textit{Observable Plot}) and is entirely uncoupled from a data visualization's graphics. Their approach renders navigable tree structures \textit{underneath} a visualization.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{figures/figure 3.png}
-    \caption{Keyboard navigation paths on a stacked bar chart. The left shows a serial navigation example, typically just a default of rendering order. The right shows both groups (the stack of bars) and categories (the color/texture shared among bars across stacks) as dimensions to explore laterally or vertically.}
-    \label{fig:3}
-\end{figure}
+Other than \textit{Olli}, \textit{Highcharts}~\cite{HighsoftHighcharts}, \textit{Visa Chart Components}, and \textit{Progressive Accessibility Solutions'} visualization toolkits~\cite{Sorge2016Polyfilling,Godfrey2018Accessible} also primarily provide tree and list navigation structures across all of their chart types. These toolkits render their structures \textit{upon} the visualization's graphic space. These tools also provide some degree of support for other assistive technologies and input modalities, although are limited exclusively to SVG rendering. 
 
-\subsection{Keyboard Probing (Operable, Assistive)}
-The next practice that most auditors should become comfortable with is using a keyboard to navigate and operate any functionality that is provided. Most assistive technologies, from screen readers to a variety of input devices (like switches, joysticks, sip and puffs, etc) use the keyboard api (or keyboard interface) to navigate content. If a data interface contains interactive elements (\autoref{fig:3}, \autoref{fig:4}), those elements (or their functionality) must be able to be reached and controlled using a keyboard alone. Auditors should be critical of how much work is involved in keyboard navigation, especially (\autoref{fig:8}). All that is required to start is the auditor begins pressing the tab key to see if anything interactive comes into focus. Arrow keys, spacebar, enter, and escape may be used in some contexts. Generally, instructions or cues should always be provided.
+Unfortunately, these toolkits lack capabilities for dealing with graph, relational, spatial, diagrammatic, and geographic data structures.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{figures/figure 4.png}
-    \caption{A mouse cursor is selecting a bar (left, shown with a thick indication border) in a stacked bar chart to filter a dataset (on the right). A system alert (red box) notifies the user of their interaction result. This selection capability must also be provided for the keyboard interface and the alert must be announced to screen readers.}
-    \label{fig:4}
-\end{figure}
+\subsubsection{Serial, list-based approaches}
+Toolkits like \textit{Vega-Lite}~\cite{Satyanarayan2017VegaLite} and \textit{Observable Plot} only provide basic screen reader support through ARIA attributes when visualizations are rendered using SVG. These libraries do not currently provide additional access to other assistive technologies and input modalities.
 
-Using a keyboard provides an opportunity to evaluate many different heuristics: checking for multiple inputs (\autoref{fig:4}), whether the data structure that is rendered is navigable according to its structure (\autoref{fig:3}), and whether keyboard navigability across all elements in a data interface is even necessary (\autoref{fig:8}).
+Microsoft's \textit{PowerBI} largely uses a serial structure, although it has tree-like elements as well. \textit{PowerBI} generally provides the same access to keyboard users as it does to screen readers, although not completely.
 
-\subsection{Screen Reader Inspecting (Perceivable, Operable, Robust, Assistive) }
-Closely related to keyboard testing is testing with a screen reader. Some things may work with a screen reader that do not with a keyboard (and vice versa), so both must be evaluated.
+\subsubsection{No navigation provided}
+Other visualization tools, like \textit{ggplot2} or \textit{Datawrapper}, \textit{Tableau}, as well as both \textit{Vega-Lite} and \textit{Highcharts} (when rendering to canvas), produce raster images and have no navigable structure available. Raster, or pixel-based graphics have been an accessibility burden since the early days of graphical user interface development~\cite{Boyd1990Graphical}. Practitioners who use these toolkits can only provide alternative text.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{figures/figure 5.png}
-    \caption{Charts must have a visually available textual explanation provided that summarizes the outcome. ``Client Registration Chart'' for ``Product X'' (left) is inaccessible while ``New Product Launch a Success'' (right) gives a clear takeaway.}
-    \label{fig:5}
-\end{figure}
+% \subsubsection{Automatic description generation}
+% A considerable amount of data visualization and accessibility literature focuses on technical contributions that look to automate alt text descriptions or captions for data visualizations ~\cite{Choi2019Visualizing,Balaji2018Chart,Chen2019Neural,Chen2020Figure,Lai2020Automatic,Obeid2020Chart,Qian2021Generating,Sharif2018evoGraphs}. 
 
-Screen readers, unlike more basic keyboard input devices, read out content that is textual (including non-visual textual information like \emph{alternative text}). Using a screen reader to audit is generally the hardest skill to learn. Keeping this in mind, testing whether the meaningful text provided in a visual (such as in \autoref{fig:5}) is accessible with a screen reader is the easiest and most basic test that auditors should first perform.
+% Most recent work by Kim \ea built a prototype that automatically converts a chart specification of a treemap into a description and tested it with blind users~\cite{Kim2023Explain}. While technical contributions that attempt to automate description generation through deterministic or model-driven approaches are closely related to our project and on-going, our interest is primarily in a different direction than hands-off automation: providing developers with a robust ability to express the design dimensions of a data navigation scheme.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{figures/figure 6.png}
-    \caption{An interactive chart displaying only ``Image'' as semantic information with no feedback provided on selection. The robust semantics given to a screen reader, ``toggle button'' (middle) as well instant feedback, ``selected'' (right) are considered proper semantics for an interactive experience.}
-    \label{fig:6}
-\end{figure}
+\subsection{Considering assistive technologies and input devices}
+Modern data visualizations may contain functional capabilities such as the ability to hover, click, select, drag, or perform some analytical tasks over the elements of the visualization space~\cite{Satyanarayan2017VegaLite}. Virtually all of these analytical capabilities are designed for use with a mouse.
 
-Next, all valuable information and functionality in a data experience should be tested whether it is available to a screen reader. This includes the individual variables about a mark as well as whether that mark is interactive (\autoref{fig:6}), whether status updates that reflect context change provide alerts (\autoref{fig:4}), and whether summary textual information is provided about the whole chart (\autoref{fig:5}) as well as statistically and visually important areas of that chart (\autoref{fig:8}). 
+Input device consideration can roughly be organized as either \textit{pointer-based} (such as a mouse or direct touch) or \textit{non-pointer based} (which may employ speech recognition or sequential, discrete navigation such as with a keyboard). Assistive pointer-based devices, such as a head-mounted touch stylus, can typically perform any actions that a mouse can and are therefore served by current interactive visualizations. However, assistive non-pointer devices, such as a tongue, foot, or breath-operated switch, are not.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{figures/figure 7.png}
-    \caption{A line chart (left) with a single line and an accompanying data table (right). This line chart would not provide enough low-level information about each datapoint without the table provided. A table alone however would also be inaccessible. Providing both can satisfy conflicting accessibility needs for different audiences.}
-    \label{fig:7}
-\end{figure}
+By only providing pointer-based interactivity, modern interactive visualizations exclude users who leverage non-pointer based input, who are most commonly people with motor and dexterity disabilities. And unfortunately, there is a complete lack of engagement with these populations in the data visualization research community~\cite{Marriott2021Inclusive}.
 
-\subsection{Checking Cognitive Barriers (Understandable, Compromising)}
-First, auditing for cognitive barriers generally involves checking the reading level and clarity of all available text using analytical tools. But Chartability also requires that all charts have basic text that provides a visually-available textual description and takeaway (\autoref{fig:5}). This alone is one of the most important things to check for. In complex cases where a chart has a visual feature with an assumedly obvious takeaway, checking for annotations or textual callouts is important to help avoid interpretive issues~\cite{xiong_curse_2020} (\autoref{fig:8}).
+By comparison, the broader accessibility and HCI research communities have rich engagement with interaction and assistive technologies for users with motor and dexterity disabilities. Most research either focuses broadly on physical peripheral devices or sensors~\cite{Siean2021}, wearables~\cite{Sarsenbayeva2022}, or DIY making and fabrication~\cite{Hurst2013Making}.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{figures/figure 8.png}
-    \caption{A scatterplot with many points, where a single point within the chart can be accessed by a screen reader (left). Navigating this data piece by piece is unnecessarily tedious, so an annotation callout is provided to help the reader focus on an outlier cluster (right). The callout is being accessed by a screen reader, which is displaying the annotation’s summary as well.}
-    \label{fig:8}
-\end{figure}
+The DIY making space involves a broad spectrum of complex input devices and materials, such as fabricating with wood and sensors for children with disabilities~\cite{Lin2014}, 3D printed materials for rehabilitation professionals~\cite{Giraud2016}, and even using produce-based input (such as bananas and cucumbers) for aging populations~\cite{Rogers2014}.
 
-\subsection{Evaluating Context (Robust, Assistive, Flexible) }
-The final series of checks an auditor should make involve thinking about the overall work in a design (as it intersects with other considerations) as well as the larger technical context where the user is situated.
+Broadly, both research and practical developments related to accessible, non-pointer input are much further ahead than data visualization research and practice. Our goal for Data Navigator is to provide a technical resource towards engaging this under-addressed space.
 
-Auditors should first try to change system settings (such as toggling high contrast modes) to see whether a data experience respects these settings (\autoref{fig:9}), run automatic semantic evaluations as well as manually check for appropriate meaning (\autoref{fig:6}), and check if dense or highly complex visuals have sonified, tactile, or textual summaries available (\autoref{fig:8}). Auditors should also check whether system updates provide clear feedback textually (\autoref{fig:4}) as well as checking if there are both high and low level representations of information available (\autoref{fig:7}).
+\section{System Design}
+% \begin{figure}[h]
+%   \centering
+%   \includegraphics[width=\linewidth]{figures/system-design.png}
+%   \caption{Data Navigator provides data visualization libraries and toolkits with accessible data navigation structures and robust input handling.}
+%   \label{pointer}
+% \end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{figures/figure 9.png}
-    \caption{A bar chart with categories (left) shown not conforming to Windows High Contrast White Mode. High contrast mode on Windows requires limiting color palettes, using only black or white for most elements (shown on the right).}
-    \label{fig:9}
-\end{figure}
-
-Auditors should be especially critical of static designs, such as those that either use textures by default or not (\autoref{fig:9}), which are a high risk of compromising and assistive failure.
-
-\section{Validating Chartability}
-
-Next, Elavsky explains the preliminary user evaluation: I validated whether data practitioners felt more confident and equipped to make their own work accessible with Chartability. Additionally, I also wanted to interview expert accessibility practitioners (including those with disabilities) with the same questions, to see if Chartability had anything to offer in helping them understand and evaluate data experiences better. 
-
-My secondary goal was to present a tool that can be helpful even in the wild on real projects (with all the weird design and engineering quirks that come with that). I wanted Chartability to be usable on things built with a tool like Tableau and fully bespoke, hand-coded visualizations, like those made with JavaScript and D3. To this secondary aim, I intentionally solicited participants who were working on a variety of different projects, each of their own design. 
-
-\subsection{Pre-Validations and Flipped Roles: Participants Question \emph{Me}}
-
-I performed several early, light validations of my work before soliciting and involving participants formally. My early pre-validations \#2-4 (below) all focused on practitioners asking me questions and giving feedback. 
-
-My 4 pre-validations happened during the process of making Chartability, as well as introducing short iterations back into the making process: 
-
+We categorized our system design goals into design considerations for \textit{Structure}, \textit{Input}, and \textit{Rendering}:
 \begin{enumerate}
-    \item \textbf{Beta Testing}: I performed several beta tests of Chartability during the process of making. I audited using versions that only had POUR principles, tried versions of Chartability that focused only on standards, and also tried out different iterations of the heuristics as I was forming them. This testing was important to perform early in the process because it helped me test the limits of various possible directions for this tool (standards-only, against standards, building off of standards, etc).
-    \item \textbf{Early Advice}: After the first full pass of making Chartability was complete, I sent Chartability via email to 4 accessibility experts and 6 interested people with disabilities familiar with auditing in order to solicit open feedback. 
-    \item \textbf{Professional Workshop}: I held a half-day professional workshop via zoom on auditing visualizations for accessibility and presented Chartability’s heuristics to this select audience of 50 participants. I demonstrated how to audit and then had a chance for feedback and questions.
-    \item \textbf{Deep Feedback Session}: I presented Chartability to 14 experts on data visualization and accessibility, 5 of which are people with disabilities. I presented in two separate sessions through 2-hour video calls on zoom (roughly one hour was demonstration and one hour was discussion). 
+  \itemsep-0.4em
+  \item \textbf{Generic structure and navigation specification}: Human studies work has validated that lists, tables, trees, and even pseudo-treelike and direct structure types are all valuable to users in different contexts and with different considerations. Our system must be able to work with all of these as well as less frequently-used structures (spatial, relational, geographic, graph, and diagrammatic).
+  \item \textbf{Robust input handling}: Blind and low vision users may use combinations of different assistive technologies, such as magnifiers, voice interfaces, and screen readers. Users with motor impairments may rely on voice, gesture, eye-tracking, keyboard-interface peripherals (like sip-and-puffs or switches), or fabricated devices. Both the developer and user should therefore be able to leverage and customize a broad range of input types, including the above as well as fabricated, adaptive, and future input modalities.
+  \item \textbf{Flexible rendering and semantics}: Visuals may or may not be necessary to render to demonstrate Data Navigator's structure. In addition, much of the latest research has shown that different screen reader users may prefer different orders of information and at different levels of verbosity. In addition, the context of tasks the user is performing as well as the nature of the data itself may influence the design of semantic descriptions and visual indications for elements. Data Navigator must provide a high degree of flexibility and control.
 \end{enumerate}
 
-\subsection{Discovering ``Critical'' Heuristics}
-\label{sec:critical heuristics}
-These pre-validations helped me combine and divide some of the heuristics, adjust the language and phrasing, and label 10 specific tests as ``Critical,'' which can be seen in \autoref{tab:table}. These critical tests were ones that community members stressed as an important priority for one or more of the following reasons:
-\begin{itemize}
-    \item They are prohibitively expensive to fix late.
-    \item The barriers they produce are too significant to ignore.
-    \item They are among the most common type of accessibility failure.
-    \item They affect many parts of a data experience.
-\end{itemize}
+To help bridge the gaps between research and standards knowledge about best practices and building an effective toolkit for practitioners, we intend for Data Navigator to provide both \textit{exploratory support} and \textit{vocabulary correspondence}~\cite{Maayan2020Domain}.
 
-All Critical heuristics are based on standards or research.
+In particular, our ideal users are developers who specify data visualizations using code. To that aim, we intend to provide \textit{exploratory support} through generic, dynamic, and flexible system design decisions. Our system is expressive and customizable, which encourages exploration of different options.
 
-\subsection{Selecting Participants and Projects}
-I was a practitioner and representing myself as a volunteer when I reached out to participants. At this stage in the project, I was still not affiliated with a research institution and was not interested in producing publishable knowledge. I intended to test Chartability in the wild and validate whether it achieved its aims. My priority was to collaborate with folks working on difficult problems or those who had a rare intersection of expertise between accessibility standards and interactive data experiences. To this end, I was highly permissive with potential collaborators in order to maximize the expertise of participants and breadth of environments for testing Chartability. 
+And we also want the API to include properties that have conceptual and \textit{vocabulary correspondence} to our design considerations. Each design consideration (\textit{Structure}, \textit{Input}, and \textit{Rendering}) are separately composable, modular subsystems of Data Navigator that can be used independently or in tandem with one another.
 
-However, part of being permissive with participants meant that I was willing to collaborate on projects that I cannot share in a research publication and many of my participants must remain anonymous (including interview results that contain sensitive information about intellectual property). Given that auditing is a field of work about identifying failures, there was both a high demand for participation in the evaluation of Chartability in tension with a low motivation to make these failures known in a public venue.
+% The first major contribution in the design of Data Navigator is to use node-edge data as the substrate for our navigation system. In a generic Backus-Naur Form~\cite{Backus1963Revised}, the high level details of our system grammar are as follows:
 
-A summary of our selection process:
-\begin{itemize}
-    \item \textbf{Solicitation}: I reached out via email to 24 individuals in my network to participate in helping to evaluate Chartability. I mentioned that I wanted Chartability to be applied to a current project of theirs and was interested in performing some interviews about their experience before and after using Chartability. I mentioned up front that working with me would be uncompensated and potentially take multiple hours of their time (even multiple sessions) over zoom meetings.
-    \item \textbf{Response}: 16 individuals were interested and shared their project details (2 would require an NDA to be signed). 
-    \item \textbf{Selection}: I selected 8, based either on the expertise of the individuals, on the robustness of their project, and/or on the opportunity to get feedback about Chartability in team environments (which I didn't anticipate, but 3 of the 8 represented team efforts).
-    \item \textbf{Resulting Group}: I worked with 19 total participants across 8 environment spaces.
-    \item \textbf{Publishable Group}: Due to intellectual property concerns, I can publish interview results from 6 participants and discuss the details of 4 audit environments.
-\end{itemize}
+% \begin{lstlisting}[
+%     basicstyle=\small
+% ]
+%  <dn> ::= <structure> <navigation> <rendering>
+%  <structure> ::= <nodes> <edges>
+%  <navigation> ::= <nav-rule>+
+%  <nodes> ::= <node>+
+%  <edges> ::= <edge>+
+%  <rendering> ::= <location> <id> <dimensions> [<on-demand>]
+%  <nav-rule> ::= <name> <edge-types> <direction> [<inputs>]
+%  <node> ::= <id> <datum> [<spatial>] <edge-ids> <semantics>
+%  <edge> ::= <id> <source> <target> <edge-type>
+%  <spatial> ::= <coords> <shape>
+%  <coords> ::= <x> <y>
+%  <shape> ::= <dimensions> | <path>
+%  <dimensions> ::= <width> <height>
+%  <source> ::= source() | <id>
+%  <target> ::= target() | <id>
+%  <semantics> ::= <element-type> <role> <description>
+% \end{lstlisting}
 
-\textbf{Chris DeMartini}: a multi-year Tableau Zen Master and recognized expert visualization practitioner. His dashboard of a coin flipping probability game dataset that he produced with his daughter was the subject of his audit~\cite{noauthor_we_nodate}. His audit only included criteria labelled Critical in Chartability (which involves only 10 tests instead of the full 45) and his dashboard failed 7 of them. A full audit was later conducted on Chris’s behalf. His full audit had a total 26 failures, 11 of which were considered non-applicable.\footnote{``Non-applicable:'' any test in the auditing process that that does not contain content relevant to the test, such as ``Scrolling experiences cannot be adjusted or opted out of'' for a visualization that does not a scrolling input control\label{fnlabel}}
+In this paper we present an implementation of our system using JavaScript, HTML, and CSS on the web. The demonstration of our system is best suited to the web due to the nature of existing, accessible building blocks (HTML), which resolve many of the semantic complexities and logic involved in enabling screen readers to programmatically navigate and announce meaningful information to users. In addition, many existing visualization toolkits target the web as an output platform and we believe that this is the best starting point for adoption and use of Data Navigator. However, this system design could be implemented as a toolkit in other environments with proper consideration for input device handling and screen reader semantics.
 
-\textbf{Amber Thomas}: a data storyteller and technologist credited on 30 of The Pudding's visual essays. Amber has had a growing interest in accessibility challenges related to her line of work designing and developing state of the art, bespoke visual essays. Her article The Naked Truth was still in the early design and development stages when it was fully audited~\cite{noauthor_naked_nodate}. It failed 22 out of 45 tests, including 6 out of 10 criteria considered Critical. 6 tests were considered non-applicable.\footref{fnlabel}
+\subsection{Structure}
+% \begin{lstlisting}[
+%     basicstyle=\small
+% ]
+%  <dn> ::= <structure> <input> <rendering>
+% \end{lstlisting}
+\subsubsection{Beyond trees: towards an accessibility \textit{graph}}
 
-\textbf{Sam} (self-selected pseudonym): a recognized design practitioner in the visualization community who lives with disability. They were collaborating on an interactive data project that would be specifically made to be used by international participants with a broad spectrum of disabilities. Their interactive infographic failed 21 out of 45 tests, 5 of which were considered Critical. 10 tests were considered non-applicable.\footref{fnlabel}
+The first major contribution in the design of Data Navigator is to use node-edge data as the substrate for our navigation system.
 
-\textbf{Øystein Moseng}: Core Developer and Head of Accessibility of Highcharts. Øystein was interested in taking one of Highchart’s demo charts not specifically developed with accessibility features in mind~\cite{noauthor_fixed_nodate} and testing it against a full Chartability audit to see how it held up. The demo failed 13 out of 45 tests, 3 of which were Critical. 10 tests were considered non-applicable.\footref{fnlabel}
+The most important argument in favor of using a graph-based approach is that a graph can construct virtually any other data structure type (see \autoref{existing}), including list, table, tree, spatial, geographic, and diagrammatic structures. Graphs are generic, which enables them to represent structures both in current and future interface practices~\cite{Gansner2000Open}.
 
-\textbf{Jennifer Zhang}: a senior accessibility program manager at Microsoft with expertise working on enterprise data products.
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{figures/geoviz.png}
+  \caption{\textbf{A.} Map of engineers per capita of US states. \textbf{B.} Tree representation of the map data where states are listed alphabetically and also include links to neighboring states. The structure repeats itself if users navigate in a loop. \textbf{C.} Graph representation with the same navigation potential without redundant rendering.}
+  % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
+  \label{map}
+\end{figure}
 
-\textbf{Ryan Shugart}: a blind, screen reader user and disability subject matter expert at Microsoft who has a strong expertise in collaborative accessibility for interactive data systems. 
+To demonstrate our point, the most recent emerging work with advancements in accessible data navigation used node-edge diagrams to demonstrate their tree-like structures~\cite{Zong2022Rich, Thompson2023Chart} similar to \autoref{existing}, \autoref{static}, and \autoref{vega-lite}. This is because trees are a form of node-edge graph, but with a root, siblings, parents, and children as sub-types of nodes that generally have rules for how they relate to one another. 
 
-Both Shugart and Zhang were interested in applying Chartability internally and testing its effectiveness and potential with various projects. Their application and use of Chartability (including audits) are not available for publication, but their valuable interviews and evaluations are included with permission.
+Node-edge graph structures prioritize direct relationships. Examples of common direct relationships in visualization are boundaries on maps (see \autoref{map}), flows and cycles, data with multiple high level tree structures pointing to the same child datasets (such as \textit{Olli} in \autoref{existing}), or even just in diagrammatic, graph-based visualizations.
 
-% *``Non-applicable:'' any test in the auditing process that that does not contain content relevant to the test, such as ``Scrolling experiences cannot be adjusted or opted out of'' for a visualization that does not a scrolling input control.
+A graph structure allows for direct access between information elements that are not just part of the input data or 1:1 rendered elements, but may also have perceptual or human-attributed meaning. Examples of this might include semantic or task-based relationships, such as navigating to annotations or callouts, between visual-analytic features like trends, comparisons, or outliers. Spatial layouts such as intersections of sets or parallel vectors (see \autoref{section:codesign}), or even relationships to information outside of a visualization and back into it (like in \autoref{semantics}) are enabled by a graph structure.
 
-\section{Study Results}
+\subsubsection{Graph structures are more computationally efficient}
 
-I asked the 6 participants a series of qualitative and Likert-scale evaluation questions:
+Data visualizations often portray information that becomes difficult to handle when using trees and lists. The distance users must travel between relational elements is significant in lists while redundancy when navigating relational elements in trees can be problematic.
 
-\begin{enumerate}
-  \item Have you ever performed an audit of a data experience before?
-  \item What stage of production is your project in? Analysis, design, prototyping, development, maintenance?
-  \item How confident are you in your ability to perform an audit of a data experience for accessibility issues? (1-5, 1 being not confident at all, 5 being fully confident.)
-  \item How difficult do you perceive auditing a data experience for accessibility issues is? (1-5, 1 being trivial, 5 being very difficult.)
-  \item (After using Chartability) How confident are you in your ability to perform an audit of a data experience for accessibility issues? (1-5, 1 being not confident at all, 5 being fully confident.)
-  \item (After using Chartability) How difficult do you perceive auditing a data experience for accessibility issues is? (1-5, 1 being trivial, 5 being very difficult.)
-  \item (After using Chartability) Do you intend to continue using Chartability?
-\end{enumerate}
+As an example of this, often a data table or list of locations are used in conjunction to a map, such as listing all 50 states alphabetically along with relevant information. The list itself is expensive to navigate and may not provide any relationship information about which states border others, let alone ways to easily and directly access those states.
 
-Each of these questions had an open-ended question attached, ``Is there anything else you would like to add?'' Every participant provided additional input on questions 3 through 7. 
+Part of the visual design justification of using a map instead of a table is for sighted individuals to understand how geospatial information may interact with a given variable. The spatial relationships matter. But when supplementing the list of states with sub-lists for each state's bordering states (see \autoref{map}), it produces redundancy in the rendered result. The rendered data contains circular connections between nodes but must render every reference, producing a computational resource creep and cluttered user experience that can be difficult to exit.
 
-None of the 3 participants who only consider themselves expert data practitioners had performed an audit before. All 3 of them reported that they believed auditing to be easier and that they are more confident in their ability to evaluate the accessibility of data experiences after using Chartability. 
+\subsubsection{Specific edge instances and generic edges}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{figures/simple_movement.png}
+  \caption{An example of how a single edge instance references a navigation rule and can even have multiple navigation rules. A navigation rule can be referenced by multiple edges.}
+  % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
+  \label{simple_movement}
+\end{figure}
 
-Of the 3 accessibility experts (all of whom have performed audits of data experiences before), their opinions on these measurements were unchanged after using Chartability. All 6 participants noted that they plan to use Chartability in their own work and would recommend it to their peers. 
+In Data Navigator, nodes are \textit{objects} that always contain a set of edges, where each edge contains a minimum of 4 pieces of information: a unique identifier, a source, a target, and navigation rules. These properties are only accessed when a navigation event occurs on a node with an edge that contains a reference to a rule for that navigation event. Navigation rules may be unique to an edge instance or shared among other edge instances.
 
-Below we overview some of the key insights Elavsky received from the open ended responses.
+The source and target properties of edges are either ids that reference node instances (see \autoref{simple_movement}) or \textit{functions} (see \autoref{dynamic_movement}). Because some edges in a graph may be directed or not, non-directed graphs can use source and target properties to arbitrarily refer to either node attached to an edge.
 
-\subsection{Real Access has more Considerations than Colorblindness}
-Among the data practitioners, DeMartini wrote after his audit, ``I have read a lot about color blindness and could provide meaningful feedback to visualization developers on that topic, but I have come to realize that accessibility is so much more than this and I basically didn’t really know where to start when it came to the true scope of accessibility.'' He ended his qualitative feedback with, ``I think this could be a great tool for the masses and really look forward to the impact it can possibly have on the (inaccessible) data visualizations which are being created in huge numbers these days.''
+Generic functions for source or target properties can link nodes to other nodes based on changing content, structure, or behavior that may be difficult or impossible to determine before a user navigates the structure.
 
-\subsection{Audits are Slow, but Help me Focus}
-Amber Thomas wrote, ``It still takes a while to do a complete audit, but it's not hard! For someone new to the space, all the possible options that can be used to make visualizations more accessible can be overwhelming. [Chartability] helped me to focus.'' She finished her feedback with, ``There aren't really guidelines (at least to my knowledge) that exist to help data visualization creators to ensure their work is accessible… [Chartability] helps to direct users to the most common accessibility problems with straightforward questions. It really helps to narrow the focus and prioritize efforts.'' 
+Function calling also allows some edges to be \textit{purely} generic. An example of a reasonable use case of a purely generic edge is in \autoref{dynamic_movement}, where the source is a function which returns the present node and the target is whichever node the user was on previously. This single edge may then be part of every node's set of edges, enabling users to have a simple \textit{undo} navigation control without creating an \textit{undo} edge unique to every source node.
 
-\subsection{Chartability Helps me Remember and Stay Consistent}
-Among the accessibility experts, Zhang wrote, ``While I am skilled, depending on the day I might not remember everything I need to look at. I am more confident in consistency between different auditing sessions. For experts it’s a good reminder framework.'' Moseng of Highcharts noted, ``[Chartability] did a very good job of highlighting concerns that are often ignored or forgotten when auditing and designing/developing.'' Shugart of Microsoft added along those lines, ``I feel [Chartability] arranges a good set of questions in a user’s mind and makes it easier for them to determine if a visualization is accessible.''
+Using this pattern, it is possible to have fully navigable structures using only generic edges.
 
-\subsection{Access is an Experience, not just Compliance}
-Zhang offered insight into the design intention of Chartability, ``[it is] clearly going for above compliance and focusing on a good experience.'' Sam expressed their need to make an excellent accessibility experience, ``I am not just worried about compliance, but I want to make something really good. Nothing seems to help you go beyond? This is better than WCAG, I can already tell.''
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{figures/dynamic_movement.png}
+  \caption{A generic edge, such as ``any-return'' can be applied to any node. Function calls handle dynamically assigning the edge's source and target nodes on-demand.}
+  % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
+  \label{dynamic_movement}
+\end{figure}
 
-\subsection{Everyone wants More Evaluation Resources and Tools}
-For constructive feedback, all the data experts noted that they wanted more resources and materials related to learning the skills needed to conduct an audit. Shugart and Moseng both noted that they hope for more tooling and (in some cases) automated tests that can take the burden off the auditor and streamline the design and development process (much like Axe-core~\cite{noauthor_axe-core_2021}). They both also agreed that automation and tooling would help novice practitioners perform this work faster and with more confidence. 2 of the 3 mentioned wanting more examples of failures as well as accessible data experiences. Sam wrote that they felt Chartability was overwhelming at first, but after focusing on just the Critical items, the rest of the framework ``became easier.''
+\subsection{Input}
+\subsubsection{Abstracted navigation facilitates agnostic input}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{figures/inputs.png}
+  \caption{An example navigation rule to move ``left'' can be called as a method by an event from any input modality. Some examples include common modalities such as touch swiping (\textbf{A}) or speaking ``left'' (\textbf{B}). This also includes advanced or future modalities such as gesture recognition (\textbf{C}) or touch-activated, fabricated interfaces (\textbf{D}).}
+  % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
+  \label{inputs}
+\end{figure}
+Navigation rules in Data Navigator (see \autoref{simple_movement} and \autoref{dynamic_movement}) are created alongside the node-edge structure. Edges reference rules for navigation. However, these rules are generic and agnostic to the specifics of input modalities and can be invoked as methods by virtually any detected user input event (see \autoref{inputs}).
 
-\subsection{Experts: ``Novices will Struggle.'' Novices: ``This was so helpful''}
-The accessibility experts all unanimously agreed that Chartability is helpful to their own work, but they are unsure how accessibility novices would do. They all believe that more training and resources are needed to help people who are new, with one noting that Chartability could even be ``overwhelming'' to someone who has not been exposed to accessibility work before. All of the novices remarked that Chartability was ``so helpful,'' ``made this work so much clearer than before,'' and ``made a lot of hard problems not as hard.''
+Navigation rules are objects with a unique name, ideally as a noun or verb in natural language that refers to a direction or location, a movement direction (a binary used to determine moving towards the source or target of an edge), and optionally any known user inputs that activate that navigation, such as a keyboard keypress event name.
 
-\subsection{What about Auditors with Disabilities?}
-Shugart’s feedback was critical when discussing continuing to use Chartability, ``I still feel as a screen reader user, the audit itself would have some unique challenges because I’d be missing a lot and would have problems determining things such as color.'' He continued, ``Auditing anything accessibility-wise as a screen reader user poses challenges because you don’t always know what you’re missing. In many cases there are workarounds to this but datavis is one area where this is really hard to do now.'' 
+It is important for a system to abstract navigation events so that inputs can be uncoupled from the logic of Data Navigator. This allows higher level software or hardware logic to handle input validation while Data Navigator is just responsible for acting on validated input.
 
-\section{Extended Results}
-Following calls to ensure accessibility work has practical benefits that exceed publications~\cite{hurst_making_2013}, in April, 2021 Elavsky made Chartability openly available on Github. As new research and practices emerge and more community members get involved, Chartability will become an evolving artifact of consensus similar to existing standards bodies~\cite{noauthor_w3c_nodate}.
+Later in our first case example (\autoref{section:raster}), we demonstrate an application that handles screen reader, keyboard, mouse and touch (pointer) swiping, hand gestures, typed text, and speech recognition input. Abstract navigation namespaces can be called by any of these input methods.
 
-Projects like Turkopticon benefited from the discussion about how a community actually used their tool~\cite{irani_turkopticon_13}. In the same vein, we are happy to report some valuable findings from within this last year that we think demonstrate (in a pragmatic way) that Chartability has some merit: 
-\begin{itemize}
-    \item \textbf{It is living and growing}: Chartability has received enough community feedback that it is now on Version 2, with more tests and background resources provided.
-    \item \textbf{People are talking about it}: Chartability has been featured in 14 workshops, talks, and podcasts and at least 2 university courses.
-    \item \textbf{People are using it}: Chartability has contributed to projects at Microsoft, Highcharts, Project Jupyter, Fizz Studio, FiveThirtyEight, Vega-Lite, UCLA, the City of San Francisco, the Missouri School of Journalism, a fortune 50 company, two Fortune 500 companies, and community groups (like MiR).
-    \item \textbf{It has breadth}: Chartability has evaluated static and interactive data experiences made with Microsoft's Excel and PowerBI, Tableau, JavaScript (D3, Vega-Lite, Highcharts, Visa Chart Components), Python (Altair, Bokeh, and matplotlib), R (ggplot2), as well as design sketches and low/medium-fidelity artifacts (Illustrator, Figma, Sketch).
-\end{itemize}
+Additionally, since navigation rules are flexible, end users can also supply their own key-bind remapping preferences or input validation rules if developers provide them with an interface.
 
-When considering the analysis by Hurst and Kane about high abandonment rates in assistive technology,~\cite{hurst_making_2013} we wanted to make sure that we created an artifact (assistive technology or otherwise) that would at least survive its first year of use in the real world. 
+Because calling a navigation method is abstract, users can even supply events from their own input modalities as long they have access to either a text input interface or access to Data Navigator's navigation methods. Our demonstration material (in \autoref{section:raster}) also includes handling for DIY fabricated interfaces, which are important in accessibility maker spaces. We chose a produce-based interface~\cite{Rogers2014}, since it was an easy and low cost proof of concept.
 
-The greater community feedback as well as new research before and after open-sourcing Chartability has also led to 5 new heuristics being added since our test users performed audits and gave evaluations. The current version of Chartability (v2) has a total of 50 heuristics. 
+We believe that enabling agnostic input provides a rich space for future research projects. In addition, browser addons and assistive technologies could both leverage this flexible interface for end users.
 
-It is important to note that the work of Chartability did not begin and does not conclude with the publication of this manuscript. We want Chartability to become a living, community-driven effort that will adapt and grow as more resources, tools, and research become available.
+\subsubsection{Discrete, sequential input opens new avenues}
+The \textit{keyboard interface} is considered foundational for many assistive devices, which leverage this technology for discrete, sequential, non-pointer navigation and interaction~\cite{WAI2017Keyboard}. Desktop screen readers are the most common example of an assistive technology device that leverages the keyboard interface, however single or limited button switches, sip-and-puff devices, on-screen keyboards, and many refreshable braille displays do as well. Support for the keyboard interface by default in turn provides all discrete, sequential input devices with access as well.
 
-\section{Discussion}
-From our presentation of Chartability and a preliminary user evaluation with data visualization and accessibility practitioners, we learned that Chartability reduced the perception that working on accessibility is difficult and increased the confidence of those new to this work. Chartability shows promise as a useful framework for expert accessibility practitioners because it serves to produce consistency in contexts like the evaluation of dashboards, data science workflows, and other complex, data-driven interfaces. 
+However by basing Data Navigator's foundational infrastructure on a keyboard-like modality, this also provides designers and developers new avenues to imagine how existing direct, pointer-based, or continuous inputs can map to discrete, sequential navigation experiences.
 
-While our practitioners with novice accessibility experience were initially concerned about doing the audit correctly, most of their audit results were reasonably comparable with that of the authors (although their time to complete was much longer). 
+For example, with mobile screen readers this already happens: screen reader users swipe and tap on their screen to sequentially navigate, but the exact pixel locations of their swiping and tapping generally does not matter. Their current focus position is discrete and determined by the screen reader software.
 
-We agree with experts that beyond Chartability, more resources are needed which provide examples of both inaccessible and accessible data visualizations as well as how to perform some of the more difficult parts of the auditing process (such as evaluating with a screen reader). We hope that keeping Chartability on GitHub will inspire future improvements to address this gap in examples, and will address future limitations, as we discover them. 
+Data Navigator therefore allows for many new possibilities. One possibility is that sighted mouse and touch users may now also swipe their way through dense plots or use small interfaces (such as on mobile devices) that may otherwise be too hard to precisely tap. Data Navigator optionally removes the accessibility barriers sometimes posed by precision-based input in visualizations.
 
-Chartability is a valuable tool for auditing. But we also hope that it can inspire researchers to:
-\begin{enumerate}
-    \item Examine which heuristics (in our supplemental materials) could use more research attention, particularly those labelled ``community practice.''
-    \item Define constraints or requirements on novel projects, ensuring that new explorations still respects established standards, mitigating ethical risks.
-    \item Explore the intersections of disability in ways yet unaddressed in standards, such as the strong overlaps between understandability and operability (like keyboard navigation patterns across a data structure) or conflicts in understandability and flexibility (how some users need redundant encodings on charts while others find this overwhelming).
-    \item Consider access barriers in data experiences beyond those related to visual perception.
-    \item Engage the relationship between labor and access in computing, such as developing more measurements that demonstrate the imbalance of time and effort expected of users with disabilities (even in systems considered to provide ``equal'' access) and ways to evaluate who is contributing to accessibility efforts in a project (core team members, contractors, or volunteers).
-\end{enumerate}
+Data Navigator does not have to be in conflict with precision-based input, either. A discrete, sequential navigation infrastructure can be used in tandem with precision-based pointer events as well as instant access when coupled with voice commands and search features.
 
-We also want to caution researchers who are considering developing heuristics or auditing tools for use in practitioner environments to consider the tradeoffs between evaluation in rich, authentic professional settings and concerns such as intellectual property and corporate branding. We were able to apply our work in rich and collaborative practitioner settings because we were permissive with our potential participants. However, much of this work exists behind closed doors, similar to the downsides of industry research settings. More work may need to be done in order to encourage rich, cross-industry research projects, such as helping to anonymize the content of intellectual property and not just participants, while retaining data and findings. 
+\subsection{Rendering}
+
+\subsubsection{Flexible node semantics provide freedom}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{figures/semantics.png}
+  \caption{An example of how navigation within Data Navigator could use semantic nodes as hyperlinks to provide access to other areas in an application. Alabama has a child node ``Counties'' which is a semantic HTML link element pointing to a table of counties, outside of Data Navigator's graph structure. A link is provided to return.}
+  % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
+  \label{semantics}
+\end{figure}
+
+Nodes in Data Navigator are semantically flexible. This is because the marks in a data visualization may represent many things, that are either dependent on the data or the user interface materials.
+
+Since our toolkit implementation is in JavaScript and HTML, our map example from \autoref{map} might use image semantics for states, alongside a description of the data relevant to that node. However since semantics are flexible in this way, Data Navigator could also be used to integrate into a larger ecosystem, with nodes rendered as hyperlinks to tables or other elements such as in \autoref{semantics}.
+
+The concept of using node-edge graphs can even extend to have ``nodes'' that are entirely different parts of a document or tool, as well as integrated into the explicit structure provided by Data Navigator. In some accessibility toolkits, nodes are geometries without functional semantics~\cite{Satyanarayan2017VegaLite} or list items nested within lists~\cite{Blanco2022olli}. But in Data Navigator, nodes can semantically be buttons, links, or any HTML element. Interactive data visualizations sometimes demand more flexible node semantics than geometries or lists.
+
+\subsubsection{Loose-coupling to visuals enables expressiveness}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{figures/path.png}
+  \caption{\textbf{A.} The data specified for a node with a reference to separate data that is used to render that node. \textbf{B.} The node will render as a path at the specified Cartesian coordinates. \textbf{C.} This rendered node may then be placed over a visual.}
+  % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
+  \label{path}
+\end{figure}
+
+One of the most significant technical limitations of existing data visualization toolkits with regards to accessibility is that they rely on visual substrate, or visual materials, in order to produce data visualizations. In the case of static, raster images such as png files or WebGL and canvas elements on the web, there are no interface properties at all exposed to screen readers for programmatic exploration and interaction.
+
+If raster images are used, they generally cannot be changed after rendering. However, according to web accessibility standards, elements must have a visual indicator provided when focused~\cite{WAI2016Focus}.
+
+Since Data Navigator navigates using focus, an indicator must be rendered alongside the node semantics. But \textit{what} is focused visually and \textit{where} it is depends on different design needs.
+
+In \textit{Visa Chart Components}, chart elements can be \textit{selected}, so the focus indication is visible over the existing elements in the chart space. The design choice to have interactive visual elements located within a chart or graph is also common in other toolkits that provide accessible focus indication, such as \textit{Highcharts}, \textit{PowerBI}, and \textit{SAS Graphics Accelerator}.
+
+However, some visualization toolkits create accessible structures entirely uncoupled from visual space~\cite{Blanco2022olli}, so focus indication is provided beneath or beside the chart, not over it.
+
+Due to the different ways that accessibility might be provided, Data Navigator enables developers to have complete control over the rendering of which focus elements they want, in what styling, and where. This can accommodate both un-coupled and visually-coupled approaches to focusing and more.
+
+Data Navigator's focus is \textit{uncoupled} by default and may even be used independent of any existing graphics at all. Rendering information may be passed to Data Navigator for it to render (like in \autoref{path}) or developers can provide their own rendered elements and simply use Data Navigator to move between them.
+
+Because of Data Navigator's approach to rendering focusable elements, designers and developers can provide fully customized annotations, graphics, text, or marks that may not be not part of the original visual space or elements. One example of this might be adding an outlined path to a collective cross-stack group of bars in a stacked bar chart (see \autoref{path}).
+
+Loose-coupling in this way provides robust flexibility to designers and developers to handle navigation paths and stories through a data visualization, even in bespoke or hand-crafted ways.
+
+\subsubsection{On-demand node rendering is efficient}
+Practitioners care about performance and so do users. Practitioner toolkits often focus on lazy-loading techniques where accessibility elements are rendered on-demand rather than all in-memory up front~\cite{Elavsky2021Method,Zong2022Rich,Blanco2022olli}.
+
+Data Navigator's nodes are rendered \textit{on-demand} by default. Data Navigator only renders the node that is about to be focused by the user and after it is focused, the previously focused node is deleted from memory. This technique has advantages in cases where datasets are large or users have lower computational bandwidth available. However, there are cases where practitioners may want to render all of Data Navigator's structure in memory, such as server-side rendering or equivalent. Pre-rendering may be optionally enabled.
+
+\section{Case Examples}
+We built example prototypes using our JavaScript implementation of Data Navigator, available open source at our \href{https://github.com/cmudig/data-navigator}{GitHub repository}.
+
+Our first two prototype case examples represent some of the most powerful parts of Data Navigator as a system while reproducing known and effective data navigation patterns from existing industry and research projects. We provide a final case example as a co-design session that demonstrates how Data Navigator may be used to rapidly build new designs.
+
+\subsection{Augmenting a Static, Raster Visualization}
+\label{section:raster}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{figures/static.png}
+  \caption{\textbf{A.} A raster (png) visualization of a stacked bar chart showing how 4 English teams performed across 3 major trophy contests. \textbf{B.} An example navigation schema that allows children nodes to have 2 parents (two tree structures intersecting), one for contests and one for teams. \textbf{C.} An example of Data Navigator's navigation logic abstraction, which allows edge types to have programmatic sources, targets, and rules, such as a single rule that gives all nodes a edge to exit the visualization. \textbf{D.} An instantiation of the schema, showing all corresponding rendered nodes and their edge types according to the schema design and navigation rules.}
+  % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
+  \label{static}
+\end{figure}
+
+The first case example (shown in \autoref{static}) builds on an online JavaScript visualization library, \textit{Highcharts}. \textit{Highcharts} already provides relatively robust data navigation handling out of the box for screen reader, keyboard, and even voice recognition interface technologies, such as \textit{Dragon Naturally Speaking}. However, these capabilities are only provided when the chart is rendered using SVG. Developers have several other rendering options available, including WebGL, which is significantly more efficient~\cite{HighsoftBoost}. We wanted to demonstrate that Data Navigator can provide a navigable data structure even if the underlying visualization is a raster image.
+
+For our case example, we exported a png file using the built in menu of a sample stacked bar chart retrieved from their online demos~\cite{HighchartsStacked}. We selected a stacked bar chart because it allows us to demonstrate how two tree structures may interact and share the same children nodes.
+
+We recorded the data and hand-created all of the geometries and their spatial coordinates using \textit{Figma}, by tracing lines over the raster image's geometries (see samples of the data and traced geometries in \autoref{path}). While this method was efficient for building an initial prototype, \autoref{section:ecosystem} engages deterministic methods for extracting and producing the nodes, edges, and descriptions required by Data Navigator automatically and at scale.
+
+The visualization we selected represents 4 English football teams, \textit{Arsenal, Chelsea, Liverpool,} and \textit{Manchester United} and how many trophies they won across 3 contests, \textit{BPL, FA Cup,} and \textit{CL}.
+
+We chose a schema design that arranged the \textit{contests} to be navigable across one dimension of movement (\textit{up} and \textit{down}) while the \textit{teams} are navigable across a perpendicular dimension of movement (\textit{left} and \textit{right}). This 2-axis style of navigation is used by \textit{Highcharts} (when rendering as SVG) and \textit{Visa Chart Components}. We also chose these directions because it is coincidental that their visual affordance is closely coupled with the navigation design (the x axis is ordered \textit{left} to \textit{right} and since the bars are stacked, \textit{up} and \textit{down} can move within the stack). These directions can also be applied to the axis categories and legend categories as well, moving \textit{left} and \textit{right} across the entire \textit{team's} stacks or up and down across the entire \textit{contest's} groupings.
+
+Using a keyboard, a user might enter this schema and navigate to the legend, where they could press \textit{Enter} to then focus the legend's first child, pictured in \autoref{path}. Pressing up or down navigates in a circular fashion among the \textit{contest} groupings. Pressing \textit{Enter} again then focuses the first child element of that \textit{contest}, all of which are in the \textit{Arsenal} group, since it is the first group along the x axis. A user can then navigate \textit{up, down, left,} and \textit{right} among children. Pressing \textit{L Key} moves the user back up towards the contest while pressing \textit{Backspace} moves the user up towards the x axis. The x axis and \textit{team} groupings represent the second tree which intersects the first (the \textit{contests}).
+
+Our first case example includes handling for additional input modalities beyond screen readers and keyboards, including a hand gesture recognition model, swipe-based touch navigation, and text input (which can be controlled using voice recognition software).
+
+\subsubsection{Discussion}
+Our first case example demonstrates several of the most important capabilities of Data Navigator, namely that practitioners can add accessible navigation to previously inaccessible, static, raster image formats and that a wide variety of input modalities are supported easily.
+
+Widely-used toolkits like \textit{Vega-Lite}, \textit{Highcharts}, and \textit{D3}~\cite{Bostock2011D3} allow practitioners to choose SVG and canvas-based rendering methods. Data Navigator's affordances help overcome the lack of semantic structure in canvas-based rendering, allowing developers to take advantage of its processing and memory efficiency.
+
+Notably in addition to these capabilities, the visual focus highlighting added was entirely bespoke (as in~\autoref{path}) and the navigation paths through the visual were based on our design intentions, not an extracted view or underlying architecture such as render order. This demonstrates that our system provides a significant degree of freedom and control for designers and developers.
+
+As a final discussion point, the resulting visualization contains no automatically detectable accessibility conformance failures according to the W3C's Web Accessibility Initiative's accessibility evaluation tool, \textit{WAVE}~\cite{WebAIMWAVE}. It is important for any technology developed to also meet minimum requirements for accessibility~\cite{Lundgard2019Sociotechnical,Lundgard2022Accessible,Zong2022Rich,Elavsky2022Chartability}, even when following best-practices and research.
+
+\subsection{Building Data Navigation for a Toolkit Ecosystem}
+\label{section:ecosystem}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{figures/vega-lite.png}
+  \caption{\textbf{A.} Various charts from \textit{Vega-Lite} share the same general structures with each other when rendered using canvas (\textbf{B}) or SVG (\textbf{C}). \textbf{D.} With Data Navigator, we replicated the existing SVG navigation pattern (\textbf{C}) but used a canvas-based rendering for the visualization. \textbf{E.} We also improved the navigation scheme to nest marks within a mark group to allow users to skip them, if needed.}
+  % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
+  \label{vega-lite}
+\end{figure}
+
+Our second case example, shown in \autoref{vega-lite}, builds on \textit{Vega-Lite}. As shown in \autoref{existing}, \textit{Vega-Lite} offers basic screen reader navigation but provides no navigation at all when rendered using canvas.
+
+While it might be a tedious design choice to allow every mark in a visualization to be serially accessible to screen reader users, we nevertheless set out to build a generic ingestion function that would take a \textit{Vega-Lite View} object and deterministically recreate their existing SVG navigation structure in Data Navigator. This way users would have the same experience between SVG rendered charts and all current and future rendering options that \textit{Vega-Lite} offers to developers. 
+
+Notably, \textit{Vega-Lite} does not explicitly manipulate the navigation order at all when rendering with SVG. ARIA is simply provided to allow screen reader users to access each mark in the visualization in the order the mark appears in the DOM (which is the order it was rendered). The legend appears after the marks in our schema for this reason because \textit{Vega-Lite} renders the legend after marks. This choice of ordering is for visual reasons: z-axis placement is currently based on render order in SVG and \textit{Vega-Lite} wants their legend visually on top of the rendered marks.
+
+In addition to mimicking their existing SVG navigation strategy, we also created a way to nest all of the marks within a group so that users can skip past them and drill in on-demand, which is a valuable pattern when dealing with situations where providing a mark-level fidelity of information may not be relevant to a user's needs by default~\cite{Shneiderman2003Eyes,Zong2022Rich}.
+
+In order to deterministically supply Data Navigator with accurate information about any given \textit{Vega-Lite} visualization, we built 3 functions: one that takes a \textit{Vega-Lite View} as input and extracts meaningful nodes, one that produces edges based on those nodes, and one to describe our nodes in a meaningful way for screen reader users. These generic functions technically work on all existing \textit{Vega-Lite} charts, however some are more useful out of the box than others due to the type of marks involved.
+
+\subsubsection{Discussion}
+This case example demonstrates that ecosystem-level remediation and customization is not only possible for toolkit builders but Data Navigator offers robust potential. Data Navigator's structure, input, and rendering capabilities are all flexible and can be adjusted to suit the needs of a specific toolkit's design  and intended use.
+
+Many visualization libraries may not even provide screen reader accessible SVG using ARIA-based approaches but do have a consistent underlying architectural pattern. Some libraries have a consistent method for converting data into visual formats, readable text labels, and interaction logic. Strong contenders would be visualization libraries popular in online, web-based data science notebooks like \textit{ggplot2} in R or \textit{matplotlib} for Python, which typically only render rasterized pngs or semanticless SVG.
+
+Toolkits with consistent underlying architecture would allow toolkit developers, not just developers who \textit{use} toolkits, to remediate and customize their navigation accessibility using a generic approach.
+
+Enabling accessibility at the toolkit level allows all downstream use of that tool to have better defaults, options, and resources available for building more accessible outcomes for end users.
+
+Many libraries and toolkits provide users with a level of functional defaults and abstract conciseness so that users don't have to worry about low-level geometric considerations~\cite{Satyanarayan2017VegaLite}.
+
+Data Navigator allows toolkits developers to also provide their users with abstractions and defaults for accessibility that make sense for their ecosystem.
+
+Despite our schema recreating a screen reader experience based on SVG (and improving it), Data Navigator's additional features also apply: users are able to leverage a much wider array of input modalities.
+
+\textit{Vega-Lite} provides many ways to make marks clickable and even perform complex actions using mouse-based input. While Data Navigator does not engage accessible brush and drag-based inputs, it does provide keyboard-only access by default, which can be used to make events previously only accessible to mouse clicking available to many other technologies. This is an improvement over \textit{Vega-Lite}'s SVG + ARIA rendering option.
+
+When measuring performance across test datasets containing 406 and 20,300 data points in a scatter plot, Data Navigator increases initialization time by $\sim$0.45 to $\sim$1.5ms respectively. Our extraction functions specific to \textit{Vega-Lite} increase initialization between $\sim$4.8 and $\sim$8.5ms respectively. Given that our benchmark testing for \textit{Vega-Lite's} SVG rendering initialized in $\sim$1,800ms for 20,300 data points and canvas in $\sim$700ms, we do not anticipate that Data Navigator will have a negative impact on performance in most visualization contexts.
+
+\subsection{Co-designing Novel Data Navigation Prototypes}
+\label{section:codesign}
+
+Recent projects in accessible data navigation have involved extensive co-design work with people with disabilities, ranging on the magnitude of months with as many as 10 co-designers at a time~\cite{Lundgard2019Sociotechnical,Lundgard2022Accessible,Zong2022Rich,Thompson2023Chart}.
+
+However many visualization experiences may be authored in smaller scales, with fewer designers, and less time such as the development of a prototype or demonstration of an emerging idea. In practical or industry contexts, co-design sessions (and design sessions in general) may be much shorter. The goal of these co-design sessions is simply to create an artifact with the artifact's intended users.
+
+Since our paper is contribution towards practical outcomes, we simulated a light co-design session with the aim of producing low-fidelity prototypes of novel data interaction patterns.
+
+\subsubsection{Co-design Session Methods and Setup}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{figures/braille.png}
+  \caption{Our material preparation process involved taking a reference (\textbf{A}), tracing it (\textbf{B}), and rendering it on a tactile display (\textbf{C}).}
+  % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
+  \label{braille}
+\end{figure}
+
+Authors Frank Elavsky (sighted) and Lucas Nadolskis (blind) set out with the goal of developing screen-reader friendly prototypes that can explore geometric and mathematical models produced by the math diagramming tool \textit{Penrose}~\cite{Ye2020Penrose}.
+
+Nadolskis is a neuroscience engineer who is a native screen reader user and uses both mathematical concepts as well as data-related tasks in his research. Elavsky proposed a series of possible math-based visualization types produced by \textit{Penrose} to build prototypes for, and Nadolskis selected \textit{set} and \textit{vector} diagrams as the two worth exploring first. The justification for this selection is that understanding these two concepts is important for work in data science, programming, and more advanced math concepts.
+
+In particular we grounded the context of our contribution in a hypothetical classroom setting, where a screen reader user who is a student will have access to the equations in both raw text and \textit{MathJax}. We want to provide an experience that does not replace the existing resources screen reader users have to learn in classrooms but rather supplement.
+
+At our disposal for our co-design session was a \textit{Dot Pad}~\cite{Dot2020Dot}, which is a refreshable tactile braille display. Our \textit{Dot Pad} enabled Elavsky to produce something visual and then translate it into the display for Nadolskis. Similar to de Greef \ea~\cite{deGreef2021Interdependent}, we used a tactile interface as an intermediary to help us get a shared sense of the meaningful spatial features of our figures.
+
+Elavsky started with a reference diagram and then traced a wide variety of every possible node that might be worth navigating to in the diagram (see \autoref{braille}).
+
+We selected which nodes were most important in each diagram, how to navigate between them, and how we wanted to render their visuals and semantics.
+
+The selection of our problem space, scope of solutions, context of contribution, general discussion, and preparation of materials took approximately 12 hours of work over 2 weeks. The exploration of our prototype design space for our 2 prototypes took 1 hour. Building the prototypes took 2 hours.
+
+\subsubsection{Creating a Navigable Set Diagram}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{figures/sets.png}
+  \caption{\textbf{A.} A reference image from \textit{Penrose} of a set diagram containing two sets intersecting. \textbf{B.} A diagram of our proposed structure, with three levels of information.}
+  % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
+  \label{sets}
+\end{figure}
+
+Our first prototype was a set diagram (see~\autoref{sets}). For our structure, we decided that it has 3 important semantic levels: the high level, the inclusion level, and the exclusion level. The inclusion level is first and the siblings are all sets or subsets that include other sets. The exclusion level is beneath and contains sets or subsets that are exclusive to the sets they belong to, which are accessed by drilling down from a set. 
+
+Our schema design starts with a user encountering the root level (1) and may optionally drill in to the first child of the next level (2) using the \textit{Enter} key. The user may navigate siblings at this level using \textit{right} and \textit{left} directions, but this level is not circular (like in \autoref{static}) to maintain the spatial relationships. The user may drill in on either set again to view the non-intersecting portion of that set. Any node can drill up, towards the root, using \textit{Escape} or \textit{Backspace}.
+
+% \textbf{Rendering.} The following descriptions correspond to the numbered nodes in \autoref{sets}:
+% \begin{enumerate}
+%   \itemsep-0.4em
+%   \item “Set A intersects Set B. Spatial view.”
+%   \item “Set A, count: 10. Contains 1 intersection and 1 non-intersecting subset.”
+%   \item “Set A and B intersection, count: 7.”
+%   \item “Set B, count: 10. Contains 1 intersection and 1 non-intersecting subset.”
+%   \item “Set A non-intersecting subset, count: 3.”
+%   \item “Set B non-intersecting subset, count: 3”
+% \end{enumerate}
+
+\subsubsection{Creating a Navigable Parallel Vectors Diagram}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{figures/vectors.png}
+  \caption{\textbf{A.} A reference image from \textit{Penrose} of a parallel vectors diagram. \textbf{B.} A diagram of our proposed structure, with two main sub-categories of information: understanding the vectors and their parallels.}
+  % \Description{A mouse pointer is shown shaking over many data points that are very small while a touch hit area is shown over the same visualization, overlapping with many points at once.}
+  \label{vectors}
+\end{figure}
+
+Our second prototype was a parallel vectors diagram (see~\autoref{vectors}). For the structure of this diagram we created a first level group that contains each vector and vector sum. The sibling to this grouping is another group which organizes sub-equations related to calculating each parallel vector. The sub equations each contain children that pair the sub equation with the vector it is parallel to.
+
+Similar to \autoref{sets}, this figure maintains spatial relationships along the x dimension, does not have circular navigation, and allows drilling in and out.
+
+% \textbf{Rendering.} The following descriptions correspond to the numbered nodes in \autoref{vectors}:
+% \begin{enumerate}
+%   \itemsep-0.4em
+%   \item “Using the sum of Vectors A and B to form parallel vectors. Spatial view.”
+%   \item “Vectors, group.”
+%   \item “Sub-equations for parallel vectors, group.”
+%   \item “Vector A [equation].”
+%   \item “Sum of Vectors A and B.”
+%   \item “Vector B [equation].”
+%   \item “Connecting Vector A to the Sum Vector creates a parallel Vector to Vector B.”
+%   \item “Connecting Vector B to the Sum Vector creates a parallel Vector to Vector A.”
+%   \item “Parallel Vector A Sum AB and Vector B.”
+%   \item “Parallel Vector B Sum AB and Vector A.”
+% \end{enumerate}
+
+\subsubsection{Discussion}
+After our co-design sessions, our visual materials and navigation structures were used in the creation of functional prototypes. We additionally hand-crafted the descriptions and semantics for each node.
+
+Accessibility work often takes a long time, from co-design to building to validation. But we believe that a well-articulated and useful design space, with tools that provide expressiveness and control over the dimensions of that design space, can improve how this work is done. The above case example demonstrates how builders who are thinking about data navigation design can rapidly scaffold prototypes for use in Data Navigator.
+
+In particular, Data Navigator's design as a system gave our co-design sessions \textit{vocabulary correspondence}. Data Navigator's language helped us focus on the \textit{nodes, edges,} and \textit{navigation rules} for our \textit{structure} while we also explicitly discussed the \textit{rendering} details of \textit{coordinates, shapes, styling,} and \textit{semantics} for each node. The vocabulary of our design space directly corresponded with code details required to create a functional prototype.
+
+% Our ability to develop these novel prototypes in a short turnaround time hinged on the design considerations of \textit{structure, navigation,} and \textit{description}~\cite{Zong2022Rich}. In addition, our deliverables are easy to integrate into a working, interactive prototype in Data Navigator because our system was designed to have \textit{vocabulary correspondence} these design dimensions. In an industry or research setting, these interactive prototypes could now be shared with other collaborators and stakeholders for further iteration.
+
+We note that this co-design work is not intended to contribute a \textit{validated} set of designs. Rather, our contribution with this case example is to demonstrate that within the larger ecosystem of a research venture, Data Navigator is an improvement over designing and building navigable structures from scratch.
+
+\section{Limitations and Future Work}
+Data Navigator is a technical contribution, a system designed for appropriation~\cite{Dourish2003Appropriation} and adaptation~\cite{Wobbrock2011Ability} in different applied contexts. It is, as Louridas writes, a \textit{technical material}: a technology that enables new and useful capabilities~\cite{Louridas1999Bricolage}. While beyond the scope of the current paper, a critical next step for future work is to conduct separate studies with both practitioners and end users to evaluate Data Navigator's affordances.
+
+Unlike toolkits that provide an end-to-end development pipeline for accessible visualization, Data Navigator serves as a low-level building block or material (like concrete). As such, one potential limitation of the framework is that it can be used to build both curbs (which are inaccessible) as well as ramps and \textit{curb-cuts} (which may be more broadly accessible).
+
+Even when building more accessible curb-cuts, we stress the importance of actively involving people with disabilities in the design and validation of new ideas, in line with prior work~\cite{Reid2022Curb,Lundgard2019Sociotechnical,Lundgard2022Accessible,Zong2022Rich}. For example, while our first two case examples replicate co-designed and validated existing work, our third case example's co-designed prototypes would need to be validated with relevant stakeholders before wider implementation. Our system does not \textit{guarantee} any sort of accessibility on its own.
+
+The diverse array of modalities supported by Data Navigator opens an immediate line of future work in engaging people with a correspondingly diverse set of disabilities. While recent explorations into accessible data visualization have been inspiring, this trend has primarily focused on the experiences of people with visual disabilities~\cite{Elavsky2022Chartability,Marriott2021Inclusive,Kim2021Accessible}. More research should be conducted with other populations, particularly people who leverage assistive technologies beyond screen readers, to understand how interactive data visualizations can be better designed to serve them.
+
+Finally, there are significant opportunities to improve the efficiency of our approach, including developing deterministic and non-deterministic methods to generate node-edge data and navigation rules from a visualization. Ma'ayan \ea stress in particular that reducing tedious complexity can contribute to the success of a well-designed toolkit~\cite{Maayan2020Domain}. Future work should identify areas where graphical interface tools or higher-level specifications can improve the experience of working with Data Navigator.
 
 \section{Conclusion}
+Practitioners at large continue to produce inaccessible interactive data visualizations, excluding people with disabilities. We believe that the burden of remediation first starts with the developers who build and maintain the toolkits that practitioners use.
 
-The demand for accessible data experiences is long overdue. The Web Accessibility Initiative’s (WAI) Web Content Accessibility Guidelines (WCAG) are over 22 years old and yet little work has been done to synthesize this large body of existing accessibility standards with research and inclusive design principles relevant to the fields of data communication, data science, data analysis, and visualization. Chartability begins to address unique accessibility best practice gaps in these domains with specific heuristics. This synthesis is meant to empower researchers, analysts, designers, developers, editors, and accessibility specialists with a framework to audit the accessibility of data experiences, interfaces, and systems to produce more inclusive environments for users with disabilities. The goal of Chartability is to make this work easier in order to encourage practitioners to regard current practices and resources, some of which have existed for decades. 
+However, the challenges faced by toolkit builders are significant. Most toolkits lack an underlying, navigable structure, support for broad input modalities used by people with disabilities, and meaningful, semantic rendering.
 
-In addition, Chartability opens the door to more work that remains to be explored in this space. Additional research is needed into many of the topic areas within Chartability’s heuristic principles (POUR+CAF) as well as resources, examples, and tools provided for practitioners to perform this work more confidently and efficiently. 
+To engage these limitations we present Data Navigator, a technical contribution that builds on existing work towards a more generalizable accessibility-centered toolkit for creating data navigation interfaces. Data Navigator is designed for use by practitioners who both build and use existing toolkits and want a tool to make their data visualizations and interfaces more accessible.
 
-The changing landscape of visualization techniques and alternative interfaces (such as sonification and dynamic tactile graphics) may increase the demands for accessibility considerations in this space. The growing technological divide will become an even greater human rights issue as time moves on and we believe that tools like Chartability are necessary for the community of data practitioners to ensure they are including people with disabilities.
+We contribute a high-level system design for our node-edge graph-based approach that can be used to build data structures that are navigable by a wide array of assistive technologies and input modalities. Data Navigator is generic and can scaffold list, tree, graph, relational, spatial, diagrammatic, and geographic types of data structures common to data visualization.
 
-\section*{Acknowledgements}
-First we want to thank our reviewers. This paper would not have found its core contribution without your help. 
+Our system is designed to encourage both remediation of existing inaccessible systems and visualization formats as well as help scaffold the design of novel, future projects. We look forward to further research that explores the possibilities enabled by Data Navigator.
 
-We especially want to thank all the community members who helped contribute to improving Chartability during the making process as well as after we released (in no particular order): Liz Hare, Silvia Canelón, Léonie Watson, Emily Kund, Sarah Fossheim, Ted Gies, Larene Le Gassick, Melanie Mazanec, Amanda Makulec, Amy Cesal, and anonymous friends. We also want to thank all of our industry partners who are currently using Chartability.
+%% if specified like this the section will be committed in review mode
+\acknowledgments{
+We want to take this time to express immense gratitude for Reviewer 1, whose generous and thorough feedback helped this project find its true vision. Elavsky also wants to thank the many folks who have encouraged this project's ideation and formation over the last few years.
 
-And lastly, special thanks to Doug Schepers of Fizz Studio for sponsoring Chartability and for your gracious encouragement, support, and feedback. 
+This work was supported by a grant from Apple, Inc. Any views, opinions, findings, and conclusions or recommendations expressed in this material are those of the authors and should not be interpreted as reflecting the views, policies or position, either expressed or implied, of Apple Inc.
+}
 
-% bibtex
+%\bibliographystyle{abbrv}
+% \bibliographystyle{abbrv-doi}
+%\bibliographystyle{abbrv-doi-narrow}
+\bibliographystyle{abbrv-doi-hyperref}
+%\bibliographystyle{abbrv-doi-hyperref-narrow}
 
-\bibliographystyle{eg-alpha-doi}  
-\bibliography{bibliography}        
-
-% biblatex with biber
-% \printbibliography                
-
+\bibliography{bibliography}
 \end{document}
+

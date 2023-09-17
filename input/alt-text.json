@@ -1,50 +1,80 @@
 [
   {
-    "fileName": "figure 2.png",
+    "fileName": "data_navigator.png",
     "figureName": "Figure 1",
-    "id": "fig:2",
-    "altText": "Testing the contrast of a chart and fixing it."
+    "id": "hero",
+    "altText": "A diagram that shows an image of rich, accessible, navigation structures, icons for robust input handling, and additional graphics for flexible, semantic rendering. These images, icons, and graphics all feed into Data Navigator, which feeds into visualization toolkits, shown with a variety of different data visualization types (maps, scatterplots, lines, graphs, and bar charts)."
   },
   {
-    "fileName": "figure 3.png",
+    "fileName": "state-of-the-art.png",
     "figureName": "Figure 2",
-    "id": "fig:3",
-    "altText": "The navigation order is shown on a stacked bar chart, zig-zaging forward. It is then fixed to show multiple possible paths, left/right or up/down."
+    "id": "existing",
+    "altText": "4 different diagrams. 1. Raster image*: Start, image, end. The diagram is a straight line with 3 nodes. 2. SVG with ARIA*: Start, svg, mark 1, repeating pattern, mark n, end. Straight line with 5 nodes (and repetition). 3. Vega-Lite* (SVG+ARIA): Start, svg, x axis, y axis, mark 1, repeating pattern, mark n, legend, end. Same as SVG with ARIA but it has axes and a legend. 4. Olli**: This diagram has a main line with 7 nodes, 4 of which have branches off of them. Start, root, x axis, y axis, legend, grid, and end. The x axis shows intervals, a table, rows, and cells underneath. The y axis, legend and grid all have a note that their pattern is similar to the x axis."
   },
   {
-    "fileName": "figure 4.png",
+    "fileName": "geoviz.png",
     "figureName": "Figure 3",
-    "id": "fig:4",
-    "altText": "Showing a mouse interacting with a stacked bar chart and updating a table."
+    "id": "map",
+    "altText": "A map, tree, and graph representation. The map is encoded with colors according to engineers per capita. The tree shows a recursive pattern and a focus indicator, as if a user has navigated to Alabama then to neighboring state Florida. Instead of backing out of the structure, the user continued to navigate between them, which created a large amount of waste and repetition between these two states and their corresponding lists of neighboring states. The graph representation shows a start, Alabama, Alaska, Arizona, and a repeating symbol. Connected to Alabama are example neighboring nodes, each listed once: Mississippi, Tennessee, Georgia, and Florida."
   },
   {
-    "fileName": "figure 5.png",
+    "fileName": "simple_movement.png",
     "figureName": "Figure 4",
-    "id": "fig:5",
-    "altText": "A chart with almost no text compared to a chart with a robust explanation."
+    "id": "simple_movement",
+    "altText": "A diagram with 4 parts: 1. Code. // using movement dn.move('right') 2. Two nodes, BPL-A and BPL-C, an arrow pointing from BPL-A to BPL-C. 3. Code. // an edge instance 'bpla-bplc': { source: 'bpla', target: 'bplc', navRules: ['right', ...] } 4. Code. // a navigation rule right: { key: 'ArrowRight', direction: 'target' }."
   },
   {
-    "fileName": "figure 6.png",
+    "fileName": "dynamic_movement.png",
     "figureName": "Figure 5",
-    "id": "fig:6",
-    "altText": "This section is about a screen reader (that's what you're using, I reckon, Hello!). The chart on the left is interactive but the screen reader semantics are uninformative. On the right, it states the role (toggle button) as well as gives feedback (selected)."
+    "id": "dynamic_movement",
+    "altText": "A diagram with 4 parts: 1. Code. // using movement dn.move('previous position') 2. Two nodes, any node and previous, an arrow pointing from any to previous. 3. Code. // a generic edge 'any-return': { source: (_d, current, _p)=> current, target: (_d, _c, previous)=> previous, navRules: ['previous position', ...] } 4. Code. // a navigation rule 'previous position': { key: 'Period', direction: 'target' }."
   },
   {
-    "fileName": "figure 7.png",
+    "fileName": "inputs.png",
     "figureName": "Figure 6",
-    "id": "fig:7",
-    "altText": "A chart that shows a trend next to a table that shows the month-by-month data for that trend listed out."
+    "id": "inputs",
+    "altText": "Image in two parts. First part: Inputs: A. Hand swiping. B: Speaking 'left.' C. A hand gesture on camera. D. Bananas. Second part: Output: (focus moves left) A focus indicator has moved on a bar chart from one stacked bar to another on its left."
   },
   {
-    "fileName": "figure 8.png",
+    "fileName": "semantics.png",
     "figureName": "Figure 7",
-    "id": "fig:8",
-    "altText": "A dense scatterplot being accessed one element at a time compared by a screen reader to a dense scatterplot where the main outlier cluster (the important part) is being accessed instead."
+    "id": "semantics",
+    "altText": "A diagram showing the node Alabama connected to the node Counties which is connected to a table of counties. A return link has an arrow from the table back to the Alabama node. Next to the Alabama node is the code: semantics: { attributes: { role: 'image', id: 'alabama-node' }, description: 'Alabama. 0.004 Engineers per capita. Contains 67 counties.' } Next to the Counties node is the code: semantics: { element: 'a', attributes: { href: '#alabama-table' }, description: 'Alabama Counties Data Table.' }."
   },
   {
-    "fileName": "figure 9.png",
+    "fileName": "path.png",
     "figureName": "Figure 8",
-    "id": "fig:9",
-    "altText": "A bar chart that has patterned textures combined with color changing into black and white (but still with textures)."
+    "id": "path",
+    "altText": "Code used to render a path that looks like an outline which then places that outline over visual elements on a data visualization. A. Node with path supplied. Code. bpl: { id: 'bpl', edges: [...], renderId: 'render-bpl' } render-bpl: { x: 194, y: 609, width: 918, height: 116, path: 'M987 136 H 985 L 985 137 L 848...', cssClass: 'dn-path', semantics: {...}, visualId: null } B. Path rendered, shown on an empty space. C. Path overlaid on visual space, over a data visualization. The path snugly wraps around a group of elements."
+  },
+  {
+    "fileName": "static.png",
+    "figureName": "Figure 9",
+    "id": "static",
+    "altText": "Large, 4 part diagram. (This diagram demonstrates why a single alt text isn't enough. Too bad PDFs can't have data navigator work inside of them.) A. Raster (png) visualization, showing a stacked bar chart 'Major trophies for some English teams' B. Dual tree schema design. A graph with a main line containing 6 nodes: Start, title, legend, y axis, x axis, end. The legend and x axis each branch off into axis items 1 through n and legend items 1 through n. Both of those trees rejoin on the same children elements, sub-bar 1 through sub-bar n. Arrows ar shown that map between the sub bars, fromt he sub-bars up to the axis and legend items, and then up to the axis and legend nodes. C. Keyboard navigation rules. Rules show LEFT/RIGHT moves across axis items, UP/DOWN moves across legend items, PERIOD moves back to user's last location, ESCAPE exits the structure, ENTER moves in along either the axis or legend while BACKSPACE moves out towards the axis and L moves out towards the legend. D. Schema instantiated. The pattern from B is applied to the chart in A, so every single node is shown rather than a generic stand-in node like 'axis item' or 'sub bar,' such as 'Arsenal' and 'BPL-A.'"
+  },
+  {
+    "fileName": "vega-lite.png",
+    "figureName": "Figure 10",
+    "id": "vega-lite",
+    "altText": "2 part figure. Part 1: A. Various Example Vega-Lite Charts. A line chart, bar chart, and scatter plot are shown in default styling. Part 2: Diagrams. B. Canvas. Start, image, end. C. SVG + ARIA. Start, svg, x axis, y axis, mark 1, repeating pattern, mark n, legend, end. D. Canvas + DN. The same diagram as C. E. Canvas + DN (improved). The same diagram as C except that mark 1 through n are nested under a mark group, so that the marks can be skipped without navigating through all of them."
+  },
+  {
+    "fileName": "braille.png",
+    "figureName": "Figure 11",
+    "id": "braille",
+    "altText": "A. Reference parallel vector diagram, a color diagram showing 2 vectors and a vector sum plotted on an x y Cartesian space. B. Traced portion, a black and white digram showing one vector, the vector sum, and the parallel of the second vector used to calculate half of the vector sum. C. Braille pin array output, an image of how a refreshable braille display shows the triangular shape of the traced portion."
+  },
+  {
+    "fileName": "sets.png",
+    "figureName": "Figure 12",
+    "id": "sets",
+    "altText": "A. Reference, a color diagram of two sets that intersect. The sets are shown as perfect circles. B Structure, a 6 part break down of the navigable structure. Each node is shown as a traced subportion used to render to the braille display. Walkthrough: 1 is both sets, 2 is the left set, 3 is the intersection of the two sets, 4 is the right set, 5 is the subset of the left set that is excluded from the right set, and 6 is the subset of the right set that is excluded from the left set."
+  },
+  {
+    "fileName": "vectors.png",
+    "figureName": "Figure 13",
+    "id": "vectors",
+    "altText": "A. Reference, a color diagram showing 2 vectors and a vector sum plotted on an x y Cartesian space. B. Structure, a 10 part breakdown of the navigable structure. Each node is shown as a traced subportion used to render to the braille display. 1 is the whole diagram, 2 is only vectors, underneath 2 are 3 traced portions, 1 for each vector. 3 is the whole diagram, underneath are the left and right halves of the equation used to calculate the sum, one for each vector and the opposite vector's parallel vector. Underneath each of these are the vectors and their own parallel vectors."
   }
 ]

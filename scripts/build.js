@@ -10,8 +10,12 @@ let rawCSS = fs.readFileSync('input/custom.css');
 let rawJS = fs.readFileSync('input/scrollNav.js');
 // this is loaded with a static filename to force people to add the files!
 let rawAlt = fs.readFileSync('input/alt-text.json');
+let rawOrcs = fs.readFileSync('input/orcids.json');
+let rawAbstract = fs.readFileSync('input/abstract.json');
 let head = fs.readFileSync('input/head.html');
 let altText = JSON.parse(rawAlt);
+let orcIds = JSON.parse(rawOrcs);
+let abstractText = JSON.parse(rawAbstract);
 
 const paperName = process.argv[2] || 'paper';
 const bibliographyName = process.argv[3] || 'bibliography';
@@ -152,21 +156,94 @@ exec(
             const bibliography = bib.window.document;
             let citations = {};
 
-            // remove xml metadata section
-            document.querySelector('.CCSXML').remove();
+            const openingParagraph = document.querySelectorAll('p')[1]
+            // if no abstract, add it
+            let abstract = document.querySelector('.abstract')
+            if (!abstract) {
+              abstract = document.createElement('div')
+              abstract.classList.add('abstract')
 
-            // hide strange paragraph break characters
-            document.querySelector('.author').innerHTML = document
-              .querySelector('.author')
-              .innerHTML.replaceAll('¶', '');
+              const abstractTitle = document.createElement('div')
+              abstractTitle.classList.add('abstract-title')
+              abstractTitle.textContent = "Abstract"
+
+              const abstractContents = document.createElement('p')
+              abstractContents.textContent = abstractText[0].abstract
+
+              abstract.appendChild(abstractTitle)
+              abstract.appendChild(abstractContents)
+              openingParagraph.parentNode.insertBefore(abstract,openingParagraph)
+            }
+
+            // if no introduction section, add it
+            const headings = [...document.querySelectorAll('h1')]
+            let hasIntro = false
+            headings.forEach(heading => {
+              if (heading.innerText === 'Introduction') {
+                hasIntro = true
+              }
+            })
+            if (!hasIntro) {
+              const introHeading = document.createElement("h1")
+              introHeading.textContent = "Introduction"
+              introHeading.id = "introduction"
+              openingParagraph.parentNode.insertBefore(introHeading,openingParagraph)
+            }
+
+            // remove xml metadata section
+            if (document.querySelector('.CCSXML')) {
+              document.querySelector('.CCSXML').remove();
+            }
+
+            // hide strange paragraph break characters\
+            const authors = document.querySelector('.author')
+            authors.innerHTML = authors.innerHTML.replaceAll('¶', '');
+
+            // add orcid links, eg:
+            // https://orcid.org/0000-0002-6849-5893
+            orcIds.forEach(orc => {
+              const index = authors.innerHTML.indexOf(orc.name)
+              if (index > -1) {
+                const before = authors.innerHTML.substring(0,index)
+                const addedLink = `<a href="https://orcid.org/${orc.id}">${orc.name}</a>`
+                const after = authors.innerHTML.substring(index + orc.name.length)
+                authors.innerHTML = before + addedLink + after
+              }
+            })
 
             // fix endnote
             const endnote = document.getElementById('fnref1');
-            endnote.children[0].textContent = '†';
-            endnote.setAttribute('aria-label', 'Read endnote');
-            document.querySelector(endnote.getAttribute('href')).setAttribute('aria-label', 'Return to paper contents');
+            if (endnote) {
+              endnote.children[0].textContent = '†';
+              endnote.setAttribute('aria-label', 'Read endnote');
+              document.querySelector(endnote.getAttribute('href')).setAttribute('aria-label', 'Return to paper contents');
+            }
 
-            // clean up figures
+            // add missing teaser figure
+            const h = document.getElementsByTagName('header')[0]
+            const newFigure = document.createElement('figure')
+            const newImage = document.createElement('img')
+            newImage.id = "hero"
+            newImage.setAttribute("src", "figures/data_navigator.png")
+            newImage.setAttribute("alt", "Data Navigator provides data visualization libraries and toolkits with accessible data navigation structures, robust input handling, and flexible semantic rendering capabilities.")
+            const newCaption = document.createElement('figcaption')
+            newCaption.textContent = "Data Navigator provides data visualization libraries and toolkits with accessible data navigation structures, robust input handling, and flexible semantic rendering capabilities."
+
+            newFigure.appendChild(newImage)
+            newFigure.appendChild(newCaption)
+            h.appendChild(newFigure)
+
+            // <figure>
+            // <img src="figures/state-of-the-art.png" id="existing"
+            // alt="Existing accessibility trees and lists, shown using node-edge graph conventions. (*) Denotes only screen reader access. (**) Denotes screen reader, keyboard-only, and pointer access as well." />
+            // <figcaption aria-hidden="true">Existing accessibility trees and lists,
+            // shown using node-edge graph conventions. (*) Denotes only <em>screen
+            // reader</em> access. (**) Denotes <em>screen reader</em>,
+            // <em>keyboard-only</em>, and <em>pointer</em> access as
+            // well.</figcaption>
+            // </figure>
+
+            // clean up rest of figures
             document.querySelectorAll('figure').forEach(figure => {
               const alt = altText.find(obj => obj.id === figure.querySelector('img').id);
               figure.querySelector('img').id = alt.figureName.replace(' ', '');
@@ -183,72 +260,74 @@ exec(
             // clean up table and table references
             const table = document.getElementById('tab:table');
 
-            // select first odd, first even: save their html and delete their nodes
-            let firstRow = table.querySelector('.odd').outerHTML;
-            table.querySelector('.odd').remove();
-            let secondRow = table.querySelector('.even').outerHTML;
-            table.querySelector('.even').remove();
+            if (table) {
+              // select first odd, first even: save their html and delete their nodes
+              let firstRow = table.querySelector('.odd').outerHTML;
+              table.querySelector('.odd').remove();
+              let secondRow = table.querySelector('.even').outerHTML;
+              table.querySelector('.even').remove();
 
-            // for odd: remove first three tds, add a single with colspan=3, change last to th, add scope=colgroup
-            firstRow = firstRow
-              .replaceAll('<td style="text-align: left;"></td>', '')
-              .replace(
-                '<td colspan="2" style="text-align: left;">Coding Categories</td>',
-                '<td colspan="3" style="text-align: left;"></td><th colspan="2" scope="colgroup" style="text-align: left;" id="coding-categories">Coding Categories</td>'
-              );
+              // for odd: remove first three tds, add a single with colspan=3, change last to th, add scope=colgroup
+              firstRow = firstRow
+                .replaceAll('<td style="text-align: left;"></td>', '')
+                .replace(
+                  '<td colspan="2" style="text-align: left;">Coding Categories</td>',
+                  '<td colspan="3" style="text-align: left;"></td><th colspan="2" scope="colgroup" style="text-align: left;" id="coding-categories">Coding Categories</td>'
+                );
 
-            // for even: change all to th, add scope=col
-            let hCount = 0;
-            secondRow = secondRow
-              .replaceAll('<td', s => {
-                hCount++;
-                const addition = hCount < 4 ? '' : 'headers="coding-categories" ';
-                return `<th scope="col" ${addition}id="t-h${hCount}"`;
-              })
-              .replaceAll('</td', '</th');
+              // for even: change all to th, add scope=col
+              let hCount = 0;
+              secondRow = secondRow
+                .replaceAll('<td', s => {
+                  hCount++;
+                  const addition = hCount < 4 ? '' : 'headers="coding-categories" ';
+                  return `<th scope="col" ${addition}id="t-h${hCount}"`;
+                })
+                .replaceAll('</td', '</th');
 
-            // select all first-cell children, change to th and give scope=row
-            let rowCount = 1;
-            table.querySelectorAll('td:first-child').forEach(firstCell => {
-              firstCell.outerHTML = firstCell.outerHTML
-                .replace('<td', `<th scope="row" headers="t-h1" id="t-hr${rowCount}"`)
-                .replace('</td', '</th');
-              rowCount++;
-            });
-
-            // create a thead element, append children rows, insert before tbody
-            const thead = document.createElement('thead');
-            thead.innerHTML = firstRow + secondRow;
-            table.querySelector('table').insertBefore(thead, table.querySelector('tbody'));
-
-            hCount = 1;
-            rowCount = 1;
-            table.querySelectorAll('tbody td').forEach(td => {
-              if (hCount === 5) {
-                hCount = 2;
+              // select all first-cell children, change to th and give scope=row
+              let rowCount = 1;
+              table.querySelectorAll('td:first-child').forEach(firstCell => {
+                firstCell.outerHTML = firstCell.outerHTML
+                  .replace('<td', `<th scope="row" headers="t-h1" id="t-hr${rowCount}"`)
+                  .replace('</td', '</th');
                 rowCount++;
-              } else {
-                hCount++;
-              }
-              const addition = hCount < 4 ? '' : 'coding-categories ';
-              td.setAttribute('headers', `${addition}t-h${hCount} t-hr${rowCount}`);
-            });
+              });
 
-            // clean up table caption semantics
-            const replacement = 'Previewing Chartability’s 10 Critical Heuristics';
-            const tableCaption = table.querySelector('caption');
-            tableCaption.innerHTML = tableCaption.innerHTML
-              .replace(replacement, `<h2 id='previewing-chartability'>${replacement}</h2>`)
-              .replaceAll('<br>', '');
+              // create a thead element, append children rows, insert before tbody
+              const thead = document.createElement('thead');
+              thead.innerHTML = firstRow + secondRow;
+              table.querySelector('table').insertBefore(thead, table.querySelector('tbody'));
 
-            // clean up links to table
-            document.querySelectorAll('*[href="#tab:table"]').forEach(link => {
-              link.textContent = 'Table 1';
-            });
+              hCount = 1;
+              rowCount = 1;
+              table.querySelectorAll('tbody td').forEach(td => {
+                if (hCount === 5) {
+                  hCount = 2;
+                  rowCount++;
+                } else {
+                  hCount++;
+                }
+                const addition = hCount < 4 ? '' : 'coding-categories ';
+                td.setAttribute('headers', `${addition}t-h${hCount} t-hr${rowCount}`);
+              });
+
+              // clean up table caption semantics
+              const replacement = 'Previewing Chartability’s 10 Critical Heuristics';
+              const tableCaption = table.querySelector('caption');
+              tableCaption.innerHTML = tableCaption.innerHTML
+                .replace(replacement, `<h2 id='previewing-chartability'>${replacement}</h2>`)
+                .replaceAll('<br>', '');
+
+              // clean up links to table
+              document.querySelectorAll('*[href="#tab:table"]').forEach(link => {
+                link.textContent = 'Table 1';
+              });
+            }
 
             // fix citations
+            const onlyDigits = /\d+/;
             document.querySelectorAll('*[data-cites]').forEach(e => {
-              const onlyDigits = /\d+/;
               const writeAriaLabel = bibTarget => {
                 // EG. instead of '1' for a link it will announce '1, Mack et al.' for screen readers
                 return `${bibTarget.children[0].innerHTML.match(onlyDigits)}, ${bibTarget.children[1].innerHTML
@@ -269,7 +348,9 @@ exec(
               e.appendChild(document.createTextNode('['));
               const citationKeys = e.getAttribute('data-cites').split(' ');
               citationKeys.forEach(key => {
-                const bibTarget = bibliography.getElementById(`ref-${idHash[key]}`);
+                // console.log("key",key)
+                const bibTarget = bibliography.getElementById(`ref-${key}`);
+                // const bibTarget = bibliography.getElementById(`ref-${idHash[key]}`);
                 bibTarget.setAttribute('tabindex', '-1');
                 if (!citations[key]) {
                   const index = bibTarget.children[0].innerHTML;
@@ -281,7 +362,9 @@ exec(
                 }
                 // add <a> elements into data-cites
                 const newChild = document.createElement('a');
-                newChild.setAttribute('href', `#ref-${idHash[key]}`);
+                // console.log("key",key)
+                // newChild.setAttribute('href', `#ref-${idHash[key]}`);
+                newChild.setAttribute('href', `#ref-${key}`);
                 newChild.id = key + citations[key].count.length + 1;
                 newChild.innerHTML = `${citations[key].index}`;
 
@@ -331,6 +414,27 @@ exec(
               e.appendChild(document.createTextNode(']'));
             });
 
+            // clean up bib
+            let count = 0
+            bibliography.querySelectorAll('.csl-entry').forEach(e => {
+              if (!e.getAttribute('tabindex')) {
+                e.remove()
+              } else {
+                count++
+                e.querySelector('.csl-left-margin').textContent = `[${count}] `
+              }
+            })
+            document.querySelectorAll('*[data-cites]').forEach(e => {
+              e.querySelectorAll('a').forEach(a => {
+                const newRefNumber = Number.parseFloat(bibliography.querySelector(a.getAttribute('href')).querySelector('.csl-left-margin').innerHTML.substr(1))
+                a.textContent = newRefNumber
+                const i = a.getAttribute('aria-label').indexOf(',')
+                const newAria = newRefNumber + a.getAttribute('aria-label').substr(i)
+                a.setAttribute('aria-label',newAria)
+                a.setAttribute('title',newAria)
+              })
+            })
+
             // add bib's styles in
             const style = document.createElement('style');
             style.innerHTML = bibliography.getElementsByTagName('style')[0].innerHTML + '\n' + rawCSS;
@@ -362,7 +466,7 @@ exec(
             skip.setAttribute('class', 'top-link');
             const paper = document.createElement('a');
             paper.textContent = 'Download the pdf';
-            paper.setAttribute('href', 'https://www.frank.computer/papers/2022-eurovis-chartability.pdf');
+            paper.setAttribute('href', 'https://www.frank.computer/papers/2023-vis-data-navigator.pdf');
             paper.setAttribute('class', 'top-link');
             const website = document.createElement('a');
             website.textContent = 'Go to frank.computer';
@@ -412,7 +516,7 @@ exec(
                 h1Level += listingNumbers ? 1 : 0;
                 nav += `${!homeAdded ? '' : `</li>`}<li>${listingNumbers ? h1Level + '. ' : ''}<a href="#${id}">${
                   !homeAdded
-                    ? 'Chartability'
+                    ? 'Data Navigator'
                     : element.textContent.indexOf('Data Visualization and Accessibility') > -1
                     ? 'Existing Work'
                     : element.textContent
