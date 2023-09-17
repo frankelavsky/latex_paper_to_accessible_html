@@ -1,6 +1,6 @@
 # Latex paper to accessible HTML, an exploration
 
-An exploration of the process it takes to turn a latex file (from EuroVis 2022) into an accessible HTML page.
+An exploration of the process it takes to turn a latex file (from IEEE VIS) into an accessible HTML page.
 
 ## Overview of what it takes to make an accessible HTML paper from a LaTeX workflow
 
@@ -54,6 +54,8 @@ Note that major overhaul items are **bolded**:
 16. Lastly, added some styling touches via css (for accessibility and otherwise).
 
 ## Documentation of every step I took (for the most part)
+
+NOTE: Originally in 2022, I used this repo to turn a Eurovis latex paper into HTML. But now I've adapted the repository to work with my VIS 2023 paper as well. Below steps are ONLY worth looking at for the sake of understanding how I got to the above process.
 
 1. [Install Quarto](https://quarto.org/docs/get-started/)
 2. [Install for VS Code](https://marketplace.visualstudio.com/items?itemName=quarto.quarto)
